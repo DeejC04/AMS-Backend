@@ -1,1 +1,0 @@
-[{"id":1,"room":"LSA 191","time":1,"name":"Echo Lim","sid":"1111","type":"Arrived"},{"id":2,"room":"LSA 191","time":2,"name":"Ryan Woo","sid":"2222","type":"Arrived Late"}]
