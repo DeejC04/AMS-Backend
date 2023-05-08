@@ -1,7 +1,5 @@
 # AMS: Spring Boot Backend
 
-Quick start for Spring Boot and Gradle.
-
 ## How to build
 
 Create `application.properties` file in `src/main/resources/` and set contents to:
