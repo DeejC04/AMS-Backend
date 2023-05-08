@@ -2,13 +2,6 @@
 
 ## How to build
 
-Create `application.properties` file in `src/main/resources/` and set contents to:
-
-```properties
-spring.application.name=ams-backend
-spring.jackson.property-naming-strategy=SNAKE_CASE
-```
-
 Build with Gradle wrapper:
 
 ```sh
