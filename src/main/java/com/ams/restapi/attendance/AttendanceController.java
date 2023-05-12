@@ -28,7 +28,6 @@ class AttendanceController {
         @RequestParam("sid") Optional<String> sid,
         @RequestParam("startTime") Optional<Long> start,
         @RequestParam("endTime") Optional<Long> end) {
-            System.out.println("AAA");
             if (sid.isPresent() && start.isPresent() && end.isPresent())
                 return repository.findBySidAndTimeBetween(sid.get(), start.get(), end.get());
             if (start.isPresent() && end.isPresent())
