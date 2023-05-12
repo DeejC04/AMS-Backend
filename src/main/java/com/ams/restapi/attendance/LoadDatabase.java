@@ -20,17 +20,14 @@ class LoadDatabase {
         if (BEAN) {
             return args -> {
                 log.info("BEAN MODE ACTIVATED");
-                // BufferedReader reader = new BufferedReader(new FileReader("./mock"));
-                // String line;
-                // while ((line = reader.readLine()) != null) {
-                    // String[] tokens = line.split("\\s,\\s*");
+                BufferedReader reader = new BufferedReader(new FileReader("./mock.csv"));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] tokens = line.split("\\s*,\\s*");
                     log.info("Preloading " + repository.save(
-                        new AttendanceLog("LSA 191", 1, "Echo Lim", "1111", "Arrived")));
-
-                // }
-                // reader.close();
-                log.info("Preloading " + repository.save(
-                    new AttendanceLog("LSA 191", 2, "Ryan Woo", "2222", "Arrived Late")));
+                        new AttendanceLog(tokens[0], Long.parseLong(tokens[1]), tokens[2], tokens[3])));
+                }
+                reader.close();
             };
         }
         return args -> {log.info("BEAN MODE DEACTIVATED");};

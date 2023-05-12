@@ -17,7 +17,6 @@ class AttendanceLog {
 
     private String room;
     private Long time;
-    private String name;
     private String sid;
     private String type;
     
@@ -35,14 +34,6 @@ class AttendanceLog {
 
     public void setTime(long time) {
         this.time = time;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSid() {
@@ -63,18 +54,17 @@ class AttendanceLog {
 
     AttendanceLog() {}
 
-    AttendanceLog(String room, long time, String name,
+    AttendanceLog(String room, long time,
         String sid, String type) {
             this.room = room;
             this.time = time;
-            this.name = name;
             this.sid = sid;
             this.type = type;
         }
 
     @Override
     public String toString() {
-        return "AttendanceLog [id=" + id + ", room=" + room + ", time=" + time + ", name=" + name + ", sid=" + sid
+        return "AttendanceLog [id=" + id + ", room=" + room + ", time=" + time + ", sid=" + sid
                 + ", type=" + type + "]";
     }
 

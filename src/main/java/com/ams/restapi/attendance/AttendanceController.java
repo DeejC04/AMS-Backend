@@ -59,7 +59,6 @@ class AttendanceController {
         });
         log.setRoom(newLog.getRoom());
         log.setTime(newLog.getTime());
-        log.setName(newLog.getName());
         log.setSid(newLog.getSid());
         log.setType(newLog.getType());
         return repository.save(log);
