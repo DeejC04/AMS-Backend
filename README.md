@@ -1,5 +1,8 @@
 # AMS: Spring Boot Backend
 
+## Requirements
+JDK 17
+
 ## How to build
 
 Build with Gradle wrapper:
