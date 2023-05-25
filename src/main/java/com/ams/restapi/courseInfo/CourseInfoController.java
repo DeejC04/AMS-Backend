@@ -27,7 +27,6 @@ public class CourseInfoController {
             return log.get(0);
     }
 
-    @PostMapping("/courseInfo/{courseID}")
     @PutMapping("/courseInfo/{courseID}")
     CourseInfoLog newCourseInfoLog(@RequestBody CourseInfoLog newLog, @PathVariable Long courseID) {
         List<CourseInfoLog> log = repository.findByCourseId(courseID);
