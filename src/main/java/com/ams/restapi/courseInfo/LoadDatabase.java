@@ -18,7 +18,6 @@ class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(CourseInfoRespository repository) {
         if (BEAN) {
-            System.out.println("Hiiiiiiiiiiii");
             return args -> {
                 log.info("BEAN MODE ACTIVATED");
                 BufferedReader reader = new BufferedReader(new FileReader("./mock_courseInfo.csv"));
