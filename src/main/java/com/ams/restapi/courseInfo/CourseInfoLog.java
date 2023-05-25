@@ -82,7 +82,7 @@ public class CourseInfoLog {
 
     @Override
     public String toString() {
-        return "CourseInfoLog [courseId=" + courseId + ", room=" + room + ", courseName=" + courseName + ", startTime="
+        return "CourseInfoLog [id=" + id + ", courseId=" + courseId + ", room=" + room + ", courseName=" + courseName + ", startTime="
                 + startTime
                 + ", endTime=" + endTime + ", daysOfWeek=" + daysOfWeek + "]";
     }
