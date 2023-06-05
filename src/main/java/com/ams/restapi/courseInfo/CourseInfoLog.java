@@ -1,21 +1,23 @@
 package com.ams.restapi.courseInfo;
 
+import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import java.time.DayOfWeek;
 
 @Entity
 public class CourseInfoLog {
 
     private @Id @GeneratedValue Long id;
     private String room, courseName;
-    private int daysOfWeek;
+    private List<DayOfWeek> daysOfWeek;
     private Long startTime, endTime, courseId;
 
     public CourseInfoLog() {
     }
 
-    public CourseInfoLog(String room, long startTime, long endTime, String courseName, int daysOfWeek, long courseId) {
+    public CourseInfoLog(String room, long startTime, long endTime, String courseName, List<DayOfWeek> daysOfWeek, long courseId) {
         this.room = room;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -72,11 +74,11 @@ public class CourseInfoLog {
         this.courseName = courseName;
     }
 
-    public int getDaysOfWeek() {
+    public List<DayOfWeek> getDaysOfWeek() {
         return daysOfWeek;
     }
 
-    public void setDaysOfWeek(int daysOfWeek) {
+    public void setDaysOfWeek(List<DayOfWeek> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
     }
 
