@@ -33,8 +33,6 @@ class TimeConfigController {
     @DeleteMapping("/timeConfig/{courseID}")
     void deleteTimeConfig(@PathVariable Long courseID) {
         timerepo.deleteById(courseID);
-        // List<TimeConfig> tc = timerepo.findByCourseID(courseID);
-        // timerepo.delete(tc.get(0));
     }
 
     // // @PostMapping("/timeConfig/{courseID}/{date}")
