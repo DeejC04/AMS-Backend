@@ -7,38 +7,28 @@ import jakarta.persistence.Id;
 @Entity
 class TimeConfig {
 
-    private @Id @GeneratedValue Long id;
-
-    public Long getId() {
-        return id;
+    private @Id Long courseID;
+    public Long getCourseID() {
+        return courseID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    private Integer date;
-
-    public Integer getDate() {
-        return date;
-    }
-
-    public void setId(Integer date) {
-        this.date = date;
-    }
-
-    private long courseID;
-    private String begin_in, end_in, end_late, begin_out, end_out;
-
-    public TimeConfig(long courseID, String begin_in, String end_in, String end_late, String begin_out,
-            String end_out) {
+    public void setCourseID(Long courseID) {
         this.courseID = courseID;
-        this.begin_in = begin_in;
-        this.begin_out = begin_out;
-        this.end_in = end_in;
-        this.end_out = end_out;
-        this.end_late = end_late;
+    }
 
+    private String beginIn;
+    private String endIn;
+    private String endLate;
+    private String beginOut;
+    private String endOut;
+
+    public TimeConfig(String beginIn, String endIn, String endLate, String beginOut,
+            String endOut) {
+        this.beginIn = beginIn;
+        this.endIn = endIn;
+        this.endLate = endLate;
+        this.beginOut = beginOut;
+        this.endOut = endOut;
     }
 
     public TimeConfig() {
@@ -48,59 +38,77 @@ class TimeConfig {
     @Override
     public String toString() {
         return "Course #" + courseID + " has the following configuration:"
-                + "\nBegin_in: " + begin_in
-                + "\nbegin_out: " + begin_out
-                + "\nend_in: " + end_in
-                + "\nend_out " + end_out
-                + "\nend_late: " + end_late + "\n";
+                + "\nBegin_in: " + beginIn
+                + "\nbegin_out: " + beginOut
+                + "\nend_in: " + endIn
+                + "\nend_out " + endOut
+                + "\nend_late: " + endLate + "\n";
     }
 
-    public String getEnd_out() {
-        return end_out;
+    public String getEndOut() {
+        return endOut;
     }
 
-    public void setEnd_out(String end_out) {
-        this.end_out = end_out;
+    public void setEndOut(String end_out) {
+        this.endOut = end_out;
     }
 
-    public String getBegin_out() {
-        return begin_out;
+    public String getBeginOut() {
+        return beginOut;
     }
 
-    public void setBegin_out(String begin_out) {
-        this.begin_out = begin_out;
+    public void setBeginOut(String begin_out) {
+        this.beginOut = begin_out;
     }
 
-    public String getEnd_late() {
-        return end_late;
+    public String getEndLate() {
+        return endLate;
     }
 
-    public void setEnd_late(String end_late) {
-        this.end_late = end_late;
+    public void setEndLate(String end_late) {
+        this.endLate = end_late;
     }
 
-    public String getEnd_in() {
-        return end_in;
+    public String getEndIn() {
+        return endIn;
     }
 
-    public void setEnd_in(String end_in) {
-        this.end_in = end_in;
+    public void setEndIn(String end_in) {
+        this.endIn = end_in;
     }
 
-    public String getBegin_in() {
-        return begin_in;
+    public String getBeginIn() {
+        return beginIn;
     }
 
-    public void setBegin_in(String begin_in) {
-        this.begin_in = begin_in;
+    public void setBeginIn(String begin_in) {
+        this.beginIn = begin_in;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((courseID == null) ? 0 : courseID.hashCode());
         return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TimeConfig other = (TimeConfig) obj;
+        if (courseID == null) {
+            if (other.courseID != null)
+                return false;
+        } else if (!courseID.equals(other.courseID))
+            return false;
+        return true;
+    }
+
+    
 }
