@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-class AttendanceLog {
+public class AttendanceLog {
     private @Id @GeneratedValue Long id;
     public Long getId() {
         return id;
