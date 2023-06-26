@@ -1,5 +1,7 @@
 package com.ams.Autograder;
 
+import com.ams.restapi.attendance.AttendanceLog;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
