@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 class AttendanceController {
-
+    
     private final AttendanceRepository repository;
 
     AttendanceController(AttendanceRepository repository) {
@@ -25,17 +25,15 @@ class AttendanceController {
     // tag::get-aggregate-root[]
     @GetMapping("/attendance")
     List<AttendanceLog> search(
-            @RequestParam("sid") Optional<String> sid,
-            @RequestParam("startTime") Optional<Long> start,
-            @RequestParam("endTime") Optional<Long> end) {
-        System.out.println("AAA");
-        if (sid.isPresent() && start.isPresent() && end.isPresent())
-            return repository.findBySidAndTimeBetween(sid.get(), start.get(), end.get());
-        if (start.isPresent() && end.isPresent())
-            return repository.findByTimeBetween(start.get(), end.get());
-        if (sid.isPresent())
-            return repository.findBySid(sid.get());
-        return repository.findAll();
+        @RequestParam("sid") Optional<String> sid,
+        @RequestParam("startTime") Optional<Long> start,
+        @RequestParam("endTime") Optional<Long> end) {
+            if (sid.isPresent() && start.isPresent() && end.isPresent())
+                return repository.findBySidAndTimeBetween(sid.get(), start.get(), end.get());
+            if (start.isPresent() && end.isPresent())
+                return repository.findByTimeBetween(start.get(), end.get());
+            if (sid.isPresent()) return repository.findBySid(sid.get());
+            return repository.findAll();
     }
     // end::get-aggregate-root[]
 
@@ -49,14 +47,7 @@ class AttendanceController {
     @GetMapping("/attendance/{id}")
     AttendanceLog one(@PathVariable Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new AttendanceLogNotFoundException(id));
-    }
-
-    // Example method
-
-    @GetMapping("/gabe")
-    String method(@RequestParam("stuName") String stuName) {
-        return "Hi " + stuName;
+            .orElseThrow(() -> new AttendanceLogNotFoundException(id));
     }
 
     @PutMapping("/attendance/{id}")
@@ -67,7 +58,6 @@ class AttendanceController {
         });
         log.setRoom(newLog.getRoom());
         log.setTime(newLog.getTime());
-        log.setName(newLog.getName());
         log.setSid(newLog.getSid());
         log.setType(newLog.getType());
         return repository.save(log);
