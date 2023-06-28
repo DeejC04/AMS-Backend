@@ -1,13 +1,16 @@
 package com.ams.Autograder;
 
 import com.ams.restapi.attendance.AttendanceLog;
+import com.ams.restapi.attendance.AttendanceRepository;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import edu.ksu.canvas.CanvasApiFactory;
-import edu.ksu.canvas.interfaces.AssignmentReader;
 import edu.ksu.canvas.interfaces.AssignmentWriter;
 import edu.ksu.canvas.interfaces.CourseReader;
 import edu.ksu.canvas.model.assignment.Assignment;
@@ -18,25 +21,28 @@ import edu.ksu.canvas.model.Enrollment;
 import edu.ksu.canvas.oauth.OauthToken;
 import edu.ksu.canvas.requestOptions.GetEnrollmentOptions;
 import edu.ksu.canvas.requestOptions.ListActiveCoursesInAccountOptions;
-import edu.ksu.canvas.requestOptions.ListCourseAssignmentsOptions;
 import edu.ksu.canvas.requestOptions.MultipleSubmissionsOptions;
 import io.github.cdimascio.dotenv.Dotenv;
 import edu.ksu.canvas.oauth.NonRefreshableOauthToken;
 
 
-
+@Service
 public class Autograder {
 
-    private static final CanvasApiFactory apiFactory;
-    private static final OauthToken oauthToken;
-    static {
+    private final CanvasApiFactory apiFactory;
+    private final OauthToken oauthToken;
+    private final AttendanceRepository attendanceRepo;
+
+    Autograder(AttendanceRepository attendanceRepo){
+        this.attendanceRepo = attendanceRepo;
         Dotenv env = Dotenv.load();
         apiFactory = new CanvasApiFactory(env.get("CANVAS_URL"));
         oauthToken = new NonRefreshableOauthToken(env.get("APIKEY"));
     }
 
-    public static void main(String[] args) throws IOException{
-        
+    public void gradeAssignments() throws IOException{
+        System.out.println(attendanceRepo.findById(1l));
+        //This code iterates through every user in the course
         CourseReader courseReader = apiFactory.getReader(CourseReader.class, oauthToken);
         for(Course course : courseReader.listActiveCoursesInAccount(new ListActiveCoursesInAccountOptions("1"))){
 
@@ -47,17 +53,11 @@ public class Autograder {
             attendanceAssignment.setPointsPossible(5.0);
             attendanceAssignment.setPublished(true);
 
+            //Using the Assignment writer we write the assignment to the canvas instance
             AssignmentWriter assnWriter = apiFactory.getWriter(AssignmentWriter.class, oauthToken);
-            assnWriter.createAssignment(course.getId().toString(), attendanceAssignment);
-
-            AssignmentReader assnReader = apiFactory.getReader(AssignmentReader.class, oauthToken);
-            for(Assignment attendance : assnReader.listCourseAssignments(new ListCourseAssignmentsOptions(course.getId().toString()))){
-                attendanceAssignment.setId(attendance.getId());
-            }
-
-            System.out.println(attendanceAssignment.getId());
-
-            GradeAssignment(attendanceAssignment, course);
+            attendanceAssignment = assnWriter.createAssignment(course.getId().toString(), attendanceAssignment).get();            
+            
+            gradeAssignment(attendanceAssignment, course);
 
             // listing every user inside a course 
             EnrollmentReader enrlReader = apiFactory.getReader(EnrollmentReader.class, oauthToken);
@@ -67,13 +67,13 @@ public class Autograder {
         }
     }
 
-    public static void GradeAssignment(Assignment attendanceAssignment, Course course) throws IOException{
+    public void gradeAssignment(Assignment attendanceAssignment, Course course) throws IOException{
         SubmissionWriter submissionWriter = apiFactory.getWriter(SubmissionWriter.class, oauthToken);
         Map<String, MultipleSubmissionsOptions.StudentSubmissionOption> mapOfOptions = new HashMap<>();
-
         MultipleSubmissionsOptions submissionsOptions = new MultipleSubmissionsOptions(course.getId().toString(), attendanceAssignment.getId(), mapOfOptions);
         mapOfOptions.put("52", submissionsOptions.createStudentSubmissionOption("null", "5.0", false, false, "null", "null"));
         submissionsOptions.setStudentSubmissionOptionMap(mapOfOptions);
         submissionWriter.gradeMultipleSubmissionsByCourse(submissionsOptions);
+        HashMap<String, List<AttendanceLog>> attendanceMap = new HashMap<>();
     }
 }

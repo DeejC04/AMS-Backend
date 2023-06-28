@@ -54,7 +54,7 @@ public class AttendanceLog {
 
     AttendanceLog() {}
 
-    AttendanceLog(String room, long time,
+    public AttendanceLog(String room, long time,
         String sid, String type) {
             this.room = room;
             this.time = time;
