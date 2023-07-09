@@ -3,6 +3,9 @@ package com.ams.restapi.attendance;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +30,25 @@ class AttendanceController {
     List<AttendanceLog> search(
         @RequestParam("sid") Optional<String> sid,
         @RequestParam("startTime") Optional<Long> start,
-        @RequestParam("endTime") Optional<Long> end) {
+        @RequestParam("endTime") Optional<Long> end,
+        @RequestParam("page") int page, 
+        @RequestParam("size") int size) {
+            Pageable pageable = PageRequest.of(page, size);
+
+            Page<AttendanceLog> result;
             if (sid.isPresent() && start.isPresent() && end.isPresent())
-                return repository.findBySidAndTimeBetween(sid.get(), start.get(), end.get());
-            if (start.isPresent() && end.isPresent())
-                return repository.findByTimeBetween(start.get(), end.get());
-            if (sid.isPresent()) return repository.findBySid(sid.get());
-            return repository.findAll();
+                result = repository.findBySidAndTimeBetween(
+                    sid.get(), start.get(), end.get(), pageable);
+            else if (start.isPresent() && end.isPresent())
+                result = repository.findByTimeBetween(start.get(), end.get(), pageable);
+            else if (sid.isPresent())
+                result = repository.findBySid(sid.get(), pageable);
+            else result = repository.findAll(pageable);
+
+            if (page > result.getTotalPages()) {
+                // TODO: Throw exception
+            }
+            return result.getContent();
     }
     // end::get-aggregate-root[]
 
