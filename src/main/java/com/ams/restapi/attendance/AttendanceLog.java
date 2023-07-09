@@ -1,5 +1,8 @@
 package com.ams.restapi.attendance;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,7 +19,8 @@ public class AttendanceLog {
     }
 
     private String room;
-    private Long time;
+    private LocalDate date;
+    private LocalTime time;
     private String sid;
     private String type;
     
@@ -28,11 +32,19 @@ public class AttendanceLog {
         this.room = room;
     }
 
-    public long getTime() {
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -54,17 +66,18 @@ public class AttendanceLog {
 
     AttendanceLog() {}
 
-    AttendanceLog(String room, long time,
-        String sid, String type) {
+    AttendanceLog(String room, LocalDate date,
+        LocalTime time, String sid, String type) {
             this.room = room;
+            this.date = date;
             this.time = time;
             this.sid = sid;
             this.type = type;
-        }
-
+    }
+    
     @Override
     public String toString() {
-        return "AttendanceLog [id=" + id + ", room=" + room + ", time=" + time + ", sid=" + sid
+        return "AttendanceLog [id=" + id + ", room=" + room + ", date=" + date + ", time=" + time + ", sid=" + sid
                 + ", type=" + type + "]";
     }
 
@@ -73,8 +86,11 @@ public class AttendanceLog {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + (int) (time ^ (time >>> 32));
+        result = prime * result + ((room == null) ? 0 : room.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((time == null) ? 0 : time.hashCode());
         result = prime * result + ((sid == null) ? 0 : sid.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
 
@@ -92,12 +108,30 @@ public class AttendanceLog {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (time != other.time)
+        if (room == null) {
+            if (other.room != null)
+                return false;
+        } else if (!room.equals(other.room))
+            return false;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
+            return false;
+        if (time == null) {
+            if (other.time != null)
+                return false;
+        } else if (!time.equals(other.time))
             return false;
         if (sid == null) {
             if (other.sid != null)
                 return false;
         } else if (!sid.equals(other.sid))
+            return false;
+        if (type == null) {
+            if (other.type != null)
+                return false;
+        } else if (!type.equals(other.type))
             return false;
         return true;
     }

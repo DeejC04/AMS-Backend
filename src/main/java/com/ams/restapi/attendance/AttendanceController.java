@@ -1,5 +1,7 @@
 package com.ams.restapi.attendance;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,18 +31,19 @@ class AttendanceController {
     @GetMapping("/attendance")
     List<AttendanceLog> search(
         @RequestParam("sid") Optional<String> sid,
-        @RequestParam("startTime") Optional<Long> start,
-        @RequestParam("endTime") Optional<Long> end,
+        @RequestParam("date") Optional<LocalDate> date,
+        @RequestParam("startTime") Optional<LocalTime> start,
+        @RequestParam("endTime") Optional<LocalTime> end,
         @RequestParam("page") int page, 
         @RequestParam("size") int size) {
             Pageable pageable = PageRequest.of(page, size);
 
             Page<AttendanceLog> result;
-            if (sid.isPresent() && start.isPresent() && end.isPresent())
-                result = repository.findBySidAndTimeBetween(
-                    sid.get(), start.get(), end.get(), pageable);
-            else if (start.isPresent() && end.isPresent())
-                result = repository.findByTimeBetween(start.get(), end.get(), pageable);
+            if (date.isPresent() && sid.isPresent() && start.isPresent() && end.isPresent())
+                result = repository.findByDateAndSidAndTimeBetween(
+                    date.get(), sid.get(), start.get(), end.get(), pageable);
+            else if (date.isPresent() && start.isPresent() && end.isPresent())
+                result = repository.findByDateAndTimeBetween(date.get(), start.get(), end.get(), pageable);
             else if (sid.isPresent())
                 result = repository.findBySid(sid.get(), pageable);
             else result = repository.findAll(pageable);

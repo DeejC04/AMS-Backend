@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.io.BufferedReader;
 
 @Configuration
@@ -25,7 +27,7 @@ class LoadDatabase {
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split("\\s*,\\s*");
                     log.info("Preloading " + repository.save(
-                        new AttendanceLog(tokens[0], Long.parseLong(tokens[1]), tokens[2], tokens[3])));
+                        new AttendanceLog(tokens[0], LocalDate.parse(tokens[1]), LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
                 }
                 reader.close();
             };
