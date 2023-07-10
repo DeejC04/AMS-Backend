@@ -34,23 +34,33 @@ class AttendanceController {
 
     @GetMapping("/attendance")
     List<AttendanceLog> search(
-        @RequestParam("sid") Optional<String> sid,
+        @RequestParam("room") Optional<String> room,
         @RequestParam("date") Optional<LocalDate> date,
-        @RequestParam("startTime") Optional<LocalTime> start,
-        @RequestParam("endTime") Optional<LocalTime> end,
+        @RequestParam("startTime") Optional<LocalTime> startTime,
+        @RequestParam("endTime") Optional<LocalTime> endTime,
+        @RequestParam("sid") Optional<String> sid,
+        @RequestParam("type") Optional<String> type,
         @RequestParam("page") int page, 
         @RequestParam("size") int size) {
             Pageable pageable = PageRequest.of(page, size);
 
-            Page<AttendanceLog> result;
-            if (date.isPresent() && sid.isPresent() && start.isPresent() && end.isPresent())
-                result = repository.findByDateAndSidAndTimeBetween(
-                    date.get(), sid.get(), start.get(), end.get(), pageable);
-            else if (date.isPresent() && start.isPresent() && end.isPresent())
-                result = repository.findByDateAndTimeBetween(date.get(), start.get(), end.get(), pageable);
-            else if (sid.isPresent())
-                result = repository.findBySid(sid.get(), pageable);
-            else result = repository.findAll(pageable);
+            Page<AttendanceLog> result = repository.search(
+                room.orElse(null),
+                date.orElse(null),
+                startTime.orElse(null),
+                endTime.orElse(null),
+                sid.orElse(null),
+                type.orElse(null),
+                pageable
+            );
+            // if (date.isPresent() && sid.isPresent() && start.isPresent() && end.isPresent())
+            //     result = repository.findByDateAndSidAndTimeBetween(
+            //         date.get(), sid.get(), start.get(), end.get(), pageable);
+            // else if (date.isPresent() && start.isPresent() && end.isPresent())
+            //     result = repository.findByDateAndTimeBetween(date.get(), start.get(), end.get(), pageable);
+            // else if (sid.isPresent())
+            //     result = repository.findBySid(sid.get(), pageable);
+            // else result = repository.findAll(pageable);
 
             if (page > result.getTotalPages()) {
                 throw new AttendanceLogPageOutofBoundsException(page, size);

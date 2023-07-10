@@ -26,7 +26,7 @@ class LoadDatabase {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split("\\s*,\\s*");
-                    log.info("Preloading " + repository.save(
+                    log.debug("Preloading " + repository.save(
                         new AttendanceLog(tokens[0], LocalDate.parse(tokens[1]), LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
                 }
                 reader.close();
