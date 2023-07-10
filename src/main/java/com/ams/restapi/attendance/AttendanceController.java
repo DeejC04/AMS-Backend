@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Attendance Record Management Endpoints
+ * @author Ryan Woo (rtwoo)
+ */
 @RestController
 class AttendanceController {
     
@@ -26,8 +30,8 @@ class AttendanceController {
         this.repository = repository;
     }
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
+    // Multi-item
+
     @GetMapping("/attendance")
     List<AttendanceLog> search(
         @RequestParam("sid") Optional<String> sid,
@@ -49,40 +53,32 @@ class AttendanceController {
             else result = repository.findAll(pageable);
 
             if (page > result.getTotalPages()) {
-                // TODO: Throw exception
+                throw new AttendanceLogPageOutofBoundsException(page, size);
             }
             return result.getContent();
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/attendance")
-    AttendanceLog newAttendanceLog(@RequestBody AttendanceLog newLog) {
+    AttendanceLog createSingle(@RequestBody AttendanceLog newLog) {
         return repository.save(newLog);
     }
 
     // Single item
 
     @GetMapping("/attendance/{id}")
-    AttendanceLog one(@PathVariable Long id) {
+    AttendanceLog getSingle(@PathVariable Long id) {
         return repository.findById(id)
             .orElseThrow(() -> new AttendanceLogNotFoundException(id));
     }
 
     @PutMapping("/attendance/{id}")
-    AttendanceLog replaceEmployee(@RequestBody AttendanceLog newLog, @PathVariable Long id) {
-        AttendanceLog log = repository.findById(id).orElseGet(() -> {
-            newLog.setId(id);
-            return repository.save(newLog);
-        });
-        log.setRoom(newLog.getRoom());
-        log.setTime(newLog.getTime());
-        log.setSid(newLog.getSid());
-        log.setType(newLog.getType());
-        return repository.save(log);
+    AttendanceLog updateSingle(@PathVariable Long id, @RequestBody AttendanceLog newLog) {
+        newLog.setId(id);
+        return repository.save(newLog);
     }
 
     @DeleteMapping("/attendance/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+    void delete(@PathVariable Long id) {
         repository.deleteById(id);
     }
 

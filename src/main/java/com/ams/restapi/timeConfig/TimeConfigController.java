@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Course Specific Time Configuration Endpoints
+ * @author Gabriel Esparza 
+ */
 @RestController
 class TimeConfigController {
 
