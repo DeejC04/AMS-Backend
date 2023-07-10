@@ -11,13 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 interface AttendanceRepository extends JpaRepository<AttendanceLog, Long> {
-    // Page<AttendanceLog> findBySid(String sid, Pageable pageable);
-    // // Page<AttendanceLog> findByDate
-    // Page<AttendanceLog> findByDateAndSidAndTimeBetween(
-    //     LocalDate date, String sid,
-    //     LocalTime startTime, LocalTime endTime, Pageable pageable);
-    // Page<AttendanceLog> findByDateAndTimeBetween(
-    //     LocalDate date, LocalTime startTime, LocalTime endTime, Pageable pageable);
 
     @Query("SELECT a FROM AttendanceLog a WHERE "
     + "(:room is null or a.room = :room) and "

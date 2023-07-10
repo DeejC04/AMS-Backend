@@ -40,7 +40,7 @@ class AttendanceController {
         @RequestParam("endTime") Optional<LocalTime> endTime,
         @RequestParam("sid") Optional<String> sid,
         @RequestParam("type") Optional<String> type,
-        @RequestParam("page") int page, 
+        @RequestParam("page") int page,
         @RequestParam("size") int size) {
             Pageable pageable = PageRequest.of(page, size);
 
@@ -53,14 +53,6 @@ class AttendanceController {
                 type.orElse(null),
                 pageable
             );
-            // if (date.isPresent() && sid.isPresent() && start.isPresent() && end.isPresent())
-            //     result = repository.findByDateAndSidAndTimeBetween(
-            //         date.get(), sid.get(), start.get(), end.get(), pageable);
-            // else if (date.isPresent() && start.isPresent() && end.isPresent())
-            //     result = repository.findByDateAndTimeBetween(date.get(), start.get(), end.get(), pageable);
-            // else if (sid.isPresent())
-            //     result = repository.findBySid(sid.get(), pageable);
-            // else result = repository.findAll(pageable);
 
             if (page > result.getTotalPages()) {
                 throw new AttendanceLogPageOutofBoundsException(page, size);
