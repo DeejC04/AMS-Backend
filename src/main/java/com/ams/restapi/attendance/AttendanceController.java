@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +43,16 @@ class AttendanceController {
         @RequestParam("sid") Optional<String> sid,
         @RequestParam("type") Optional<String> type,
         @RequestParam("page") int page,
-        @RequestParam("size") int size) {
-            Pageable pageable = PageRequest.of(page, size);
+        @RequestParam("size") int size,
+        @RequestParam("sortBy") Optional<String> sortBy,
+        @RequestParam("sortType") Optional<String> sortType) {
+            Pageable pageable;
+            if (sortBy.isPresent())
+                pageable = PageRequest.of(page, size,
+                    Sort.by(sortType.orElse("asc").equals("desc") ? Direction.DESC : Direction.ASC,
+                    sortBy.get()));
+            else
+                pageable = PageRequest.of(page, size);
 
             Page<AttendanceLog> result = repository.search(
                 room.orElse(null),
