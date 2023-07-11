@@ -1,4 +1,4 @@
-package com.ams.Autograder;
+package com.ams.autograder;
 
 import com.ams.restapi.attendance.AttendanceLog;
 import com.ams.restapi.attendance.AttendanceRepository;

@@ -1,4 +1,4 @@
-package com.ams.restapi.courseInfo;
+package com.ams.restapi.timeConfig;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class CourseInfoLogNotFoundAdvice {
+class TimeConfigLogNotFoundAdvice {
     @ResponseBody
-    @ExceptionHandler(CourseInfoNotFoundException.class)
+    @ExceptionHandler(TimeConfigNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String courseInfoLogNotFoundHandler(CourseInfoNotFoundException ex) {
+    String TimeConfigLogNotFoundHandler(TimeConfigNotFoundException ex) {
         return ex.getMessage();
     }
 }
