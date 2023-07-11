@@ -70,12 +70,12 @@ class AttendanceController {
             return result.getContent();
     }
 
+    // Single item
+
     @PostMapping("/attendance")
     AttendanceLog createSingle(@RequestBody AttendanceLog newLog) {
         return repository.save(newLog);
     }
-
-    // Single item
 
     @GetMapping("/attendance/{id}")
     AttendanceLog getSingle(@PathVariable Long id) {
