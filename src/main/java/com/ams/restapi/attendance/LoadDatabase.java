@@ -6,9 +6,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.ams.restapi.courseInfo.CourseInfo;
+import com.ams.restapi.courseInfo.CourseInfoRespository;
+
 import java.io.FileReader;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.io.BufferedReader;
 
 @Configuration
@@ -18,7 +23,7 @@ class LoadDatabase {
     private static final boolean BEAN = true;
 
     @Bean
-    CommandLineRunner initDatabase(AttendanceRepository repository) {
+    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRespository courseInfo) {
         if (BEAN) {
             return args -> {
                 log.info("BEAN MODE ACTIVATED");
@@ -26,10 +31,17 @@ class LoadDatabase {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split("\\s*,\\s*");
-                    log.debug("Preloading " + repository.save(
+                    log.debug("Preloading " + attendance.save(
                         new AttendanceLog(tokens[0], LocalDate.parse(tokens[1]), LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
                 }
                 reader.close();
+
+                courseInfo.save(
+                    new CourseInfo(
+                        1234L, "CSE205", "COOR170",
+                        List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
+                        LocalTime.of(9, 30), LocalTime.of(10,  30))
+                );
             };
         }
         return args -> {log.info("BEAN MODE DEACTIVATED");};

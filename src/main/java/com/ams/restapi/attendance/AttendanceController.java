@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Attendance Record Management Endpoints
+ * Attendance Record Management endpoints
  * @author Ryan Woo (rtwoo)
  */
 @RestController

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class CourseInfoLogNotFoundAdvice {
     @ResponseBody
-    @ExceptionHandler(CourseInfoLogNotFoundException.class)
+    @ExceptionHandler(CourseInfoNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String courseInfoLogNotFoundHandler(CourseInfoLogNotFoundException ex) {
+    String courseInfoLogNotFoundHandler(CourseInfoNotFoundException ex) {
         return ex.getMessage();
     }
 }

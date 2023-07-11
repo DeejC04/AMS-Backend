@@ -5,21 +5,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 @Entity
 public class CourseInfo {
 
     private @Id Long courseId;
-    private String room, courseName;
+    private String courseName, room;
     private List<DayOfWeek> daysOfWeek;
-    private Long startTime, endTime;
+    private LocalTime startTime, endTime;
 
-    public CourseInfo() {
+    public CourseInfo() {}
 
-    }
-
-    public CourseInfo(String room, Long startTime, Long endTime, String courseName,
-        List<DayOfWeek> daysOfWeek, Long courseId) {
+    public CourseInfo(Long courseId, String courseName, String room,
+            List<DayOfWeek> daysOfWeek, LocalTime startTime, LocalTime endTime) {
         this.room = room;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -44,19 +43,19 @@ public class CourseInfo {
         this.room = room;
     }
 
-    public long getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -106,6 +105,8 @@ public class CourseInfo {
             return false;
         return true;
     }
+
+    
 
     
 }

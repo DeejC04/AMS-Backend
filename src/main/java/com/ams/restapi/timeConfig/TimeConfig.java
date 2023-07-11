@@ -1,5 +1,7 @@
 package com.ams.restapi.timeConfig;
 
+import java.time.LocalTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -15,14 +17,14 @@ class TimeConfig {
         this.courseID = courseID;
     }
 
-    private String beginIn;
-    private String endIn;
-    private String endLate;
-    private String beginOut;
-    private String endOut;
+    private LocalTime beginIn;
+    private LocalTime endIn;
+    private LocalTime endLate;
+    private LocalTime beginOut;
+    private LocalTime endOut;
 
-    public TimeConfig(String beginIn, String endIn, String endLate, String beginOut,
-            String endOut) {
+    public TimeConfig(LocalTime beginIn, LocalTime endIn,
+            LocalTime endLate, LocalTime beginOut, LocalTime endOut) {
         this.beginIn = beginIn;
         this.endIn = endIn;
         this.endLate = endLate;
@@ -30,58 +32,52 @@ class TimeConfig {
         this.endOut = endOut;
     }
 
-    public TimeConfig() {
+    public TimeConfig() {}
 
+    public LocalTime getEndOut() {
+        return endOut;
+    }
+
+    public void setEndOut(LocalTime endOut) {
+        this.endOut = endOut;
+    }
+
+    public LocalTime getBeginOut() {
+        return beginOut;
+    }
+
+    public void setBeginOut(LocalTime beginOut) {
+        this.beginOut = beginOut;
+    }
+
+    public LocalTime getEndLate() {
+        return endLate;
+    }
+
+    public void setEndLate(LocalTime endLate) {
+        this.endLate = endLate;
+    }
+
+    public LocalTime getEndIn() {
+        return endIn;
+    }
+
+    public void setEndIn(LocalTime endIn) {
+        this.endIn = endIn;
+    }
+
+    public LocalTime getBeginIn() {
+        return beginIn;
+    }
+
+    public void setBeginIn(LocalTime beginIn) {
+        this.beginIn = beginIn;
     }
 
     @Override
     public String toString() {
-        return "Course #" + courseID + " has the following configuration:"
-                + "\nBegin_in: " + beginIn
-                + "\nbegin_out: " + beginOut
-                + "\nend_in: " + endIn
-                + "\nend_out " + endOut
-                + "\nend_late: " + endLate + "\n";
-    }
-
-    public String getEndOut() {
-        return endOut;
-    }
-
-    public void setEndOut(String end_out) {
-        this.endOut = end_out;
-    }
-
-    public String getBeginOut() {
-        return beginOut;
-    }
-
-    public void setBeginOut(String begin_out) {
-        this.beginOut = begin_out;
-    }
-
-    public String getEndLate() {
-        return endLate;
-    }
-
-    public void setEndLate(String end_late) {
-        this.endLate = end_late;
-    }
-
-    public String getEndIn() {
-        return endIn;
-    }
-
-    public void setEndIn(String end_in) {
-        this.endIn = end_in;
-    }
-
-    public String getBeginIn() {
-        return beginIn;
-    }
-
-    public void setBeginIn(String begin_in) {
-        this.beginIn = begin_in;
+        return "TimeConfig [courseID=" + courseID + ", beginIn=" + beginIn + ", endIn=" + endIn + ", endLate=" + endLate
+                + ", beginOut=" + beginOut + ", endOut=" + endOut + "]";
     }
 
     @Override
@@ -108,6 +104,5 @@ class TimeConfig {
             return false;
         return true;
     }
-
     
 }
