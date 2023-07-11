@@ -33,7 +33,7 @@ public class Autograder {
     private final OauthToken oauthToken;
     private final AttendanceRepository attendanceRepo;
 
-    Autograder(AttendanceRepository attendanceRepo){
+    public Autograder(AttendanceRepository attendanceRepo){
         this.attendanceRepo = attendanceRepo;
         Dotenv env = Dotenv.load();
         apiFactory = new CanvasApiFactory(env.get("CANVAS_URL"));
