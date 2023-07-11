@@ -2,8 +2,8 @@ package com.ams.restapi.courseInfo;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CourseInfoRespository extends JpaRepository<CourseInfoLog, Long> {
+public interface CourseInfoRespository extends JpaRepository<CourseInfo, Long> {
 
-    List<CourseInfoLog> findByCourseId(Long courseId);
+    List<CourseInfo> findByCourseId(Long courseId);
 
 }

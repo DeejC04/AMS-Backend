@@ -18,8 +18,8 @@ public class CourseInfoController {
     }
 
     @GetMapping("/courseInfo/{courseID}")
-    CourseInfoLog search(@PathVariable Long courseID) {
-        List<CourseInfoLog> log = repository.findByCourseId(courseID);
+    CourseInfo search(@PathVariable Long courseID) {
+        List<CourseInfo> log = repository.findByCourseId(courseID);
         if (log.isEmpty())
             throw new CourseInfoLogNotFoundException(courseID);
         else
@@ -27,10 +27,10 @@ public class CourseInfoController {
     }
 
     @PutMapping("/courseInfo/{courseID}")
-    CourseInfoLog newCourseInfoLog(@RequestBody CourseInfoLog newLog, @PathVariable Long courseID) {
-        List<CourseInfoLog> log = repository.findByCourseId(courseID);
+    CourseInfo newCourseInfoLog(@RequestBody CourseInfo newLog, @PathVariable Long courseID) {
+        List<CourseInfo> log = repository.findByCourseId(courseID);
         if (!log.isEmpty()) {
-            CourseInfoLog updateLog = log.get(0);
+            CourseInfo updateLog = log.get(0);
             updateLog.setCourseName(newLog.getCourseName());
             updateLog.setDaysOfWeek(newLog.getDaysOfWeek());
             updateLog.setEndTime(newLog.getEndTime());
