@@ -15,9 +15,9 @@ interface AttendanceRepository extends JpaRepository<AttendanceLog, Long> {
     @Query("SELECT a FROM AttendanceLog a WHERE "
     + "(:room is null or a.room = :room) and "
     + "(:date is null or a.date = :date) and "
-    + "( (:startTime is not null and :endTime is not null and :startTime <= a.time and :endTime >= a.time) or "
-    + "  (:startTime is not null and a.time >= :startTime) or "
-    + "  (:endTime is not null and a.time <= :endTime) or "
+    + "( ( (:startTime is not null and :endTime is not null) and (a.time between :startTime and :endTime) ) or "
+    + "  (:startTime is not null and :endTime is null and a.time >= :startTime) or "
+    + "  (:endTime is not null and :startTime is null and a.time <= :endTime) or "
     + "  (:startTime is null and :endTime is null) ) and "
     + "(:sid is null or a.sid = :sid) and "
     + "(:type is null or a.type = :type)")
