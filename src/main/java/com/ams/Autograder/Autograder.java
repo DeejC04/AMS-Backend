@@ -4,6 +4,8 @@ import com.ams.restapi.attendance.AttendanceLog;
 import com.ams.restapi.attendance.AttendanceRepository;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +70,10 @@ public class Autograder {
                     String sisId = enroll.getUser().getSisUserId();
                     Long userId = enroll.getUser().getId();
                     int fullPoints = 0;
-                    for(AttendanceLog attendanceLog : attendanceRepo.findBySid(sisId)){
+                    for(AttendanceLog attendanceLog : attendanceRepo.findByRoomAndDateAndTimeBetweenAndSid(
+                        "COOR170", LocalDate.of(2023, 7, 12),
+                        LocalTime.of(12, 10), LocalTime.of(13, 10), sisId)){
+                            
                         if(attendanceLog.getType().equals("ARRIVED") || attendanceLog.getType().equals("LEFT"))
                             fullPoints += 1;
                         else if(attendanceLog.getType().equals("ARRIVED_INVALID")){
