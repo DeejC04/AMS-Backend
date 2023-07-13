@@ -1,8 +1,15 @@
 package com.ams.restapi.attendance;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Attendance Record Management endpoints
+ * @author Ryan Woo (rtwoo)
+ */
 @RestController
 class AttendanceController {
     
@@ -21,50 +32,65 @@ class AttendanceController {
         this.repository = repository;
     }
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
+    // Multi-item
+
     @GetMapping("/attendance")
     List<AttendanceLog> search(
+        @RequestParam("room") Optional<String> room,
+        @RequestParam("date") Optional<LocalDate> date,
+        @RequestParam("startTime") Optional<LocalTime> startTime,
+        @RequestParam("endTime") Optional<LocalTime> endTime,
         @RequestParam("sid") Optional<String> sid,
-        @RequestParam("startTime") Optional<Long> start,
-        @RequestParam("endTime") Optional<Long> end) {
-            if (sid.isPresent() && start.isPresent() && end.isPresent())
-                return repository.findBySidAndTimeBetween(sid.get(), start.get(), end.get());
-            if (start.isPresent() && end.isPresent())
-                return repository.findByTimeBetween(start.get(), end.get());
-            if (sid.isPresent()) return repository.findBySid(sid.get());
-            return repository.findAll();
-    }
-    // end::get-aggregate-root[]
+        @RequestParam("type") Optional<String> type,
+        @RequestParam("page") int page,
+        @RequestParam("size") int size,
+        @RequestParam("sortBy") Optional<String> sortBy,
+        @RequestParam("sortType") Optional<String> sortType) {
+            Pageable pageable;
+            if (sortBy.isPresent())
+                pageable = PageRequest.of(page, size,
+                    Sort.by(sortType.orElse("asc").equals("desc") ? Direction.DESC : Direction.ASC,
+                    sortBy.get()));
+            else
+                pageable = PageRequest.of(page, size);
 
-    @PostMapping("/attendance")
-    AttendanceLog newAttendanceLog(@RequestBody AttendanceLog newLog) {
-        return repository.save(newLog);
+            Page<AttendanceLog> result = repository.search(
+                room.orElse(null),
+                date.orElse(null),
+                startTime.orElse(null),
+                endTime.orElse(null),
+                sid.orElse(null),
+                type.orElse(null),
+                pageable
+            );
+
+            if (page > result.getTotalPages()) {
+                throw new AttendanceLogPageOutofBoundsException(page, size);
+            }
+            return result.getContent();
     }
 
     // Single item
 
+    @PostMapping("/attendance")
+    AttendanceLog createSingle(@RequestBody AttendanceLog newLog) {
+        return repository.save(newLog);
+    }
+
     @GetMapping("/attendance/{id}")
-    AttendanceLog one(@PathVariable Long id) {
+    AttendanceLog getSingle(@PathVariable Long id) {
         return repository.findById(id)
             .orElseThrow(() -> new AttendanceLogNotFoundException(id));
     }
 
     @PutMapping("/attendance/{id}")
-    AttendanceLog replaceEmployee(@RequestBody AttendanceLog newLog, @PathVariable Long id) {
-        AttendanceLog log = repository.findById(id).orElseGet(() -> {
-            newLog.setId(id);
-            return repository.save(newLog);
-        });
-        log.setRoom(newLog.getRoom());
-        log.setTime(newLog.getTime());
-        log.setSid(newLog.getSid());
-        log.setType(newLog.getType());
-        return repository.save(log);
+    AttendanceLog updateSingle(@PathVariable Long id, @RequestBody AttendanceLog newLog) {
+        newLog.setId(id);
+        return repository.save(newLog);
     }
 
     @DeleteMapping("/attendance/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+    void delete(@PathVariable Long id) {
         repository.deleteById(id);
     }
 
