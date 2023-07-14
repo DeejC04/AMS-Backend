@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 /**
  * Attendance Record Management endpoints
  * @author Ryan Woo (rtwoo)
@@ -34,6 +36,7 @@ class AttendanceController {
 
     // Multi-item
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/attendance")
     List<AttendanceLog> search(
         @RequestParam("room") Optional<String> room,
