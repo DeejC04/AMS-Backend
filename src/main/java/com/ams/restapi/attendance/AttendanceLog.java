@@ -66,7 +66,7 @@ public class AttendanceLog {
 
     AttendanceLog() {}
 
-    AttendanceLog(String room, LocalDate date,
+    public AttendanceLog(String room, LocalDate date,
         LocalTime time, String sid, String type) {
             this.room = room;
             this.date = date;

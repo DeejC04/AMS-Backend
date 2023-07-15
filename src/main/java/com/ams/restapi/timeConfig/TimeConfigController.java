@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Course Specific Time Configuration Endpoints
- * @author Gabriel Esparza 
+ * Course specific time configuration endpoints
+ * @author Gabriel Esparza Uriarte
  */
 @RestController
 class TimeConfigController {
@@ -24,21 +24,25 @@ class TimeConfigController {
     }
 
     @PutMapping("/timeConfig/{courseID}")
-    TimeConfig newTimeConfig(@PathVariable Long courseID, @RequestBody TimeConfig newTC) {
+    TimeConfig update(@PathVariable Long courseID,
+            @RequestBody TimeConfig newTC) {
         newTC.setCourseID(courseID);
         return timerepo.save(newTC);
     }
 
     @GetMapping("/timeConfig/{courseID}")
     TimeConfig search(@PathVariable Long courseID) {
-        return timerepo.findById(courseID).orElse(null);
+        return timerepo.findById(courseID)
+            .orElseThrow(() ->
+            new TimeConfigNotFoundException(courseID));
     }
 
     @DeleteMapping("/timeConfig/{courseID}")
-    void deleteTimeConfig(@PathVariable Long courseID) {
+    void delete(@PathVariable Long courseID) {
         timerepo.deleteById(courseID);
     }
 
+    // TODO: Implement date specific endpoints
     // // @PostMapping("/timeConfig/{courseID}/{date}")
     // @PutMapping("/timeConfig/{courseID}/{date}")
     // TimeConfig newTimeConfigAndDate(@PathVariable Long courseID, @PathVariable int date,

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
- * Attendance Record Management Endpoints
+ * Attendance Record Management endpoints
  * @author Ryan Woo (rtwoo)
  */
 @RestController

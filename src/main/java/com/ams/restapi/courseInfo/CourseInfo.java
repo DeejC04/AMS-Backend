@@ -5,33 +5,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 @Entity
-public class CourseInfoLog {
+public class CourseInfo {
 
-    private @Id @GeneratedValue Long id;
-    private String room, courseName;
+    private @Id Long courseId;
+    private String courseName, room;
     private List<DayOfWeek> daysOfWeek;
-    private Long startTime, endTime, courseId;
+    private LocalTime startTime, endTime;
 
-    public CourseInfoLog() {
-    }
+    public CourseInfo() {}
 
-    public CourseInfoLog(String room, long startTime, long endTime, String courseName, List<DayOfWeek> daysOfWeek, long courseId) {
+    public CourseInfo(Long courseId, String courseName, String room,
+            List<DayOfWeek> daysOfWeek, LocalTime startTime, LocalTime endTime) {
         this.room = room;
         this.startTime = startTime;
         this.endTime = endTime;
         this.courseName = courseName;
         this.daysOfWeek = daysOfWeek;
         this.courseId = courseId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getCourseId() {
@@ -50,19 +43,19 @@ public class CourseInfoLog {
         this.room = room;
     }
 
-    public long getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -84,16 +77,14 @@ public class CourseInfoLog {
 
     @Override
     public String toString() {
-        return "CourseInfoLog [id=" + id + ", courseId=" + courseId + ", room=" + room + ", courseName=" + courseName + ", startTime="
-                + startTime
-                + ", endTime=" + endTime + ", daysOfWeek=" + daysOfWeek + "]";
+        return "CourseInfo [courseId=" + courseId + ", room=" + room + ", courseName=" + courseName + ", daysOfWeek="
+                + daysOfWeek + ", startTime=" + startTime + ", endTime=" + endTime + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
         return result;
     }
@@ -102,26 +93,20 @@ public class CourseInfoLog {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-
         if (obj == null)
             return false;
-
         if (getClass() != obj.getClass())
             return false;
-
-        CourseInfoLog other = (CourseInfoLog) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-
+        CourseInfo other = (CourseInfo) obj;
         if (courseId == null) {
             if (other.courseId != null)
                 return false;
         } else if (!courseId.equals(other.courseId))
             return false;
-
         return true;
     }
+
+    
+
+    
 }
