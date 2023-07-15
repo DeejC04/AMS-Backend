@@ -23,8 +23,9 @@ public class TimeConfig {
     private LocalTime beginOut;
     private LocalTime endOut;
 
-    public TimeConfig(LocalTime beginIn, LocalTime endIn,
+    public TimeConfig(Long courseID, LocalTime beginIn, LocalTime endIn,
             LocalTime endLate, LocalTime beginOut, LocalTime endOut) {
+        this.courseID = courseID;
         this.beginIn = beginIn;
         this.endIn = endIn;
         this.endLate = endLate;

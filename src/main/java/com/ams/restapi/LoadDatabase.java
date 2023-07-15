@@ -50,6 +50,7 @@ class LoadDatabase {
                 );
 
                 times.save(new TimeConfig(
+                    1234L,
                     LocalTime.of(12, 10),
                     LocalTime.of(12, 20),
                     LocalTime.of(12, 30),
