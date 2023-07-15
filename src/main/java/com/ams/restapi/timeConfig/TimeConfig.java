@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-class TimeConfig {
+public class TimeConfig {
 
     private @Id Long courseID;
     public Long getCourseID() {
