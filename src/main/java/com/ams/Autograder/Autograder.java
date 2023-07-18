@@ -51,7 +51,7 @@ public class Autograder {
         submissionsOptions.setStudentSubmissionOptionMap(mapOfOptions);
         submissionWriter.gradeMultipleSubmissionsByCourse(submissionsOptions);
 
-        HashMap<String, List<AttendanceRecord>> attendanceMap = new HashMap<>();
+        // HashMap<String, List<AttendanceLog>> attendanceMap = new HashMap<>();
         
 
         //listing every user inside a course 

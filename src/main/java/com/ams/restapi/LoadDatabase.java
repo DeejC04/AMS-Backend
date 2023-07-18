@@ -10,8 +10,6 @@ import com.ams.restapi.attendance.AttendanceRecord;
 import com.ams.restapi.attendance.AttendanceRepository;
 import com.ams.restapi.courseInfo.CourseInfo;
 import com.ams.restapi.courseInfo.CourseInfoRespository;
-import com.ams.restapi.timeConfig.TimeConfig;
-import com.ams.restapi.timeConfig.TimeRepository;
 
 import java.io.FileReader;
 import java.time.DayOfWeek;
@@ -27,8 +25,7 @@ class LoadDatabase {
     private static final boolean BEAN = true;
 
     @Bean
-    CommandLineRunner initDatabase(AttendanceRepository attendance,
-            TimeRepository times, CourseInfoRespository courseInfo) {
+    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRespository courseInfo) {
         if (BEAN) {
             return args -> {
                 log.info("BEAN MODE ACTIVATED");
@@ -49,13 +46,15 @@ class LoadDatabase {
                         LocalTime.of(12, 15), LocalTime.of(13,  5))
                 );
 
-                times.save(new TimeConfig(
-                    1234L,
-                    LocalTime.of(12, 10),
-                    LocalTime.of(12, 20),
-                    LocalTime.of(12, 30),
-                    LocalTime.of(13, 0),
-                    LocalTime.of(13, 20)));
+                System.out.println(courseInfo.findById(1234L).get().getDefaultTimeConfig());
+
+                // times.save(new TimeConfig(
+                //     1234L,
+                //     LocalTime.of(12, 10),
+                //     LocalTime.of(12, 20),
+                //     LocalTime.of(12, 30),
+                //     LocalTime.of(13, 0),
+                //     LocalTime.of(13, 20)));
             };
         }
         return args -> {log.info("BEAN MODE DEACTIVATED");};

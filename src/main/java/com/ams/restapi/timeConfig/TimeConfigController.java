@@ -1,14 +1,17 @@
 package com.ams.restapi.timeConfig;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ams.restapi.courseInfo.CourseInfo;
+import com.ams.restapi.courseInfo.CourseInfoRespository;
 
 /**
  * Course specific time configuration endpoints
@@ -17,54 +20,72 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class TimeConfigController {
 
-    private final TimeRepository timerepo;
+    private final CourseInfoRespository courseInfoRepo;
+    private final DateSpecificTimeRepository dateSpecificTimeRepo;
 
-    TimeConfigController(TimeRepository repository) {
-        timerepo = repository;
-    }
-
-    @PutMapping("/timeConfig/{courseID}")
-    TimeConfig update(@PathVariable Long courseID,
-            @RequestBody TimeConfig newTC) {
-        newTC.setCourseID(courseID);
-        return timerepo.save(newTC);
+    TimeConfigController(CourseInfoRespository courseInfoRepo,
+            DateSpecificTimeRepository dateSpecificTimeRepo) {
+        this.courseInfoRepo = courseInfoRepo;
+        this.dateSpecificTimeRepo = dateSpecificTimeRepo;
     }
 
     @GetMapping("/timeConfig/{courseID}")
-    TimeConfig search(@PathVariable Long courseID) {
-        return timerepo.findById(courseID)
+    TimeConfigDTO search(@PathVariable Long courseID) {
+        CourseInfo info = courseInfoRepo.findById(courseID)
             .orElseThrow(() ->
             new TimeConfigNotFoundException(courseID));
+        return new TimeConfigDTO(info.getDefaultTimeConfig());
+    }
+
+    @PutMapping("/timeConfig/{courseID}")
+    TimeConfigDTO update(@PathVariable Long courseID,
+            @RequestBody TimeConfigDTO timeConfig) {
+        CourseInfo info = courseInfoRepo.findById(courseID).orElseThrow(() -> new TimeConfigNotFoundException(courseID));
+        info.setDefaultTimeConfig(timeConfig.toEntity(info));
+        return new TimeConfigDTO(courseInfoRepo.save(info).getDefaultTimeConfig());
     }
 
     @DeleteMapping("/timeConfig/{courseID}")
-    void delete(@PathVariable Long courseID) {
-        timerepo.deleteById(courseID);
+    TimeConfigDTO delete(@PathVariable Long courseID) {
+        CourseInfo info = courseInfoRepo.findById(courseID).orElseThrow(() -> new TimeConfigNotFoundException(courseID));
+        info.setDefaultTimeConfig(CourseInfo.getDefaultTimeConfig(info, info.getStartTime(), info.getEndTime()));
+        return new TimeConfigDTO(courseInfoRepo.save(info).getDefaultTimeConfig());
     }
 
-    // TODO: Implement date specific endpoints
-    // // @PostMapping("/timeConfig/{courseID}/{date}")
-    // @PutMapping("/timeConfig/{courseID}/{date}")
-    // TimeConfig newTimeConfigAndDate(@PathVariable Long courseID, @PathVariable int date,
-    //         @RequestBody TimeConfig newTC) {
-    //     TimeConfig tc = timerepo.findByCourseIDAndDate(courseID, date);
-    //     if (tc == null) {
-    //         return timerepo.save(newTC);
-    //     }
-    //     deleteTimeConfig(courseID, date);
-    //     return timerepo.save(newTC);
-    // }
+    @GetMapping("/timeConfig/{courseID}/{date}")
+    TimeConfigDTO getTimeConfig(@PathVariable Long courseID, @PathVariable LocalDate date) {
+        CourseInfo course = courseInfoRepo.findById(courseID)
+            .orElseThrow(() -> new TimeConfigNotFoundException(courseID));
+        return new TimeConfigDTO(dateSpecificTimeRepo.findByCourseAndDate(course, date)
+            .orElseThrow(() -> new DateSpecificTimeConfigNotFoundException(courseID, date)).getConfig());
+    }
 
-    // @GetMapping("/timeConfig/{courseID}/{date}")
-    // TimeConfig getTimeConfig(@PathVariable Long courseID, @PathVariable int date) {
-    //     TimeConfig tc = timerepo.findByCourseIDAndDate(courseID, date);
-    //     return tc;
-    // }
+    @PutMapping("/timeConfig/{courseID}/{date}")
+    TimeConfigDTO newTimeConfigAndDate(@PathVariable Long courseID, @PathVariable LocalDate date,
+            @RequestBody TimeConfigDTO timeConfig) {
+        CourseInfo course = courseInfoRepo.findById(courseID)
+            .orElseThrow(() -> new TimeConfigNotFoundException(courseID));
+        
+        Optional<DateSpecificTimeConfig> config = dateSpecificTimeRepo.findByCourseAndDate(course, date);
 
-    // @DeleteMapping("/timeConfig/{courseID}/{date}")
-    // void deleteTimeConfig(@PathVariable Long courseID, @PathVariable int date) {
-    //     TimeConfig tc = timerepo.findByCourseIDAndDate(courseID, date);
-    //     timerepo.delete(tc);
-    // }
+        if (config.isPresent()) {
+            config.get().setConfig(timeConfig.toEntity(course));
+            return new TimeConfigDTO(dateSpecificTimeRepo.save(config.get()).getConfig());
+        }
+
+        return new TimeConfigDTO(dateSpecificTimeRepo.save(
+            new DateSpecificTimeConfig(course, date, timeConfig.toEntity(course))).getConfig());
+
+    }
+
+
+    @DeleteMapping("/timeConfig/{courseID}/{date}")
+    void deleteTimeConfig(@PathVariable Long courseID, @PathVariable LocalDate date) {
+        CourseInfo course = courseInfoRepo.findById(courseID)
+            .orElseThrow(() -> new TimeConfigNotFoundException(courseID));
+        DateSpecificTimeConfig config = dateSpecificTimeRepo.findByCourseAndDate(course, date)
+            .orElseThrow(() -> new DateSpecificTimeConfigNotFoundException(courseID, date));
+        dateSpecificTimeRepo.delete(config);
+    }
 
 }
