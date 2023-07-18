@@ -7,10 +7,23 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 public class AttendanceRecordDTO {
+    private Long id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private String room;
     private String date;
     private String time;
+    @JsonInclude(Include.NON_NULL)
     private Long timestamp;
     private String sid;
     private String type;
@@ -26,6 +39,7 @@ public class AttendanceRecordDTO {
     public AttendanceRecordDTO() {}
     
     public AttendanceRecordDTO(AttendanceRecord record) {
+        id = record.getId();
         room = record.getRoom();
         date = record.getDate().toString();
         time = record.getTime().toString();

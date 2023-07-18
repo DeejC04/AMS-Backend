@@ -9,12 +9,14 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,7 +56,7 @@ class AttendanceController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/attendance")
-    List<AttendanceRecord> search(
+    ResponseEntity<List<AttendanceRecordDTO>> search(
         @RequestParam("room") Optional<String> room,
         @RequestParam("date") Optional<LocalDate> date,
         @RequestParam("startTime") Optional<LocalTime> startTime,
@@ -65,10 +67,12 @@ class AttendanceController {
         @RequestParam("size") int size,
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) {
+
             Pageable pageable;
             if (sortBy.isPresent())
                 pageable = PageRequest.of(page, size,
-                    Sort.by(sortType.orElse("asc").equals("desc") ? Direction.DESC : Direction.ASC,
+                    Sort.by(sortType.orElse("asc").equals("desc")
+                        ? Direction.DESC : Direction.ASC,
                     sortBy.get()));
             else
                 pageable = PageRequest.of(page, size);
@@ -86,7 +90,11 @@ class AttendanceController {
             if (page > result.getTotalPages()) {
                 throw new AttendanceLogPageOutofBoundsException(page, size);
             }
-            return result.getContent();
+
+            return ResponseEntity.ok()
+                .header("totalPages", Integer.toString(result.getTotalPages()))
+                .body(result.getContent().stream().map(AttendanceRecordDTO::new)
+                    .collect(Collectors.toList()));
     }
 
     // Single item
