@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ams.restapi.courseInfo.CourseInfoRespository;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
@@ -29,16 +31,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 class AttendanceController {
     
     private final AttendanceRepository repository;
+    private final CourseInfoRespository courseInfo;
 
-    AttendanceController(AttendanceRepository repository) {
+    AttendanceController(AttendanceRepository repository, CourseInfoRespository courseInfo) {
         this.repository = repository;
+        this.courseInfo = courseInfo;
     }
 
     // Multi-item
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/attendance")
-    List<AttendanceLog> search(
+    List<AttendanceRecord> search(
         @RequestParam("room") Optional<String> room,
         @RequestParam("date") Optional<LocalDate> date,
         @RequestParam("startTime") Optional<LocalTime> startTime,
@@ -57,7 +61,7 @@ class AttendanceController {
             else
                 pageable = PageRequest.of(page, size);
 
-            Page<AttendanceLog> result = repository.search(
+            Page<AttendanceRecord> result = repository.search(
                 room.orElse(null),
                 date.orElse(null),
                 startTime.orElse(null),
@@ -76,18 +80,21 @@ class AttendanceController {
     // Single item
 
     @PostMapping("/attendance")
-    AttendanceLog createSingle(@RequestBody AttendanceLog newLog) {
-        return repository.save(newLog);
+    AttendanceRecordDTO createSingle(@RequestBody AttendanceRecordDTO newLog) {
+
+        // courseInfo.findAll(null, null);
+
+        return new AttendanceRecordDTO(repository.save(newLog.toEntity()));
     }
 
     @GetMapping("/attendance/{id}")
-    AttendanceLog getSingle(@PathVariable Long id) {
+    AttendanceRecord getSingle(@PathVariable Long id) {
         return repository.findById(id)
             .orElseThrow(() -> new AttendanceLogNotFoundException(id));
     }
 
     @PutMapping("/attendance/{id}")
-    AttendanceLog updateSingle(@PathVariable Long id, @RequestBody AttendanceLog newLog) {
+    AttendanceRecord updateSingle(@PathVariable Long id, @RequestBody AttendanceRecord newLog) {
         newLog.setId(id);
         return repository.save(newLog);
     }

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface AttendanceRepository extends JpaRepository<AttendanceLog, Long> {
+public interface AttendanceRepository extends JpaRepository<AttendanceRecord, Long> {
     @Query("SELECT a FROM AttendanceLog a WHERE "
     + "(:room is null or a.room = :room) and "
     + "(:date is null or a.date = :date) and "
@@ -21,7 +21,7 @@ public interface AttendanceRepository extends JpaRepository<AttendanceLog, Long>
     + "  (:startTime is null and :endTime is null) ) and "
     + "(:sid is null or a.sid = :sid) and "
     + "(:type is null or a.type = :type)")
-    Page<AttendanceLog> search(
+    Page<AttendanceRecord> search(
         @Param("room") String room,
         @Param("date") LocalDate date,
         @Param("startTime") LocalTime startTime,
@@ -30,11 +30,11 @@ public interface AttendanceRepository extends JpaRepository<AttendanceLog, Long>
         @Param("type") String type,
         Pageable pageable);
 
-    List<AttendanceLog> findByRoomAndDateAndTimeBetween(
+    List<AttendanceRecord> findByRoomAndDateAndTimeBetween(
         String room, LocalDate date,
         LocalTime startTime, LocalTime endTime);
 
-    List<AttendanceLog> findByRoomAndDateAndTimeBetweenAndSid(
+    List<AttendanceRecord> findByRoomAndDateAndTimeBetweenAndSid(
         String room, LocalDate date,
         LocalTime startTime, LocalTime endTime, String sid);
 }

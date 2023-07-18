@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ams.restapi.attendance.AttendanceLog;
+import com.ams.restapi.attendance.AttendanceRecord;
 import com.ams.restapi.attendance.AttendanceRepository;
 import com.ams.restapi.courseInfo.CourseInfo;
 import com.ams.restapi.courseInfo.CourseInfoRespository;
@@ -37,7 +37,7 @@ class LoadDatabase {
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split("\\s*,\\s*");
                     log.debug("Preloading " + attendance.save(
-                        new AttendanceLog(tokens[0], LocalDate.parse(tokens[1]), 
+                        new AttendanceRecord(tokens[0], LocalDate.parse(tokens[1]), 
                             LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
                 }
                 reader.close();
