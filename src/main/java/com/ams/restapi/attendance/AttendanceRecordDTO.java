@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeParseException;
-import java.util.TimeZone;
 
 public class AttendanceRecordDTO {
     private String room;
@@ -15,38 +13,30 @@ public class AttendanceRecordDTO {
     private String time;
     private Long timestamp;
     private String sid;
+    private String type;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public AttendanceRecordDTO() {}
+    
     public AttendanceRecordDTO(AttendanceRecord record) {
         room = record.getRoom();
         date = record.getDate().toString();
         time = record.getTime().toString();
         sid = record.getSid();
+        type = record.getType();
     }
 
-    public AttendanceRecord toEntity() {
-        LocalDate rDate;
-        LocalTime rTime;
+    public AttendanceRecord toEntity(LocalDate date, LocalTime time,
+        AttendanceRecord.AttendanceType type) {
         
-        try {
-            if (timestamp != null) {    
-                LocalDateTime triggerTime = LocalDateTime.ofInstant(
-                    Instant.ofEpochSecond(timestamp),
-                    ZoneId.of("MST", ZoneId.SHORT_IDS)); 
-                rDate = triggerTime.toLocalDate();
-                rTime = triggerTime.toLocalTime();
-            } else {
-                rDate = LocalDate.parse(date);
-                rTime = LocalTime.parse(time);
-            }
-
-            // TODO: Implement type resolution logic
-
-            return new AttendanceRecord(room, rDate, rTime, sid, null);
-        } catch(DateTimeException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new AttendanceRecord(room, date, time, sid, type.toString());
     }
 
     public String getRoom() {

@@ -3,6 +3,9 @@ package com.ams.restapi.timeConfig;
 import java.time.LocalTime;
 
 import com.ams.restapi.courseInfo.CourseInfo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -27,6 +30,7 @@ public class TimeConfig {
     private LocalTime beginOut;
     private LocalTime endOut;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "defaultTimeConfig")
     private CourseInfo course;
     

@@ -1,8 +1,13 @@
 package com.ams.restapi.attendance;
 
+import java.time.DateTimeException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -19,7 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ams.restapi.courseInfo.CourseInfoRespository;
+import com.ams.restapi.courseInfo.CourseInfo;
+import com.ams.restapi.courseInfo.CourseInfoRepository;
+import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
+import com.ams.restapi.timeConfig.DateSpecificTimeRepository;
+import com.ams.restapi.timeConfig.TimeConfig;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -31,11 +40,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 class AttendanceController {
     
     private final AttendanceRepository repository;
-    private final CourseInfoRespository courseInfo;
+    private final CourseInfoRepository courseInfo;
+    private final DateSpecificTimeRepository dateConfigs;
 
-    AttendanceController(AttendanceRepository repository, CourseInfoRespository courseInfo) {
+    AttendanceController(AttendanceRepository repository,
+        CourseInfoRepository courseInfo, DateSpecificTimeRepository dateConfigs) {
         this.repository = repository;
         this.courseInfo = courseInfo;
+        this.dateConfigs = dateConfigs;
     }
 
     // Multi-item
@@ -81,10 +93,66 @@ class AttendanceController {
 
     @PostMapping("/attendance")
     AttendanceRecordDTO createSingle(@RequestBody AttendanceRecordDTO newLog) {
+        LocalDate rDate;
+        LocalTime rTime;
 
-        // courseInfo.findAll(null, null);
+        System.out.println(newLog.getTimestamp());
 
-        return new AttendanceRecordDTO(repository.save(newLog.toEntity()));
+        try {
+            if (newLog.getTimestamp() != null) {    
+                LocalDateTime triggerTime = LocalDateTime.ofInstant(
+                    Instant.ofEpochSecond(newLog.getTimestamp()),
+                    ZoneId.of("MST", ZoneId.SHORT_IDS)); 
+                rDate = triggerTime.toLocalDate();
+                rTime = triggerTime.toLocalTime();
+            } else {
+                rDate = LocalDate.parse(newLog.getDate());
+                rTime = LocalTime.parse(newLog.getTime());
+            }
+        } catch(DateTimeException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        TimeConfig config;
+        try {
+            config =
+                dateConfigs.resolve(newLog.getRoom(), rDate, rTime)
+                    .orElse(courseInfo.resolve(newLog.getRoom(),
+                        rDate.getDayOfWeek(), rTime).get());
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            return null;
+        }
+        
+        List<AttendanceRecord> previousScans = repository.findByRoomAndDateAndTimeBetweenAndSid(
+            newLog.getRoom(), rDate, config.getCourse().getStartTime(), config.getCourse().getEndTime(), newLog.getSid());
+
+        AttendanceRecord.AttendanceType rType;
+        if (previousScans.size() == 0) { // ARRIVE
+            if (rTime.isAfter(config.getBeginIn().minusMinutes(1L)) &&
+                    rTime.isBefore(config.getEndIn().plusMinutes(1L))) {
+                rType = AttendanceRecord.AttendanceType.ARRIVED;
+            } else if (rTime.isAfter(config.getEndIn()) &&
+                    rTime.isBefore(config.getEndLate().plusMinutes(1L))) {
+                rType = AttendanceRecord.AttendanceType.ARRIVED_LATE;
+            } else {
+                rType = AttendanceRecord.AttendanceType.ARRIVED_INVALID;
+            }
+        } else if (previousScans.size() == 1) { // LEAVE
+            if (rTime.isAfter(config.getBeginOut().minusMinutes(1L)) &&
+                    rTime.isBefore(config.getEndOut().plusMinutes(1L))) {
+                rType = AttendanceRecord.AttendanceType.LEFT;
+            } else {
+                rType = AttendanceRecord.AttendanceType.LEFT_INVALID;
+            }
+        } else { // INVALID
+            rType = AttendanceRecord.AttendanceType.INVALID;
+        }
+
+        AttendanceRecord record = newLog.toEntity(rDate, rTime, rType);
+        
+        return new AttendanceRecordDTO(repository.save(record));
     }
 
     @GetMapping("/attendance/{id}")

@@ -3,6 +3,7 @@ package com.ams.restapi.timeConfig;
 import java.time.LocalDate;
 
 import com.ams.restapi.courseInfo.CourseInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,7 +26,7 @@ public class DateSpecificTimeConfig {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     private TimeConfig config;
 
     public TimeConfig getConfig() {
@@ -36,9 +37,18 @@ public class DateSpecificTimeConfig {
         this.config = config;
     }
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private CourseInfo course;
     
+    public CourseInfo getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseInfo course) {
+        this.course = course;
+    }
+
     private LocalDate date;
 
     public LocalDate getDate() {

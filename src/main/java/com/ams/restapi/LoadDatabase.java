@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.ams.restapi.attendance.AttendanceRecord;
 import com.ams.restapi.attendance.AttendanceRepository;
 import com.ams.restapi.courseInfo.CourseInfo;
-import com.ams.restapi.courseInfo.CourseInfoRespository;
+import com.ams.restapi.courseInfo.CourseInfoRepository;
 
 import java.io.FileReader;
 import java.time.DayOfWeek;
@@ -25,7 +25,7 @@ class LoadDatabase {
     private static final boolean BEAN = true;
 
     @Bean
-    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRespository courseInfo) {
+    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRepository courseInfo) {
         if (BEAN) {
             return args -> {
                 log.info("BEAN MODE ACTIVATED");

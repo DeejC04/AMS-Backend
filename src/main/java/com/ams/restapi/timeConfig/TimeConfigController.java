@@ -1,6 +1,7 @@
 package com.ams.restapi.timeConfig;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,10 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.restapi.courseInfo.CourseInfo;
-import com.ams.restapi.courseInfo.CourseInfoRespository;
+import com.ams.restapi.courseInfo.CourseInfoRepository;
 
 /**
  * Course specific time configuration endpoints
@@ -20,10 +22,10 @@ import com.ams.restapi.courseInfo.CourseInfoRespository;
 @RestController
 class TimeConfigController {
 
-    private final CourseInfoRespository courseInfoRepo;
+    private final CourseInfoRepository courseInfoRepo;
     private final DateSpecificTimeRepository dateSpecificTimeRepo;
 
-    TimeConfigController(CourseInfoRespository courseInfoRepo,
+    TimeConfigController(CourseInfoRepository courseInfoRepo,
             DateSpecificTimeRepository dateSpecificTimeRepo) {
         this.courseInfoRepo = courseInfoRepo;
         this.dateSpecificTimeRepo = dateSpecificTimeRepo;
@@ -86,6 +88,14 @@ class TimeConfigController {
         DateSpecificTimeConfig config = dateSpecificTimeRepo.findByCourseAndDate(course, date)
             .orElseThrow(() -> new DateSpecificTimeConfigNotFoundException(courseID, date));
         dateSpecificTimeRepo.delete(config);
+    }
+
+    @GetMapping("/timeConfig/test")
+    TimeConfig resolveTest(@RequestParam("room") String room,
+            @RequestParam("date") LocalDate date,
+            @RequestParam("time") LocalTime time) {
+        return dateSpecificTimeRepo.resolve(room, date, time)
+            .orElseThrow(() -> new RuntimeException("oogao"));
     }
 
 }

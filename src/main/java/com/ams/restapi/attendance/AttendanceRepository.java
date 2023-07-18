@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface AttendanceRepository extends JpaRepository<AttendanceRecord, Long> {
-    @Query("SELECT a FROM AttendanceLog a WHERE "
+    @Query("SELECT a FROM AttendanceRecord a WHERE "
     + "(:room is null or a.room = :room) and "
     + "(:date is null or a.date = :date) and "
     + "( ( (:startTime is not null and :endTime is not null) "
