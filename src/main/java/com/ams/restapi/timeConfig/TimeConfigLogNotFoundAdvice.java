@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 class TimeConfigLogNotFoundAdvice {
     @ResponseBody
-    @ExceptionHandler(TimeConfigNotFoundException.class)
+    @ExceptionHandler({TimeConfigNotFoundException.class, DateSpecificTimeConfigNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String TimeConfigLogNotFoundHandler(TimeConfigNotFoundException ex) {
+    String TimeConfigLogNotFoundHandler(RuntimeException ex) {
         return ex.getMessage();
     }
 }

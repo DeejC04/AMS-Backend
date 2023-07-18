@@ -2,19 +2,29 @@ package com.ams.restapi.timeConfig;
 
 import java.time.LocalTime;
 
+import com.ams.restapi.courseInfo.CourseInfo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class TimeConfig {
 
-    private @Id Long courseID;
-    public Long getCourseID() {
-        return courseID;
+    private @Id @GeneratedValue Long id;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setCourseID(Long courseID) {
-        this.courseID = courseID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     private LocalTime beginIn;
@@ -23,17 +33,28 @@ public class TimeConfig {
     private LocalTime beginOut;
     private LocalTime endOut;
 
-    public TimeConfig(Long courseID, LocalTime beginIn, LocalTime endIn,
+    @OneToOne(mappedBy = "defaultTimeConfig")
+    private CourseInfo course;
+    
+    public CourseInfo getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseInfo course) {
+        this.course = course;
+    }
+
+    public TimeConfig() {}
+
+    public TimeConfig(CourseInfo course, LocalTime beginIn, LocalTime endIn,
             LocalTime endLate, LocalTime beginOut, LocalTime endOut) {
-        this.courseID = courseID;
+        this.course = course;
         this.beginIn = beginIn;
         this.endIn = endIn;
         this.endLate = endLate;
         this.beginOut = beginOut;
         this.endOut = endOut;
     }
-
-    public TimeConfig() {}
 
     public LocalTime getEndOut() {
         return endOut;
@@ -77,15 +98,15 @@ public class TimeConfig {
 
     @Override
     public String toString() {
-        return "TimeConfig [courseID=" + courseID + ", beginIn=" + beginIn + ", endIn=" + endIn + ", endLate=" + endLate
-                + ", beginOut=" + beginOut + ", endOut=" + endOut + "]";
+        return "TimeConfig [id=" + id + ", beginIn=" + beginIn + ", endIn=" + endIn + ", endLate=" + endLate
+                + ", beginOut=" + beginOut + ", endOut=" + endOut + ", course=" + course + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((courseID == null) ? 0 : courseID.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -98,12 +119,14 @@ public class TimeConfig {
         if (getClass() != obj.getClass())
             return false;
         TimeConfig other = (TimeConfig) obj;
-        if (courseID == null) {
-            if (other.courseID != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!courseID.equals(other.courseID))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
+
     
+
 }

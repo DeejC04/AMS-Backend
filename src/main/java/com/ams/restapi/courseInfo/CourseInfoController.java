@@ -23,16 +23,16 @@ public class CourseInfoController {
     }
 
     @GetMapping("/courseInfo/{courseID}")
-    CourseInfo search(@PathVariable Long courseID) {
-        return repository.findById(courseID)
+    CourseInfoDTO search(@PathVariable Long courseID) {
+        CourseInfo course = repository.findById(courseID)
                 .orElseThrow(() -> new CourseInfoNotFoundException(courseID));
+        return new CourseInfoDTO(course);
     }
 
     @PutMapping("/courseInfo/{courseID}")
-    CourseInfo update(@PathVariable Long courseID,
-            @RequestBody CourseInfo newInfo) {
-        newInfo.setCourseId(courseID);
-        return repository.save(newInfo);
+    CourseInfoDTO update(@PathVariable Long courseID,
+            @RequestBody CourseInfoDTO newInfo) {
+        return new CourseInfoDTO(repository.save(newInfo.toEntity(courseID)));
     }
 
     @DeleteMapping("/courseInfo/{courseID}")

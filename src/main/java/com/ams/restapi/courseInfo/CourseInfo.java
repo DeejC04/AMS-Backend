@@ -1,38 +1,105 @@
 package com.ams.restapi.courseInfo;
 
-import java.util.List;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
+// import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
+import com.ams.restapi.timeConfig.TimeConfig;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+
 
 @Entity
 public class CourseInfo {
 
-    private @Id Long courseId;
-    private String courseName, room;
+    private static Long DEFAULT_TOLERANCE = 5L;
+    private static Long DEFAULT_LATE_TOLERANCE = 15L;
+
+    private @Id Long id;
+    private String name, room;
     private List<DayOfWeek> daysOfWeek;
     private LocalTime startTime, endTime;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private TimeConfig defaultTimeConfig;
+
+    public TimeConfig getDefaultTimeConfig() {
+        return defaultTimeConfig;
+    }
+
+    public void setDefaultTimeConfig(TimeConfig defaultTimeConfig) {
+        this.defaultTimeConfig = defaultTimeConfig;
+    }
+
+    @JsonIgnore    
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<DateSpecificTimeConfig> dateSpecificTimeConfigs;
+
+    public List<DateSpecificTimeConfig> getDateSpecificTimeConfigs() {
+        return dateSpecificTimeConfigs;
+    }
+
+    public void setDateSpecificTimeConfigs(List<DateSpecificTimeConfig> dateSpecificTimeConfigs) {
+        this.dateSpecificTimeConfigs = dateSpecificTimeConfigs;
+    }
+
     public CourseInfo() {}
 
-    public CourseInfo(Long courseId, String courseName, String room,
+    public CourseInfo(Long id, String name, String room,
             List<DayOfWeek> daysOfWeek, LocalTime startTime, LocalTime endTime) {
+        this.id = id;
+        this.name = name;
         this.room = room;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.courseName = courseName;
         this.daysOfWeek = daysOfWeek;
-        this.courseId = courseId;
+        defaultTimeConfig = getDefaultTimeConfig(this, startTime, endTime);
+        dateSpecificTimeConfigs = new ArrayList<>();
+    }
+    
+    public CourseInfo(Long id, String name, String room,
+            List<DayOfWeek> daysOfWeek, LocalTime startTime, LocalTime endTime,
+            TimeConfig defaultTimeConfig) {
+        this.id = id;
+        this.name = name;
+        this.room = room;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.daysOfWeek = daysOfWeek;
+        this.defaultTimeConfig = defaultTimeConfig;
+        dateSpecificTimeConfigs = new ArrayList<>();
     }
 
-    public Long getCourseId() {
-        return courseId;
+    public static TimeConfig getDefaultTimeConfig(CourseInfo course, LocalTime startTime, LocalTime endTime) {
+        TimeConfig config = new TimeConfig(course,
+            startTime.minusMinutes(DEFAULT_TOLERANCE),
+            startTime.plusMinutes(DEFAULT_TOLERANCE),
+            startTime.plusMinutes(DEFAULT_LATE_TOLERANCE),
+            endTime.minusMinutes(DEFAULT_TOLERANCE),
+            endTime.plusMinutes(DEFAULT_TOLERANCE));
+
+        if (course.getDefaultTimeConfig() != null) config.setId(course.getDefaultTimeConfig().getId());
+
+        return config;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRoom() {
@@ -59,12 +126,12 @@ public class CourseInfo {
         this.endTime = endTime;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getName() {
+        return name;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setName(String courseName) {
+        this.name = courseName;
     }
 
     public List<DayOfWeek> getDaysOfWeek() {
@@ -77,7 +144,7 @@ public class CourseInfo {
 
     @Override
     public String toString() {
-        return "CourseInfo [courseId=" + courseId + ", room=" + room + ", courseName=" + courseName + ", daysOfWeek="
+        return "CourseInfo [id=" + id + ", room=" + room + ", courseName=" + name + ", daysOfWeek="
                 + daysOfWeek + ", startTime=" + startTime + ", endTime=" + endTime + "]";
     }
 
@@ -85,7 +152,7 @@ public class CourseInfo {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -98,10 +165,10 @@ public class CourseInfo {
         if (getClass() != obj.getClass())
             return false;
         CourseInfo other = (CourseInfo) obj;
-        if (courseId == null) {
-            if (other.courseId != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!courseId.equals(other.courseId))
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
