@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.ams.restapi.timeConfig.TimeConfig;
 import com.ams.restapi.timeConfig.TimeConfigDTO;
 
 public class CourseInfoDTO {
@@ -36,43 +35,29 @@ public class CourseInfoDTO {
         return name;
     }
 
-
-
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String getRoom() {
         return room;
     }
 
-
-
     public void setRoom(String room) {
         this.room = room;
     }
-
-
 
     public List<DayOfWeek> getDaysOfWeek() {
         return daysOfWeek;
     }
 
-
-
     public void setDaysOfWeek(List<DayOfWeek> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
     }
 
-
-
     public LocalTime getStartTime() {
         return startTime;
     }
-
-
 
     public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
@@ -96,4 +81,5 @@ public class CourseInfoDTO {
             course.setDefaultTimeConfig(defaultTimeConfig.toEntity(course));
         return course;
     }
+    
 }

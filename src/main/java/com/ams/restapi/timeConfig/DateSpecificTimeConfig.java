@@ -1,7 +1,6 @@
 package com.ams.restapi.timeConfig;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import com.ams.restapi.courseInfo.CourseInfo;
 
@@ -10,9 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -91,8 +88,5 @@ public class DateSpecificTimeConfig {
             return false;
         return true;
     }
-
-    
-
 
 }
