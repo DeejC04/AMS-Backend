@@ -1,6 +1,5 @@
 package com.ams.autograder;
 
-import com.ams.restapi.attendance.AttendanceLog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class Autograder {
         submissionsOptions.setStudentSubmissionOptionMap(mapOfOptions);
         submissionWriter.gradeMultipleSubmissionsByCourse(submissionsOptions);
 
-        HashMap<String, List<AttendanceLog>> attendanceMap = new HashMap<>();
+        // HashMap<String, List<AttendanceLog>> attendanceMap = new HashMap<>();
         
 
         //listing every user inside a course 
