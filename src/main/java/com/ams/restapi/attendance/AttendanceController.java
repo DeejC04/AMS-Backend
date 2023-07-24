@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
-import com.ams.restapi.courseInfo.CourseInfo;
 import com.ams.restapi.courseInfo.CourseInfoRepository;
 import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 import com.ams.restapi.timeConfig.DateSpecificTimeRepository;

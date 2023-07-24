@@ -1,6 +1,5 @@
 package com.ams.restapi.courseInfo;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 import com.ams.restapi.timeConfig.TimeConfig;
 
 /**
