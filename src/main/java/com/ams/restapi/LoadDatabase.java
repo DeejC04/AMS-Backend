@@ -6,10 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.ams.restapi.attendance.AttendanceLog;
+import com.ams.restapi.attendance.AttendanceRecord;
 import com.ams.restapi.attendance.AttendanceRepository;
 import com.ams.restapi.courseInfo.CourseInfo;
-import com.ams.restapi.courseInfo.CourseInfoRespository;
+import com.ams.restapi.courseInfo.CourseInfoRepository;
 
 import java.io.FileReader;
 import java.time.DayOfWeek;
@@ -25,7 +25,7 @@ class LoadDatabase {
     private static final boolean BEAN = true;
 
     @Bean
-    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRespository courseInfo) {
+    CommandLineRunner initDatabase(AttendanceRepository attendance, CourseInfoRepository courseInfo) {
         if (BEAN) {
             return args -> {
                 log.info("BEAN MODE ACTIVATED");
@@ -34,7 +34,8 @@ class LoadDatabase {
                 while ((line = reader.readLine()) != null) {
                     String[] tokens = line.split("\\s*,\\s*");
                     log.debug("Preloading " + attendance.save(
-                        new AttendanceLog(tokens[0], LocalDate.parse(tokens[1]), LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
+                        new AttendanceRecord(tokens[0], LocalDate.parse(tokens[1]), 
+                            LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
                 }
                 reader.close();
 
@@ -42,8 +43,18 @@ class LoadDatabase {
                     new CourseInfo(
                         1234L, "CSE205", "COOR170",
                         List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-                        LocalTime.of(9, 30), LocalTime.of(10,  30))
+                        LocalTime.of(12, 15), LocalTime.of(13,  5))
                 );
+
+                System.out.println(courseInfo.findById(1234L).get().getDefaultTimeConfig());
+
+                // times.save(new TimeConfig(
+                //     1234L,
+                //     LocalTime.of(12, 10),
+                //     LocalTime.of(12, 20),
+                //     LocalTime.of(12, 30),
+                //     LocalTime.of(13, 0),
+                //     LocalTime.of(13, 20)));
             };
         }
         return args -> {log.info("BEAN MODE DEACTIVATED");};
