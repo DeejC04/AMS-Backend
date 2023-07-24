@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.ams.restapi.courseInfo.CourseInfo;
 import com.ams.restapi.courseInfo.CourseInfoRepository;
 import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
@@ -128,34 +129,44 @@ class AttendanceController {
                 dateConfigs.resolve(newLog.getRoom(), rDate, rTime)
                     .orElse(courseInfo.resolve(newLog.getRoom(),
                         rDate.getDayOfWeek(), rTime).get());
+            
+            // * just in case we missed the date specific time config
+            // * resolve it from the course relation accessible from the resolved default
+            Optional<DateSpecificTimeConfig> check = dateConfigs.findByCourseAndDate(config.getCourse(), rDate);
+            if (check.isPresent())
+                config = check.get().getConfig();
+
         } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            return null;
+            throw new AttendanceRecordPostInvalidException("Failed to resolve time config for the given datetime");
         }
-        
-        List<AttendanceRecord> previousScans = repository.findByRoomAndDateAndTimeBetweenAndSid(
-            newLog.getRoom(), rDate, config.getCourse().getStartTime(), config.getCourse().getEndTime(), newLog.getSid());
 
         AttendanceRecord.AttendanceType rType;
-        if (previousScans.size() == 0) { // ARRIVE
-            if (rTime.isAfter(config.getBeginIn().minusMinutes(1L)) &&
-                    rTime.isBefore(config.getEndIn().plusMinutes(1L))) {
-                rType = AttendanceRecord.AttendanceType.ARRIVED;
-            } else if (rTime.isAfter(config.getEndIn()) &&
-                    rTime.isBefore(config.getEndLate().plusMinutes(1L))) {
-                rType = AttendanceRecord.AttendanceType.ARRIVED_LATE;
-            } else {
-                rType = AttendanceRecord.AttendanceType.ARRIVED_INVALID;
+        if (rTime.isBefore(config.getBeginIn()) || rTime.isAfter(config.getBeginOut())) {
+            rType = AttendanceType.INVALID;
+        } else {
+            List<AttendanceRecord> previousScans = repository.findByRoomAndDateAndTimeBetweenAndSid(
+                newLog.getRoom(), rDate, config.getBeginIn(), config.getEndOut(), newLog.getSid());
+
+            if (previousScans.size() == 0) { // ARRIVE
+                if (rTime.isAfter(config.getBeginIn().minusMinutes(1L)) &&
+                        rTime.isBefore(config.getEndIn().plusMinutes(1L))) {
+                    rType = AttendanceRecord.AttendanceType.ARRIVED;
+                } else if (rTime.isAfter(config.getEndIn()) &&
+                        rTime.isBefore(config.getEndLate().plusMinutes(1L))) {
+                    rType = AttendanceRecord.AttendanceType.ARRIVED_LATE;
+                } else {
+                    rType = AttendanceRecord.AttendanceType.ARRIVED_INVALID;
+                }
+            } else if (previousScans.size() == 1) { // LEAVE
+                if (rTime.isAfter(config.getBeginOut().minusMinutes(1L)) &&
+                        rTime.isBefore(config.getEndOut().plusMinutes(1L))) {
+                    rType = AttendanceRecord.AttendanceType.LEFT;
+                } else {
+                    rType = AttendanceRecord.AttendanceType.LEFT_INVALID;
+                }
+            } else { // INVALID
+                rType = AttendanceRecord.AttendanceType.INVALID;
             }
-        } else if (previousScans.size() == 1) { // LEAVE
-            if (rTime.isAfter(config.getBeginOut().minusMinutes(1L)) &&
-                    rTime.isBefore(config.getEndOut().plusMinutes(1L))) {
-                rType = AttendanceRecord.AttendanceType.LEFT;
-            } else {
-                rType = AttendanceRecord.AttendanceType.LEFT_INVALID;
-            }
-        } else { // INVALID
-            rType = AttendanceRecord.AttendanceType.INVALID;
         }
 
         AttendanceRecord record = newLog.toEntity(rDate, rTime, rType);
@@ -164,15 +175,17 @@ class AttendanceController {
     }
 
     @GetMapping("/attendance/{id}")
-    AttendanceRecord getSingle(@PathVariable Long id) {
-        return repository.findById(id)
-            .orElseThrow(() -> new AttendanceLogNotFoundException(id));
+    AttendanceRecordDTO getSingle(@PathVariable Long id) {
+        return new AttendanceRecordDTO(repository.findById(id)
+            .orElseThrow(() -> new AttendanceLogNotFoundException(id)));
     }
 
     @PutMapping("/attendance/{id}")
-    AttendanceRecord updateSingle(@PathVariable Long id, @RequestBody AttendanceRecord newLog) {
+    AttendanceRecordDTO updateSingle(@PathVariable Long id, @RequestBody AttendanceRecord newLog) {
+        if (!repository.existsById(id)) throw new AttendanceLogNotFoundException(id);
+        
         newLog.setId(id);
-        return repository.save(newLog);
+        return new AttendanceRecordDTO(repository.save(newLog));
     }
 
     @DeleteMapping("/attendance/{id}")
