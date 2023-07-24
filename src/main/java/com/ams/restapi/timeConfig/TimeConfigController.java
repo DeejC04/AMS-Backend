@@ -18,6 +18,7 @@ import com.ams.restapi.courseInfo.CourseInfoRepository;
 /**
  * Course specific time configuration endpoints
  * @author Gabriel Esparza Uriarte
+ * @author Ryan Woo (rtwoo)
  */
 @RestController
 class TimeConfigController {
@@ -43,7 +44,9 @@ class TimeConfigController {
     TimeConfigDTO update(@PathVariable Long courseID,
             @RequestBody TimeConfigDTO timeConfig) {
         CourseInfo info = courseInfoRepo.findById(courseID).orElseThrow(() -> new TimeConfigNotFoundException(courseID));
-        info.setDefaultTimeConfig(timeConfig.toEntity(info));
+        TimeConfig config = timeConfig.toEntity(info);
+        config.setId(info.getDefaultTimeConfig().getId());
+        info.setDefaultTimeConfig(config);
         return new TimeConfigDTO(courseInfoRepo.save(info).getDefaultTimeConfig());
     }
 

@@ -17,8 +17,8 @@ import com.ams.restapi.timeConfig.TimeConfig;
 
 /**
  * Controller for managing course metadata
- * 
  * @author Harwinder Singh
+ * @author Ryan Woo (rtwoo)
  */
 @RestController
 public class CourseInfoController {
