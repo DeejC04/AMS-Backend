@@ -1,6 +1,6 @@
 package com.ams.autograder;
 
-import com.ams.restapi.attendance.AttendanceLog;
+import com.ams.restapi.attendance.AttendanceRecord;
 
 import java.io.IOException;
 import java.util.ArrayList;

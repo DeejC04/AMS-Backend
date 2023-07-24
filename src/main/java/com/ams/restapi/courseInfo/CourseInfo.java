@@ -9,11 +9,15 @@ import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 // import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 import com.ams.restapi.timeConfig.TimeConfig;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -25,9 +29,12 @@ public class CourseInfo {
 
     private @Id Long id;
     private String name, room;
+    // @CollectionTable(joinColumns = @JoinColumn(name = "courseinfo_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<DayOfWeek> daysOfWeek;
     private LocalTime startTime, endTime;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     private TimeConfig defaultTimeConfig;
 
