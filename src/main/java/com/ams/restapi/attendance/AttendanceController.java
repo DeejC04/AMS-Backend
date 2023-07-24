@@ -102,6 +102,9 @@ class AttendanceController {
 
     @PostMapping("/attendance")
     AttendanceRecordDTO createSingle(@RequestBody AttendanceRecordDTO newLog) {
+        if (newLog.getRoom() == null || newLog.getSid() == null)
+            throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
+        
         LocalDate rDate;
         LocalTime rTime;
 
