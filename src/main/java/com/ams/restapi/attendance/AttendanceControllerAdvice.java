@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 class AttendanceControllerAdvice {
     @ResponseBody
-    @ExceptionHandler({AttendanceLogNotFoundException.class, AttendanceLogPageOutofBoundsException.class})
+    @ExceptionHandler({AttendanceLogNotFoundException.class,
+        AttendanceLogPageOutofBoundsException.class,
+        AttendanceRecordPostInvalidException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String attendanceHandler(AttendanceLogNotFoundException ex) {
+    String attendanceHandler(RuntimeException ex) {
         return ex.getMessage();
     }
 }
