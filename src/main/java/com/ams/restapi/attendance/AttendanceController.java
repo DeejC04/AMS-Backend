@@ -36,7 +36,6 @@ class AttendanceController {
 
     // Multi-item
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/attendance")
     List<AttendanceLog> search(
         @RequestParam("room") Optional<String> room,
