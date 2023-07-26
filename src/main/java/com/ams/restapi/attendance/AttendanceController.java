@@ -91,7 +91,7 @@ class AttendanceController {
             }
 
             return ResponseEntity.ok()
-                .header("totalPages", Integer.toString(result.getTotalPages()))
+                .header("Total-Pages", Integer.toString(result.getTotalPages()))
                 .body(result.getContent().stream().map(AttendanceRecordDTO::new)
                     .collect(Collectors.toList()));
     }

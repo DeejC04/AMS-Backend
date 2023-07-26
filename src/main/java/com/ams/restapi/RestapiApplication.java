@@ -21,7 +21,8 @@ public class RestapiApplication {
                 System.out.println("setting CORS config");
 				registry.addMapping("/**")
                     .allowedOrigins("http://localhost:3000")
-                    .allowedMethods("*");
+                    .allowedMethods("*")
+                    .exposedHeaders("Total-Pages");
 			}
 		};
 	}
