@@ -1,5 +1,6 @@
 package com.ams.restapi.attendance;
 
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,11 +28,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ams.restapi.CanvasAccess;
 import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.ams.restapi.courseInfo.CourseInfoRepository;
 import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 import com.ams.restapi.timeConfig.DateSpecificTimeRepository;
 import com.ams.restapi.timeConfig.TimeConfig;
+
+import edu.ksu.canvas.enums.SectionIncludes;
+import edu.ksu.canvas.interfaces.SectionReader;
+import edu.ksu.canvas.model.Section;
+import edu.ksu.canvas.model.User;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -39,17 +47,41 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @author Ryan Woo (rtwoo)
  */
 @RestController
-class AttendanceController {
+public class AttendanceController {
     
     private final AttendanceRepository repository;
     private final CourseInfoRepository courseInfo;
     private final DateSpecificTimeRepository dateConfigs;
 
+    // private final CacheManager cache;
+    // private final CanvasAccess canvas;
+    private final SectionReader sections;
+
     AttendanceController(AttendanceRepository repository,
-        CourseInfoRepository courseInfo, DateSpecificTimeRepository dateConfigs) {
+        CourseInfoRepository courseInfo, DateSpecificTimeRepository dateConfigs,
+        CanvasAccess canvas) {
         this.repository = repository;
         this.courseInfo = courseInfo;
         this.dateConfigs = dateConfigs;
+        // this.cache = cache;
+        // this.canvas = canvas;
+        sections = canvas.getReader(SectionReader.class);
+    }
+
+    @GetMapping("/sections")
+    String sections() throws IOException {
+        List<Section> sections = this.sections.listCourseSections(
+            "1", List.of(SectionIncludes.STUDENTS));
+        for (Section section : sections) {
+            System.out.println("Students in: " + section.getName());
+            List<User> students = section.getStudents();
+            if (students == null) continue;
+            for (User student : students) {
+                System.out.printf("%s(%s)%n",
+                student.getName(), student.getSisUserId());
+            }
+        }
+        return "ran";
     }
 
     // Multi-item
@@ -90,10 +122,15 @@ class AttendanceController {
                 throw new AttendanceLogPageOutofBoundsException(page, size);
             }
 
+            List<AttendanceRecordDTO> records = result.getContent()
+                .stream().map(AttendanceRecordDTO::new)
+                .collect(Collectors.toList());
+            
+            
+
             return ResponseEntity.ok()
                 .header("Total-Pages", Integer.toString(result.getTotalPages()))
-                .body(result.getContent().stream().map(AttendanceRecordDTO::new)
-                    .collect(Collectors.toList()));
+                .body(records);
     }
 
     // Single item
