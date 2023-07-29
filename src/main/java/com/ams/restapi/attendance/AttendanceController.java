@@ -90,8 +90,6 @@ class AttendanceController {
                 throw new AttendanceLogPageOutofBoundsException(page, size);
             }
 
-            System.out.println("Successfully received POST, sending response...");
-
             return ResponseEntity.ok()
                 .header("Total-Pages", Integer.toString(result.getTotalPages()))
                 .body(result.getContent().stream().map(AttendanceRecordDTO::new)
@@ -173,6 +171,8 @@ class AttendanceController {
         }
 
         AttendanceRecord record = newLog.toEntity(rDate, rTime, rType);
+
+        System.out.println("Successfully received POST, sending response...");
         
         return new AttendanceRecordDTO(repository.save(record));
     }
