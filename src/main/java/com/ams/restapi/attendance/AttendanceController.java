@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -67,6 +69,9 @@ class AttendanceController {
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) {
 
+            if (room == null || room.isEmpty() || date == null || date.isEmpty())
+                throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
+
             Pageable pageable;
             if (sortBy.isPresent())
                 pageable = PageRequest.of(page, size,
@@ -99,9 +104,7 @@ class AttendanceController {
     // Single item
 
     @PostMapping("/attendance")
-    AttendanceRecordDTO createSingle(@RequestBody AttendanceRecordDTO newLog) {
-        if (newLog.getRoom() == null || newLog.getSid() == null)
-            throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
+    AttendanceRecordDTO createSingle(@Valid @RequestBody AttendanceRecordDTO newLog) {
         
         LocalDate rDate;
         LocalTime rTime;
@@ -184,7 +187,7 @@ class AttendanceController {
     }
 
     @PutMapping("/attendance/{id}")
-    AttendanceRecordDTO updateSingle(@PathVariable Long id, @RequestBody AttendanceRecord newLog) {
+    AttendanceRecordDTO updateSingle(@PathVariable Long id, @Valid @RequestBody AttendanceRecord newLog) {
         if (!repository.existsById(id)) throw new AttendanceLogNotFoundException(id);
         
         newLog.setId(id);

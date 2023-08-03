@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import javax.validation.constraints.NotNull;
+
+
 public class AttendanceRecordDTO {
     private Long id;
     public Long getId() {
@@ -16,12 +19,25 @@ public class AttendanceRecordDTO {
         this.id = id;
     }
 
+    // Reference: https://www.appsdeveloperblog.com/validate-request-body-in-restful-web-service/
+
+    @NotNull(message = "Room cannot be missing or empty")
     private String room;
+
+    @NotNull(message = "Date cannot be missing or empty")
     private String date;
+
+    @NotNull(message = "Time cannot be missing or empty")
     private String time;
+
+    @NotNull(message = "TimeStamp cannot be missing or empty")
     @JsonInclude(Include.NON_NULL)
     private Long timestamp;
+
+    @NotNull(message = "Student ID cannot be missing or empty")
     private String sid;
+
+    @NotNull(message = "Type cannot be missing or empty")
     private String type;
 
     public String getType() {
