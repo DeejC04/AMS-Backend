@@ -78,14 +78,7 @@ class AttendanceController {
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) {
 
-            Pageable pageable;
-            if (sortBy.isPresent())
-                pageable = PageRequest.of(page, size,
-                    Sort.by(sortType.orElse("asc").equals("desc")
-                        ? Direction.DESC : Direction.ASC,
-                    sortBy.get()));
-            else
-                pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size);
 
             CriteriaBuilder criteriaBuilder = eManager.getCriteriaBuilder();
             CriteriaQuery<AttendanceRecord> criteriaQuery = criteriaBuilder.createQuery(AttendanceRecord.class);
@@ -94,7 +87,14 @@ class AttendanceController {
             CriteriaQuery<AttendanceRecord> select = criteriaQuery.select(from);
             List<Predicate> predicates = genPredicates(room, date, startTime, endTime, sid, types,
                 criteriaBuilder, from);
-
+            
+            if (sortType.isPresent() && sortBy.isPresent()) {
+                if (sortType.get().equals("desc")) {
+                    select.orderBy(criteriaBuilder.desc(from.get(sortBy.get())));
+                } else {
+                    select.orderBy(criteriaBuilder.asc((from.get(sortBy.get()))));      
+                }
+            }
             select.where(criteriaBuilder.and(predicates.toArray(Predicate[]::new)));
             
 
@@ -111,6 +111,7 @@ class AttendanceController {
             countQuery.select(criteriaBuilder.count(countFrom));
             List<Predicate> countPredicates = genPredicates(room, date, startTime, endTime, sid, types,
                 criteriaBuilder, countFrom);
+            // * not necessary to sort when just counting
             countQuery.where(criteriaBuilder.and(countPredicates.toArray(Predicate[]::new)));
             Long count = eManager.createQuery(countQuery).getSingleResult();
 
