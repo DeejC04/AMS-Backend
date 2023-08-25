@@ -142,7 +142,7 @@ class AttendanceController {
         if (endTime.isPresent())
             predicates.add(criteriaBuilder.lessThanOrEqualTo(from.get("time"), endTime.get()));
         if (sid.isPresent()) predicates.add(criteriaBuilder.equal(from.get("sid"), sid.get()));
-        if (types.isPresent()) predicates.add(from.get("type").in(types.get()));
+        if (types.isPresent() && types.get().size() > 0) predicates.add(from.get("type").in(types.get()));
         return predicates;
     }
 
@@ -174,7 +174,9 @@ class AttendanceController {
 
         TimeConfig config;
         try {
-
+            System.out.println(newLog.getRoom()
+                + " " + rDate.getDayOfWeek()
+                + " " + rTime);
             config =
                 dateConfigs.resolve(newLog.getRoom(), rDate, rTime)
                     .orElseGet(() ->
