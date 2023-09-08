@@ -247,8 +247,11 @@ class AttendanceController {
     }
 
     @DeleteMapping("/attendance/{id}")
-    void delete(@PathVariable Long id) {
+    ResponseEntity<String> delete(@PathVariable Long id) {
+        if (!repository.existsById(id)) throw new AttendanceLogNotFoundException(id);
+
         repository.deleteById(id);
+        return ResponseEntity.ok("Deleted attendance log " + id);
     }
 
 }
