@@ -5,15 +5,6 @@ import java.time.LocalTime;
 import com.ams.restapi.courseInfo.CourseInfo;
 
 public class TimeConfigDTO {
-    private Long id;
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private LocalTime beginIn;
     private LocalTime endIn;
     private LocalTime endLate;
@@ -23,7 +14,6 @@ public class TimeConfigDTO {
     public TimeConfigDTO() {}
     
     public TimeConfigDTO(TimeConfig timeConfig) {
-        id = timeConfig.getId();
         beginIn = timeConfig.getBeginIn();
         endIn = timeConfig.getEndIn();
         endLate = timeConfig.getEndLate();
