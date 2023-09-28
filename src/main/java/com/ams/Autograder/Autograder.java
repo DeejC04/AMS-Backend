@@ -1,4 +1,4 @@
-package com.ams.autograder;
+package com.ams.Autograder;
 
 
 import java.io.IOException;
