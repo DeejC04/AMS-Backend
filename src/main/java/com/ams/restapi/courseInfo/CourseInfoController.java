@@ -3,6 +3,7 @@ package com.ams.restapi.courseInfo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +41,11 @@ public class CourseInfoController {
     }
 
     @DeleteMapping("/courseInfo/{courseID}")
-    void delete(@PathVariable Long courseID) {
+    ResponseEntity<String> delete(@PathVariable Long courseID) {
+        if (!repository.existsById(courseID)) throw new CourseInfoNotFoundException(courseID);
+
         repository.deleteById(courseID);
+        return ResponseEntity.ok("Deleted course info log " + courseID);
     }
 
     @GetMapping("/courseInfo/test")
