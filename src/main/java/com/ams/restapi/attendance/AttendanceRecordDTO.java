@@ -39,7 +39,7 @@ public class AttendanceRecordDTO {
     private String sid;
 
     @NotNull(message = "Type cannot be missing or empty")
-    private String type;
+    private AttendanceType type;
 
     public AttendanceType getType() {
         return type;
