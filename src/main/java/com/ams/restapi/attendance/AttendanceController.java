@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import javax.validation.Valid;
-
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
