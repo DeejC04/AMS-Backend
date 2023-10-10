@@ -162,9 +162,9 @@ public class AttendanceController {
                 throw new AttendanceLogPageOutofBoundsException(page, size);
             }
 
-            List<AttendanceRecordDTO> records = result.getContent()
-                .stream().map(AttendanceRecordDTO::new)
-                .collect(Collectors.toList());
+            // List<AttendanceRecordDTO> records = result.getContent()
+            //     .stream().map(AttendanceRecordDTO::new)
+            //     .collect(Collectors.toList());
             
             
 
