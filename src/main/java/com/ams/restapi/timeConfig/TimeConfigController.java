@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +44,7 @@ class TimeConfigController {
 
     @PutMapping("/timeConfig/{courseID}")
     TimeConfigDTO update(@PathVariable Long courseID,
-            @RequestBody TimeConfigDTO timeConfig) {
+            @Valid @RequestBody TimeConfigDTO timeConfig) {
         CourseInfo info = courseInfoRepo.findById(courseID).orElseThrow(() -> new TimeConfigNotFoundException(courseID));
         TimeConfig config = timeConfig.toEntity(info);
         config.setId(info.getDefaultTimeConfig().getId());
