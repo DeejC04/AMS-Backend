@@ -2,6 +2,8 @@ package com.ams.restapi.timeConfig;
 
 import java.time.LocalTime;
 
+import javax.validation.constraints.NotNull;
+
 import com.ams.restapi.courseInfo.CourseInfo;
 
 public class TimeConfigDTO {
@@ -14,16 +16,24 @@ public class TimeConfigDTO {
         this.id = id;
     }
 
+    @NotNull(message = "beginIn cannot be missing or empty")
     private LocalTime beginIn;
+
+    @NotNull(message = "endIn cannot be missing or empty")
     private LocalTime endIn;
+
+    @NotNull(message = "endLate cannot be missing or empty")
     private LocalTime endLate;
+
+    @NotNull(message = "beginOut cannot be missing or empty")
     private LocalTime beginOut;
+
+    @NotNull(message = "endOut cannot be missing or empty")
     private LocalTime endOut;
 
     public TimeConfigDTO() {}
     
     public TimeConfigDTO(TimeConfig timeConfig) {
-        id = timeConfig.getId();
         beginIn = timeConfig.getBeginIn();
         endIn = timeConfig.getEndIn();
         endLate = timeConfig.getEndLate();

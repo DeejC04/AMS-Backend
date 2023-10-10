@@ -27,7 +27,7 @@ public class AttendanceRecord {
     private LocalDate date;
     private LocalTime time;
     private String sid;
-    private String type; // I'll be the judge of this
+    private AttendanceType type; // I'll be the judge of this
     
     public String getRoom() {
         return room;
@@ -61,18 +61,18 @@ public class AttendanceRecord {
         this.sid = sid;
     }
 
-    public String getType() {
+    public AttendanceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AttendanceType type) {
         this.type = type;
     }
 
     AttendanceRecord() {}
 
     public AttendanceRecord(String room, LocalDate date,
-        LocalTime time, String sid, String type) {
+        LocalTime time, String sid, AttendanceType type) {
             this.room = room;
             this.date = date;
             this.time = time;
@@ -91,11 +91,6 @@ public class AttendanceRecord {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((room == null) ? 0 : room.hashCode());
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + ((time == null) ? 0 : time.hashCode());
-        result = prime * result + ((sid == null) ? 0 : sid.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
 
@@ -113,34 +108,7 @@ public class AttendanceRecord {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (room == null) {
-            if (other.room != null)
-                return false;
-        } else if (!room.equals(other.room))
-            return false;
-        if (date == null) {
-            if (other.date != null)
-                return false;
-        } else if (!date.equals(other.date))
-            return false;
-        if (time == null) {
-            if (other.time != null)
-                return false;
-        } else if (!time.equals(other.time))
-            return false;
-        if (sid == null) {
-            if (other.sid != null)
-                return false;
-        } else if (!sid.equals(other.sid))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
         return true;
     }
-
-    
 
 }

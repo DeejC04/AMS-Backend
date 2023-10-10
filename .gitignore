@@ -39,3 +39,6 @@ out/
 
 ### Preserve H2 Database ###
 src/main/resources/application.properties
+
+.env
+.DS_Store

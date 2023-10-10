@@ -3,8 +3,12 @@ package com.ams.restapi.attendance;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import javax.validation.constraints.NotNull;
+
 
 public class AttendanceRecordDTO {
     private Long id;
@@ -16,19 +20,32 @@ public class AttendanceRecordDTO {
         this.id = id;
     }
 
+    // Reference: https://www.appsdeveloperblog.com/validate-request-body-in-restful-web-service/
+
+    @NotNull(message = "Room cannot be missing or empty")
     private String room;
+
+    @NotNull(message = "Date cannot be missing or empty")
     private String date;
+
+    @NotNull(message = "Time cannot be missing or empty")
     private String time;
+
+    @NotNull(message = "TimeStamp cannot be missing or empty")
     @JsonInclude(Include.NON_NULL)
     private Long timestamp;
-    private String sid;
-    private String type;
 
-    public String getType() {
+    @NotNull(message = "Student ID cannot be missing or empty")
+    private String sid;
+
+    @NotNull(message = "Type cannot be missing or empty")
+    private AttendanceType type;
+
+    public AttendanceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AttendanceType type) {
         this.type = type;
     }
 
@@ -44,9 +61,9 @@ public class AttendanceRecordDTO {
     }
 
     public AttendanceRecord toEntity(LocalDate date, LocalTime time,
-        AttendanceRecord.AttendanceType type) {
+        AttendanceType type) {
         
-        return new AttendanceRecord(room, date, time, sid, type.toString());
+        return new AttendanceRecord(room, date, time, sid, type);
     }
 
     public String getRoom() {
