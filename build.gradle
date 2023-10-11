@@ -17,7 +17,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.postgresql:postgresql:42.6.0'
 	implementation 'edu.ksu.canvas:canvas-api:2.0.0'
+	implementation 'edu.ksu.ome.lti:lti-launch:1.4.6'
+	implementation 'jstl:jstl:1.2'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
