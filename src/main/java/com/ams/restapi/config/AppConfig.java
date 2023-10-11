@@ -6,7 +6,8 @@ import edu.ksu.lti.launch.service.ConfigService;
 import edu.ksu.lti.launch.service.LtiLaunchKeyService;
 import edu.ksu.lti.launch.service.OauthTokenService;
 import org.apache.catalina.filters.HttpHeaderSecurityFilter;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +16,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import javax.servlet.DispatcherType;
+import jakarta.servlet.DispatcherType;
 
 @Configuration
 @ComponentScan({"com.lti.launch", "edu.ksu.lti.launch"})
 public class AppConfig{
 
-    private static final Logger LOG = Logger.getLogger(AppConfig.class);
+    private static final Logger LOG = LogManager.getLogger(AppConfig.class);
     @Autowired
     private ConfigService configService;
 
