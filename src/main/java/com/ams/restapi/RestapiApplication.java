@@ -10,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ams.restapi.config.AppConfig;
+import com.ams.restapi.service.ConfigServiceImpl;
+
+import edu.ksu.lti.launch.service.ConfigService;
 
 @SpringBootApplication
 public class RestapiApplication extends SpringBootServletInitializer {
@@ -45,5 +48,22 @@ public class RestapiApplication extends SpringBootServletInitializer {
 			}
 		};
 	}
+
+    /**
+     * Initializing static values here is unusual. We are doing it so we don't
+     * have to depend on a database or other config source in this example
+     * project. Usually you would provide a bean (probably in your AppConfig class)
+     * that is able to look up values from a database or application properties.
+     * @return ConfigService to look up config items.
+     */
+    @Bean
+    public ConfigService getConfigService() {
+        ConfigServiceImpl configService = new ConfigServiceImpl();
+        configService.setConfigValue("canvas_url", canvasUrl);
+        configService.setConfigValue("canvas_url_2", canvasUrl2);
+        configService.setConfigValue("lti_launch_key", ltiLaunchKey);
+        configService.setConfigValue("lti_launch_secret", ltiLaunchSecret);
+        return configService;
+    }
 
 }
