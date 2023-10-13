@@ -26,7 +26,7 @@ dependencies {
 	implementation 'jstl:jstl:1.2'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 	runtimeOnly 'com.h2database:h2'
-	implementation 'javax.servlet:javax.servlet-api:3.0.1'
+    runtimeOnly 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

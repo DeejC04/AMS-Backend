@@ -9,8 +9,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-// import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +31,7 @@ public class LTILaunchExampleController extends LtiLaunchController {
      * the necessary XML and this method sets the host name/port to appropriate
      * values when running in dev/test by examining the incoming HTTP request.
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public ModelAndView basePath(HttpServletRequest request) {
         LOG.info("Showing Activity Reporting configuration XML");
         String ltiLaunchUrl = OauthController.getApplicationBaseUrl(request, true) + "/launch";

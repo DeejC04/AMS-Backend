@@ -5,6 +5,8 @@ import com.ams.restapi.service.OauthTokenServiceImpl;
 import edu.ksu.lti.launch.service.ConfigService;
 import edu.ksu.lti.launch.service.LtiLaunchKeyService;
 import edu.ksu.lti.launch.service.OauthTokenService;
+import jakarta.servlet.DispatcherType;
+
 import org.apache.catalina.filters.HttpHeaderSecurityFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -58,15 +60,15 @@ public class AppConfig{
     //some combination of Spring Boot and embedded tomcat was adding a second
     //"X-Frame-Options: DENY" header and causing browsers to refuse to display our content
     //in a frame. This prevents the second DENY header from being added to requests.
-    // @Bean
-    // public FilterRegistrationBean myFilterRegistration() {
-    //     FilterRegistrationBean registration = new FilterRegistrationBean();
-    //     registration.setDispatcherTypes(DispatcherType.REQUEST);
-    //     HttpHeaderSecurityFilter headerSecurityFilter = new HttpHeaderSecurityFilter();
-    //     headerSecurityFilter.setAntiClickJackingEnabled(true);
-    //     headerSecurityFilter.setAntiClickJackingOption("ALLOW-FROM");
-    //     headerSecurityFilter.setAntiClickJackingUri(configService.getConfigValue("canvas_url"));
-    //     registration.setFilter(headerSecurityFilter);
-    //     return registration;
-    // }
+    @Bean
+    public FilterRegistrationBean myFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        HttpHeaderSecurityFilter headerSecurityFilter = new HttpHeaderSecurityFilter();
+        headerSecurityFilter.setAntiClickJackingEnabled(true);
+        headerSecurityFilter.setAntiClickJackingOption("ALLOW-FROM");
+        headerSecurityFilter.setAntiClickJackingUri(configService.getConfigValue("canvas_url"));
+        registration.setFilter(headerSecurityFilter);
+        return registration;
+    }
 }
