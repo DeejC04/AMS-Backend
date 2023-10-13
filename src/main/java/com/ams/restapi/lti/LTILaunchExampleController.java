@@ -1,6 +1,7 @@
 package com.ams.restapi.lti;
 
 import edu.ksu.lti.launch.controller.LtiLaunchController;
+import edu.ksu.lti.launch.controller.OauthController;
 import edu.ksu.lti.launch.exception.NoLtiSessionException;
 import edu.ksu.lti.launch.model.LtiSession;
 import edu.ksu.lti.launch.service.LtiSessionService;
@@ -8,12 +9,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.access.AccessDeniedException;
+// import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Scope("request")
@@ -29,10 +30,10 @@ public class LTILaunchExampleController extends LtiLaunchController {
      * the necessary XML and this method sets the host name/port to appropriate
      * values when running in dev/test by examining the incoming HTTP request.
      */
-    // @RequestMapping("/")
+    @RequestMapping("/")
     public ModelAndView basePath(HttpServletRequest request) {
         LOG.info("Showing Activity Reporting configuration XML");
-        String ltiLaunchUrl = OauthControllerAMS.getApplicationBaseUrl(request, true) + "/launch";
+        String ltiLaunchUrl = OauthController.getApplicationBaseUrl(request, true) + "/launch";
         LOG.debug("LTI launch URL: " + ltiLaunchUrl);
         return new ModelAndView("ltiConfigure", "url", ltiLaunchUrl);
     }
