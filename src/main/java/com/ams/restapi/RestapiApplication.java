@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -42,12 +45,18 @@ public class RestapiApplication extends SpringBootServletInitializer {
 			public void addCorsMappings(CorsRegistry registry) {
                 System.out.println("setting CORS config");
 				registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:3000")
+                    .allowedOrigins("http://localhost:3000", "https://canvas.ams-lti.com", "https://localhost")
                     .allowedMethods("*")
                     .exposedHeaders("Total-Pages");
 			}
 		};
 	}
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        DefaultHttpFirewall firewall = new DefaultHttpFirewall();
+        return (web) -> web.httpFirewall(firewall);
+    }
 
     /**
      * Initializing static values here is unusual. We are doing it so we don't

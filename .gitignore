@@ -38,8 +38,7 @@ out/
 .vscode/
 
 ### Preserve H2 Database ###
-src/main/resources/application.properties
-
 .env
 .DS_Store
-src/main/resources/application.properties
+application.properties
+keystore.p12
