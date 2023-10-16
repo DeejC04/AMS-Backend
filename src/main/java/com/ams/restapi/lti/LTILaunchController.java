@@ -15,19 +15,22 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @Scope("request")
-public class LTILaunchExampleController extends LtiLaunchController {
-    private static final Logger LOG = LogManager.getLogger(LTILaunchExampleController.class);
+public class LTILaunchController extends LtiLaunchController {
+    private static final Logger LOG = LogManager.getLogger(LTILaunchController.class);
 
     @Autowired
     public LtiSessionService ltiSessionService;
@@ -48,13 +51,13 @@ public class LTILaunchExampleController extends LtiLaunchController {
         return new ModelAndView("ltiConfigure", "url", ltiLaunchUrl);
     }
 
-    @RequestMapping("/helloWorld")
+    @RequestMapping("/index")
     public ModelAndView showButton() throws NoLtiSessionException {
         LtiSession ltiSession = ltiSessionService.getLtiSession();
         if (ltiSession.getEid() == null || ltiSession.getEid().isEmpty()) {
             throw new AccessDeniedException("You cannot access this content without a valid session");
         }
-        return new ModelAndView("helloWorld", "username", ltiSession.getEid());
+        return new ModelAndView("index", "username", ltiSession.getEid());
     }
 
     @Override
@@ -89,11 +92,11 @@ public class LTILaunchExampleController extends LtiLaunchController {
      */
     @Override
     protected String getInitialViewPath() {
-        return "/helloWorld";
+        return "/index";
     }
 
     @Override
     protected String getApplicationName() {
-        return "LTI Launch Example";
+        return "Attendance Management System";
     }
 }

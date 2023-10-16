@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.1.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.postgresql:postgresql:42.6.0'
@@ -31,7 +32,8 @@ dependencies {
 	implementation 'jstl:jstl:1.2'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 	runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    // runtimeOnly 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    // runtimeOnly 'javax.servlet:jstl:1.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
