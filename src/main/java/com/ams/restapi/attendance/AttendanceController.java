@@ -93,12 +93,20 @@ class AttendanceController {
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) throws NoLtiSessionException {
 
-            LtiSession ltiSession = ltiSessionService.getLtiSession();
+            boolean anonymous = true;
+            try {
+                LtiSession ltiSession = ltiSessionService.getLtiSession();
             // if (ltiSession.getEid() == null || ltiSession.getEid().isEmpty()) {
             //     throw new AccessDeniedException("You cannot access this content without a valid session");
             // }
 
-            LOG.info("Attendance Records Accessed By: " + ltiSession.getEid());
+                LOG.info("Attendance Records Accessed By: " + ltiSession.getEid());
+            } catch(Exception e) {
+                anonymous = false;
+            }
+            
+            if (anonymous)
+                LOG.info("Anonymous Attendance Records Access");
 
             if (room == null || room.isEmpty() || date == null || date.isEmpty())
                 throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
