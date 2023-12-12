@@ -4,6 +4,7 @@
 <head>
     <title>Attendance Management System</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://localhost:8080 'unsafe-inline'">
 </head>
 
 <body>
@@ -28,7 +29,11 @@
     </div>
     <script>
         (function () {
-            fetch("https://api.ams-lti.com/attendance?room=COOR170&date=2023-07-13&size=10&page=0").then(
+            fetch("https://api.ams-lti.com/attendance?room=COOR170&date=2023-07-13&size=10&page=0", {
+                headers: {
+                    "Content-Security-Policy": "default-src none"
+                }
+            }).then(
                 res => {
                     res.json().then(
                         data => {
