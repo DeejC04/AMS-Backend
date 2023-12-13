@@ -47,7 +47,7 @@ public class RestapiApplication extends SpringBootServletInitializer {
 			public void addCorsMappings(CorsRegistry registry) {
                 System.out.println("setting CORS config");
 				registry.addMapping("/**")
-                    .allowedOrigins("http://localhost:3000", "https://canvas.ams-lti.com", "https://localhost")
+                    .allowedOrigins("http://localhost:3000", "https://canvas.ams-lti.com", "https://localhost", "https://localhost:8080")
                     .allowedMethods("*")
                     .exposedHeaders("Total-Pages");
 			}
