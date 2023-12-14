@@ -1,18 +1,18 @@
 package com.ams.restapi.googleOAuth;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class HomeController {
+@Controller
+public class GoogleOAuthController {
     
     @GetMapping("/")
     public String home() {
         return "Hello World";
     } 
 
-    @GetMapping("/secure")       
+    @GetMapping("/secure")
     public String secured(){
-        return "Hello, Secured!";
+        return "index";
     }
 }
