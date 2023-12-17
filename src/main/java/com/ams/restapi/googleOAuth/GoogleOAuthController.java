@@ -2,11 +2,20 @@ package com.ams.restapi.googleOAuth;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,7 +91,18 @@ public class GoogleOAuthController {
     public ResponseEntity<?> assignRoleAndSectionToUser(
             @PathVariable Long userId, 
             @RequestParam("roleId") Long roleId,
-            @RequestParam("sectionId") Long sectionId) {
+            @RequestParam("sectionId") Long sectionId,
+            Authentication authentication) {
+
+        String userEmail;
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            userEmail = ((UserDetails) authentication.getPrincipal()).getUsername();
+        } else if (authentication.getPrincipal() instanceof Jwt) {
+            Jwt jwt = (Jwt) authentication.getPrincipal();
+            userEmail = jwt.getClaimAsString("email");  // Adjust the claim name as per your token structure
+        } else {
+            throw new IllegalArgumentException("Unknown principal type");
+        }
 
         User user = userRepository.findById(userId)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -90,10 +110,21 @@ public class GoogleOAuthController {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found"));
         Section section = sectionRepository.findById(sectionId)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Section not found"));
-        
+
         role.getSections().add(section);
         user.getRoles().add(role);
         userRepository.save(user);
+
+        // Fetch the current Authentication and update the security context
+        User updatedUser = userRepository.findByEmail(userEmail)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Set<GrantedAuthority> updatedAuthorities = updatedUser.getRoles().stream()
+            .map(r -> new SimpleGrantedAuthority(r.getAuthority()))
+            .collect(Collectors.toSet());
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
 
         return ResponseEntity.ok().build();
     }

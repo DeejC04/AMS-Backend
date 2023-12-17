@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -25,7 +24,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/").permitAll();
                     auth.requestMatchers("/favicon.ico").permitAll();
-                    auth.requestMatchers("/admin/*").hasAnyAuthority("ROLE_ADMIN", "ROLE_OAUTH_USER");
+                    auth.requestMatchers("/admin/*").hasAuthority("ROLE_ADMIN");
+                    auth.requestMatchers("/sections").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                     auth.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2 -> oauth2
