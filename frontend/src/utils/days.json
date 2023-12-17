@@ -1,0 +1,175 @@
+[
+  {
+    "date": {
+      "day": "04/17/2023",
+      "time": "13:00"
+    },
+    "students": [
+      {
+        "id": 1,
+        "name": {
+          "first": "Gabe",
+          "middle": "J",
+          "last": "Gonzalez"
+        },
+        "email": "Gabe@gmail.com",
+        "sid": 1111,
+        "type": "Arrived",
+        "time": "13:57"
+      },
+      {
+        "id": 2,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1112,
+        "type": "Arrived",
+        "time": "13:26"
+      },
+      {
+        "id": 3,
+        "name": {
+          "first": "David",
+          "middle": "J",
+          "last": "Gonzalez"
+        },
+        "email": "david@gmail.com",
+        "sid": 1113,
+        "type": "Arrived",
+        "time": "8:03"
+      },
+      {
+        "id": 4,
+        "name": {
+          "first": "Ricky",
+          "middle": "J",
+          "last": "Woo"
+        },
+        "email": "RWoo@gmail.com",
+        "sid": 1114,
+        "type": "absent",
+        "time": "13:25"
+      },
+      {
+        "id": 5,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1115,
+        "type": "Arrived",
+        "time": "13:00"
+      },
+      {
+        "id": 6,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1116,
+        "type": "Arrived",
+        "time": "13:13"
+      },
+      {
+        "id": 7,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1117,
+        "type": "Absent",
+        "time": "13:00"
+      }
+    ]
+  },
+  {
+    "date": {
+      "day": "04/17/2023",
+      "time": "13:00"
+    },
+    "students": [
+      {
+        "id": 1,
+        "name": {
+          "first": "Gabe",
+          "middle": "J",
+          "last": "Gonzalez"
+        },
+        "email": "Gabe@gmail.com",
+        "sid": 1111,
+        "type": "Arrived",
+        "time": "13:57"
+      },
+      {
+        "id": 2,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1112,
+        "type": "Arrived",
+        "time": "13:26"
+      },
+      {
+        "id": 3,
+        "name": {
+          "first": "David",
+          "middle": "J",
+          "last": "Gonzalez"
+        },
+        "email": "david@gmail.com",
+        "sid": 1113,
+        "type": "Arrived",
+        "time": "8:03"
+      },
+      {
+        "id": 4,
+        "name": {
+          "first": "Ricky",
+          "middle": "J",
+          "last": "Woo"
+        },
+        "email": "RWoo@gmail.com",
+        "sid": 1114,
+        "type": "absent",
+        "time": "13:25"
+      },
+      {
+        "id": 5,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1115,
+        "type": "Arrived",
+        "time": "13:00"
+      },
+
+      {
+        "id": 7,
+        "name": {
+          "first": "Min",
+          "middle": "J",
+          "last": "Tan"
+        },
+        "email": "MinT@gmail.com",
+        "sid": 1117,
+        "type": "Present",
+        "time": "13:00"
+      }
+    ]
+  }
+]
