@@ -1,63 +1,80 @@
 package com.ams.restapi.googleOAuth;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Role {
+public class Role implements GrantedAuthority {
     private @Id @GeneratedValue Long id;
 
     public static enum RoleType {
-        INSTRUCTOR, TA, UGTA, ADMIN
+        INSTRUCTOR, TA, UGTA, ADMIN, DEFAULT, ESP
     }
-
-    @ManyToOne
-    @JoinColumn(name = "email")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "section_id")
-    private Section section;
 
     @Enumerated(EnumType.STRING)
     private RoleType role;
+
+    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    private Set<User> users = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "role_sections",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "section_id")
+    )
+    private Set<Section> sections = new HashSet<>();
     
     public Role() {}
 
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + this.role.name();
+    }
+
     public Long getId() {
         return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Section getSection() {
-        return section;
     }
 
     public RoleType getRole() {
         return role;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public Set<Section> getSections() {
+        return sections;
+    }
+
     public void setId(Long roleId) {
         this.id = roleId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setSection(Section section) {
-        this.section = section;
-    }
-
     public void setRole(RoleType role) {
         this.role = role;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public void setSections(Set<Section> sections) {
+        this.sections = sections;
     }
 }

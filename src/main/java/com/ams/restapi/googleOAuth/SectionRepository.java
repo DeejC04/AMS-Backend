@@ -1,9 +1,9 @@
 package com.ams.restapi.googleOAuth;
 
-import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SectionRepository extends JpaRepository<Section, Long> {
-    Optional<Section> findBySectionName(String sectionName);
+    Set<Section> findBySectionId(String sectionId);
 }

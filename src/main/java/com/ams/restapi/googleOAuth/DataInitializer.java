@@ -16,19 +16,30 @@ public class DataInitializer {
 
     @PostConstruct
     public void initAdminUser() {
-        String adminEmail = "asing365@asu.edu";
+        String adminEmail = "";
         User adminUser = userRepository.findByEmail(adminEmail).orElseGet(() -> {
             User newUser = new User();
             newUser.setEmail(adminEmail);
-            newUser.setName("Admin User");
             return userRepository.save(newUser);
         });
 
-        Role adminRole = roleRepository.findByUserAndRole(adminUser, Role.RoleType.ADMIN).stream().findFirst().orElseGet(() -> {
-            Role newRole = new Role();
-            newRole.setUser(adminUser);
-            newRole.setRole(Role.RoleType.ADMIN);
-            return roleRepository.save(newRole);
-        });
+        if (roleRepository.findByUsersContains(adminUser).isEmpty()) {
+            ensureRolesExist();
+            Role defaultRole = roleRepository.findByRole(Role.RoleType.ADMIN)
+                    .orElseThrow(() -> new RuntimeException("Default role not found"));
+            adminUser.getRoles().add(defaultRole);
+            userRepository.save(adminUser);
+        }
+    }
+
+    private void ensureRolesExist() {
+        for (Role.RoleType roleType : Role.RoleType.values()) {
+            roleRepository.findByRole(roleType)
+                .orElseGet(() -> {
+                    Role newRole = new Role();
+                    newRole.setRole(roleType);
+                    return roleRepository.save(newRole);
+                });
+        }
     }
 }

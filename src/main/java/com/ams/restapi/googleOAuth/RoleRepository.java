@@ -1,11 +1,13 @@
 package com.ams.restapi.googleOAuth;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    List<Role> findByUser(User user);
-    List<Role> findBySection(Section section);
-    List<Role> findByUserAndRole(User user, Role.RoleType role);
+    Optional<Role> findByRole(Role.RoleType roleType);
+    Set<Role> findByUsersContains(User user);
+    Set<Role> findBySectionsContains(Section section);
+    Set<Role> findByUsersAndRoleContains(User users, Role.RoleType role);
 }
