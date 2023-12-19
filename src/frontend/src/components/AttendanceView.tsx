@@ -73,7 +73,8 @@ const AttendanceView = () => {
         // fetch start and end time from course config if no time filter
         const fetchCourseConfig = async () => {
             await axios
-                .get("https://api.ams-lti.com/courseInfo/" + courseID)
+                // @ts-ignore
+                .get(process.env.NEXT_PUBLIC_COURSEINFO_ENDPOINT + courseID)
                 .then((res) => {
                     const fetchedCourse = res.data as CourseInfo;
 
@@ -87,9 +88,10 @@ const AttendanceView = () => {
         const fetchAttendance = async () => {
             console.log(">>>", dayjs(currentDate).format("YYYY-MM-DD"));
             await axios
-                .get("https://api.ams-lti.com/attendance", {
+                // @ts-ignore
+                .get(process.env.NEXT_PUBLIC_ATTENDANCE_ENDPOINT, {
                     headers: {
-                        "Access-Control-Allow-Origin": "https://api.ams-lti.com",
+                        "Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_URL,
                     },
                     params: {
                         room: "COOR170",
