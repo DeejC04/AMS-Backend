@@ -42,37 +42,3 @@ src/main/resources/application.properties
 
 .env
 .DS_Store
-
-### Frontend ###
-# dependencies
-src/frontend/node_modules
-src/frontend/.pnp
-src/frontend/.pnp.js
-src/.pnp.js
-# testing
-src/frontend/coverage
-# next.js
-src/frontend/.next/
-src/frontend/out/
-# production
-src/frontend/build
-# misc
-src/frontend/.DS_Store
-src/frontend/*.pem
-src/frontend/.gitignore
-
-# debug
-src/frontend/npm-debug.log*
-src/frontend/yarn-debug.log*
-src/frontend/yarn-error.log*
-src/frontend/.pnpm-debug.log*
-
-# local env files
-src/frontend/.env*.local
-
-# vercel
-src/frontend/.vercel
-
-# typescript
-src/frontend/*.tsbuildinfo
-src/frontend/next-env.d.ts
