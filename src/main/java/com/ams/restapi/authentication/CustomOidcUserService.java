@@ -1,4 +1,4 @@
-package com.ams.restapi.googleOAuth;
+package com.ams.restapi.authentication;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,11 +28,11 @@ public class CustomOidcUserService extends OidcUserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     @Transactional
@@ -42,15 +42,8 @@ public class CustomOidcUserService extends OidcUserService {
         String email = oidcUser.getAttribute("email");
         logger.info("Attempting to find or create user with email: {}", email);
 
-        User user = userRepository.findByEmail(email)
-                .orElseGet(() -> createUser(oidcUser, email));
-
-        if (user.getRoles().isEmpty()) {
-            Role defaultRole = roleRepository.findByRole(Role.RoleType.DEFAULT)
-                    .orElseThrow(() -> new RuntimeException("Default role not found"));
-            defaultRole = entityManager.merge(defaultRole);
-            user.getRoles().add(defaultRole);
-        }
+        String name = oidcUser.getAttribute("name");
+        User user = userService.findOrCreateUser(email, name);
 
         userRepository.save(user);
 
@@ -58,14 +51,6 @@ public class CustomOidcUserService extends OidcUserService {
         user.getRoles().forEach(role -> combinedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority())));
 
         return new DefaultOidcUser(combinedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
-    }
-
-    private User createUser(OidcUser oidcUser, String email) {
-        User newUser = new User();
-        newUser.setEmail(email);
-        newUser.setName(oidcUser.getAttribute("name"));
-        logger.info("Creating new user with email: {}", email);
-        return newUser;
     }
 }
 

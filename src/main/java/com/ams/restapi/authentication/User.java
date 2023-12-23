@@ -1,4 +1,4 @@
-package com.ams.restapi.googleOAuth;
+package com.ams.restapi.authentication;
 
 import java.util.HashSet;
 import java.util.Set;

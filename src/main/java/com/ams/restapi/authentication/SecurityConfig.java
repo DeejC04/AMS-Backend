@@ -1,4 +1,4 @@
-package com.ams.restapi.googleOAuth;
+package com.ams.restapi.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

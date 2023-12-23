@@ -1,4 +1,4 @@
-package com.ams.restapi.googleOAuth;
+package com.ams.restapi.authentication;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class Role implements GrantedAuthority {
     private @Id @GeneratedValue Long id;
 
     public static enum RoleType {
-        INSTRUCTOR, TA, UGTA, ADMIN, DEFAULT, ESP
+        INSTRUCTOR, TA, ADMIN, DEFAULT, ESP
     }
 
     @Enumerated(EnumType.STRING)

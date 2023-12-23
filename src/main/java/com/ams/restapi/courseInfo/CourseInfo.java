@@ -26,6 +26,7 @@ public class CourseInfo {
     private static Long DEFAULT_LATE_TOLERANCE = 15L;
 
     private @Id Long id;
+    private Long courseId;
     private String name, room;
     // @CollectionTable(joinColumns = @JoinColumn(name = "courseinfo_id"))
     @ElementCollection(fetch = FetchType.EAGER)
@@ -58,9 +59,10 @@ public class CourseInfo {
 
     public CourseInfo() {}
 
-    public CourseInfo(Long id, String name, String room,
+    public CourseInfo(Long id, Long courseId, String name, String room,
             List<DayOfWeek> daysOfWeek, LocalTime startTime, LocalTime endTime) {
         this.id = id;
+        this.courseId = courseId;
         this.name = name;
         this.room = room;
         this.startTime = startTime;
@@ -102,6 +104,14 @@ public class CourseInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCourseId() { 
+        return courseId; 
+    }
+
+    public void setCourseId(Long courseId) { 
+        this.courseId = courseId; 
     }
 
     public String getRoom() {
