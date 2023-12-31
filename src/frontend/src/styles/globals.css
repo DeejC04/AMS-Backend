@@ -124,6 +124,66 @@ a {
     transition: all 0.3s ease-in-out;
 }
 
+.Pair-config-btn{
+    position: absolute;
+    top: 1rem;
+    right: 12rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    /* background-color: rgb(205, 31, 31); */
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.pair-list-items {
+    color: rgb(84, 84, 84);
+    background-color: rgb(235, 234, 234);
+    border: 1px solid rgb(235, 234, 234);
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Optional: align items vertically */
+}
+.pair-list-items button:not([disabled]) {
+    background-color: transparent;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: cornflowerblue;
+    font-size: 12px;
+}
+.pair-list-items button{
+    background-color: transparent;
+    border: 1px solid rgb(148, 148, 150);
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: rgb(148, 148, 150);
+    font-size: 12px;
+    width: 5rem;
+}
+.pair-list-items button:hover:not([disabled]) {
+    background-color: cornflowerblue;
+    color: whitesmoke;
+}
+.status-paired {
+    font-size: 11px;
+    color: rgb(13, 176, 13);
+}
+  
+.status-unpaired {
+    font-size: 11px;
+    color: red;
+}
+  
+.status-maintenance {
+    font-size: 11px;
+    color: rgb(246, 208, 58);
+}
+
 .btn-box {
     display: flex;
     padding: 10px;

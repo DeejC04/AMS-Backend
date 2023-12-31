@@ -79,22 +79,6 @@ export class ConfigTray extends React.Component<ConfigTrayProps, ConfigTrayState
         >
           Show Time Config
         </Button>
-        {/*<Tray*/}
-        {/*  label="Tray Example"*/}
-        {/*  open={this.state.open}*/}
-        {/*  onDismiss={() => {*/}
-        {/*    this.setState({open: false});*/}
-        {/*  }}*/}
-        {/*  size="regular"*/}
-        {/*  placement="end"*/}
-        {/*>*/}
-        {/*  <View as="div" padding="medium">*/}
-        {/*    {this.renderCloseButton()}*/}
-        {/*    <SpecConfigBox/>*/}
-        {/*    <ThresholdBox/>*/}
-        {/*    <SectionConfig/>*/}
-        {/*  </View>*/}
-        {/*</Tray>*/}
         <MemoizedTray/>
       </div>
     );
