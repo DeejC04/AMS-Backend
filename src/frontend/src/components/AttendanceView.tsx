@@ -23,6 +23,7 @@ import {CourseInfo} from "./SectionConfig";
 import {DateSelect} from "./DateSelect";
 import {MultipleSelect} from "./MultipleSelect";
 import dayjs from "dayjs";
+import SectionSelect from "./SectionSelect";
 
 // types
 export type User = {
@@ -68,6 +69,25 @@ const AttendanceView = () => {
         typesOfScan: ['ARRIVED', 'LEFT', 'ARRIVED_LATE', 'ARRIVED_INVALID', 'LEFT_INVALID', 'INVALID'],
     });
     const [inputFilters, setInputFilters] = useState<FilterOpts>(selectedFilters);
+    // mock section select data
+    const groupedOptions = [
+        {
+          label: "CSE110",
+          options: [
+            { label: "11086", value: "11086", color: "#FF0000" },
+            { label: "11089", value: "11089", color: "#00FF00" },
+            { label: "12025", value: "12025", color: "#0000FF" },
+          ],
+        },
+        {
+          label: "CSE205",
+          options: [
+            { label: "24034", value: "24034", color: "#FF0000" },
+            { label: "32212", value: "32212", color: "#00FF00" },
+            { label: "32224", value: "32224", color: "#0000FF" },
+          ],
+        },
+      ];
 
     useEffect(() => {
         // fetch start and end time from course config if no time filter
@@ -214,6 +234,7 @@ const AttendanceView = () => {
     // @ts-ignore
     return (
         <div className="mx-32">
+            <SectionSelect groupedOptions={groupedOptions} />
             <DateSelect
                 currentDate={currentDate}
                 setCurrentDate={setCurrentDate}

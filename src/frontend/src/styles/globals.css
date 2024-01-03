@@ -138,9 +138,9 @@ a {
 }
 
 .pair-list-items {
-    color: rgb(84, 84, 84);
-    background-color: rgb(235, 234, 234);
-    border: 1px solid rgb(235, 234, 234);
+    color: rgb(54, 60, 129);
+    background-color: rgb(230, 243, 255);
+    border: 1px solid rgb(230, 243, 255);
     border-radius: 5px;
     padding: 0.5rem 1.5rem;
     margin: 0.5rem;
@@ -182,6 +182,13 @@ a {
 .status-maintenance {
     font-size: 11px;
     color: rgb(246, 208, 58);
+}
+
+.custom-section-select{
+    position: absolute;
+    top: -3.25rem;
+    left: 1rem;
+    width: 11rem;
 }
 
 .btn-box {
