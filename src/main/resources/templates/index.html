@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Attendance Management System</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://localhost:8080 'unsafe-inline'">
+</head>
+
+<body>
+    <p th:text="'Hello, ' + ${username} + '!'" />
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Room</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>SID</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+        </table>
+        <p id="cookies"></p>
+    </div>
+    <script>
+        (function () {
+            fetch("https://api.ams-lti.com/attendance?room=COOR170&date=2023-07-13&size=10&page=0", {
+                headers: {
+                    "Content-Security-Policy": "default-src none"
+                }
+            }).then(
+                res => {
+                    res.json().then(
+                        data => {
+                            var temp = ""
+                            data.forEach((itemData) => {
+                                temp += "<tr>"
+                                temp += "<td>" + itemData.id + "</td>"
+                                temp += "<td>" + itemData.room + "</td>"
+                                temp += "<td>" + itemData.date + "</td>"
+                                temp += "<td>" + itemData.time + "</td>"
+                                temp += "<td>" + itemData.sid + "</td>"
+                                temp += "<td>" + itemData.type + "</td></tr>"
+                            })
+                            document.getElementById('data').innerHTML = temp
+                        }
+                    )
+                }
+            )
+        })()
+    </script>
+</body>
+
+</html>
