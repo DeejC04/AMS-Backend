@@ -3,6 +3,7 @@ package com.ams.restapi.attendance;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -38,13 +39,13 @@ public class AttendanceRecordDTO {
     private String sid;
 
     @NotNull(message = "Type cannot be missing or empty")
-    private String type;
+    private AttendanceType type;
 
-    public String getType() {
+    public AttendanceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AttendanceType type) {
         this.type = type;
     }
 
@@ -60,9 +61,9 @@ public class AttendanceRecordDTO {
     }
 
     public AttendanceRecord toEntity(LocalDate date, LocalTime time,
-        AttendanceRecord.AttendanceType type) {
+        AttendanceType type) {
         
-        return new AttendanceRecord(room, date, time, sid, type.toString());
+        return new AttendanceRecord(room, date, time, sid, type);
     }
 
     public String getRoom() {

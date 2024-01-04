@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.ams.restapi.attendance.AttendanceRecord;
 import com.ams.restapi.attendance.AttendanceRepository;
+import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.ams.restapi.courseInfo.CourseInfo;
 import com.ams.restapi.courseInfo.CourseInfoRepository;
 
@@ -35,7 +36,7 @@ class LoadDatabase {
                     String[] tokens = line.split("\\s*,\\s*");
                     log.debug("Preloading " + attendance.save(
                         new AttendanceRecord(tokens[0], LocalDate.parse(tokens[1]), 
-                            LocalTime.parse(tokens[2]), tokens[3], tokens[4])));
+                            LocalTime.parse(tokens[2]), tokens[3], AttendanceType.valueOf(tokens[4]))));
                 }
                 reader.close();
 

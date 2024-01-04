@@ -34,7 +34,6 @@ public class TimeConfigDTO {
     public TimeConfigDTO() {}
     
     public TimeConfigDTO(TimeConfig timeConfig) {
-        id = timeConfig.getId();
         beginIn = timeConfig.getBeginIn();
         endIn = timeConfig.getEndIn();
         endLate = timeConfig.getEndLate();
