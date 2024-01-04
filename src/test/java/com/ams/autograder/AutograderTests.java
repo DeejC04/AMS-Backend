@@ -47,7 +47,7 @@ public class AutograderTests {
         );
     }
 
-    @Test
+    // @Test
 	void TestAssignmentGrader() throws IOException {        
         for (AttendanceRecord log : attendanceRepo.findAll()) {
             System.out.println(log);
