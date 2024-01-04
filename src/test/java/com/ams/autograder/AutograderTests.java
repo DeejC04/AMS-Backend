@@ -34,8 +34,8 @@ public class AutograderTests {
         while ((line = reader.readLine()) != null) {
             String[] tokens = line.split("\\s*,\\s*");
             System.out.println("Preloading " + attendanceRepo.save(
-                new AttendanceRecord(tokens[0], LocalDate.parse(tokens[1]),
-                    LocalTime.parse(tokens[2]), tokens[3], AttendanceRecord.AttendanceType.valueOf(tokens[4]))));
+                new AttendanceRecord(tokens[0], LocalDate.parse(tokens[1]), LocalTime.parse(tokens[2]),
+                    tokens[3], AttendanceRecord.AttendanceType.valueOf(tokens[4]))));
         }
         reader.close();
 
