@@ -43,7 +43,7 @@ public class Autograder {
         this.attendanceRepo = attendanceRepo;
         Dotenv env = Dotenv.load();
         apiFactory = new CanvasApiFactory(env.get("CANVAS_URL"));
-        oauthToken = new NonRefreshableOauthToken(env.get("APIKEY"));
+        oauthToken = new NonRefreshableOauthToken(env.get("API_KEY"));
     }
 
     public void gradeAssignments() throws IOException{
