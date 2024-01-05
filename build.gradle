@@ -22,22 +22,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.postgresql:postgresql:42.6.0'
 	implementation 'edu.ksu.canvas:canvas-api:2.0.0'
-	implementation files('dependencies/lti-launch-1.5.0-SNAPSHOT.jar')
-	implementation files('dependencies/spring-security-oauth-2.5.3.RELEASE.jar')
-	implementation files('dependencies/spring-security-web-6.1.5.jar')
-	implementation files('dependencies/spring-security-config-6.1.5.jar')
-	implementation files('dependencies/spring-security-core-6.1.5.jar')
-	implementation files('dependencies/spring-security-crypto-6.1.5.jar')
-	// implementation files('dependencies/jakarta.activation-2.0.0.jar')
-	// implementation files('dependencies/jakarta.el-api-4.0.0.jar')
-	// implementation files('dependencies/jakarta.servlet.jsp.jstl-api-2.0.0.jar')
-	// implementation files('dependencies/jakarta.servlet-api-5.0.0.jar')
-	// implementation files('dependencies/jakarta.xml.bind-api-3.0.0.jar')
-	// implementation 'jstl:jstl:1.2'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
 	runtimeOnly 'com.h2database:h2'
-    // runtimeOnly 'org.apache.tomcat.embed:tomcat-embed-jasper'
-    // runtimeOnly 'javax.servlet:jstl:1.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

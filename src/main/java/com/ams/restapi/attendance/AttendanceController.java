@@ -14,9 +14,6 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,8 +65,6 @@ class AttendanceController {
         this.dateConfigs = dateConfigs;
     }
 
-    private static final Logger LOG = LogManager.getLogger(AttendanceController.class);
-
     // Multi-item
 
     @GetMapping("/attendance")
@@ -85,20 +79,7 @@ class AttendanceController {
         @RequestParam("size") int size,
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) {
-
-            boolean anonymous = true;
-            try {
-            // if (ltiSession.getEid() == null || ltiSession.getEid().isEmpty()) {
-            //     throw new AccessDeniedException("You cannot access this content without a valid session");
-            // }
-
-            } catch(Exception e) {
-                anonymous = false;
-            }
             
-            if (anonymous)
-                LOG.info("Anonymous Attendance Records Access");
-
             if (room == null || room.isEmpty() || date == null || date.isEmpty())
                 throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
             Pageable pageable = PageRequest.of(page, size);
