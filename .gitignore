@@ -40,5 +40,5 @@ out/
 ### Preserve H2 Database ###
 .env
 .DS_Store
-application.properties
-keystore.p12
+*.csv
+*.p12

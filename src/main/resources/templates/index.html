@@ -1,59 +1,1569 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charSet="utf-8" />
     <title>Attendance Management System</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://localhost:8080 'unsafe-inline'">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Fernando David Nevarez" />
+    <link rel="icon" th:href="@{/favicon.ico}" />
+    <meta name="next-head-count" content="6" />
+    <link rel="preload" th:href="@{/css/fc15e1867a4ec316.css}" as="style" crossorigin="" />
+    <link rel="stylesheet" th:href="@{/css/fc15e1867a4ec316.css}" crossorigin="" data-n-g="" /><noscript
+        data-n-css=""></noscript>
+    <script defer="" crossorigin="" nomodule="" th:src="@{/chunks/polyfills-c67a75d1b6f99dc8.js}"></script>
+    <script th:src="@{/chunks/webpack-c21fd345984bfc83.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/framework-0c7baedefba6b077.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/main-3555597852264402.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/pages/_app-56366f0a46a328c7.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/2852872c-1cebfcee5dca2233.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/75fc9c18-165f0fc0c463a090.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/42-9960626e46a5c147.js}" defer="" crossorigin=""></script>
+    <script th:src="@{chunks/pages/index-69560c3a3ebdab40.js}" defer="" crossorigin=""></script>
+    <script th:src="@{khYMxzl2ukQ8W54ay3ofj/_buildManifest.js}" defer="" crossorigin=""></script>
+    <script th:src="@{khYMxzl2ukQ8W54ay3ofj/_ssgManifest.js}" defer="" crossorigin=""></script>
 </head>
 
 <body>
-    <p th:text="'Hello, ' + ${username} + '!'" />
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Room</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>SID</th>
-                    <th>Type</th>
-                </tr>
-            </thead>
-            <tbody id="data">
+    <div id="__next">
+        <main>
+            <div class="mt-20">
+                <div class="mx-32">
+                    <div class="date-input-box">
+                        <style data-emotion="css 1bwrh9w-baseButton">
+                            .css-1bwrh9w-baseButton {
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                                -ms-appearance: none;
+                                appearance: none;
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                                touch-action: manipulation;
+                            }
 
-            </tbody>
-        </table>
-        <p id="cookies"></p>
-    </div>
-    <script>
-        (function () {
-            fetch("https://api.ams-lti.com/attendance?room=COOR170&date=2023-07-13&size=10&page=0", {
-                headers: {
-                    "Content-Security-Policy": "default-src none"
-                }
-            }).then(
-                res => {
-                    res.json().then(
-                        data => {
-                            var temp = ""
-                            data.forEach((itemData) => {
-                                temp += "<tr>"
-                                temp += "<td>" + itemData.id + "</td>"
-                                temp += "<td>" + itemData.room + "</td>"
-                                temp += "<td>" + itemData.date + "</td>"
-                                temp += "<td>" + itemData.time + "</td>"
-                                temp += "<td>" + itemData.sid + "</td>"
-                                temp += "<td>" + itemData.type + "</td></tr>"
-                            })
-                            document.getElementById('data').innerHTML = temp
+                            .css-1bwrh9w-baseButton::-moz-focus-inner {
+                                border: 0;
+                            }
+
+                            .css-1bwrh9w-baseButton * {
+                                pointer-events: none;
+                            }
+
+                            .css-1bwrh9w-baseButton:active>[class$=-baseButton__content] {
+                                background: transparent;
+                                box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                            }
+
+                            .css-1bwrh9w-baseButton:hover>[class$=-baseButton__content] {
+                                background: rgba(45, 59, 69, 0.1);
+                            }
+                        </style>
+                        <style data-emotion="css 9l0qlx-view--inlineBlock-baseButton">
+                            .css-9l0qlx-view--inlineBlock-baseButton {
+                                box-sizing: border-box;
+                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                max-width: 100%;
+                                overflow: visible;
+                                display: inline-block;
+                                vertical-align: middle;
+                                color: #2D3B45;
+                                background: none;
+                                position: relative;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                                -ms-appearance: none;
+                                appearance: none;
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                                touch-action: manipulation;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton::before {
+                                pointer-events: none;
+                                content: "";
+                                position: absolute;
+                                border-style: solid;
+                                border-width: 0.125rem;
+                                border-color: #0374B5;
+                                opacity: 0;
+                                border-radius: calc(0.25rem + (0.3125rem - 0.125rem));
+                                top: calc(0.3125rem * -1);
+                                left: calc(0.3125rem * -1);
+                                right: calc(0.3125rem * -1);
+                                bottom: calc(0.3125rem* -1);
+                                -webkit-transition: all 0.2s;
+                                transition: all 0.2s;
+                                -webkit-transform: scale(0.95);
+                                -moz-transform: scale(0.95);
+                                -ms-transform: scale(0.95);
+                                transform: scale(0.95);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:focus {
+                                outline: none;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:focus::before {
+                                opacity: 1;
+                                -webkit-transform: scale(1);
+                                -moz-transform: scale(1);
+                                -ms-transform: scale(1);
+                                transform: scale(1);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton {
+                                margin: 0;
+                                padding: 0;
+                                border-radius: 0.25rem;
+                                border-width: 0;
+                                width: auto;
+                                cursor: pointer;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton::-moz-focus-inner {
+                                border: 0;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton * {
+                                pointer-events: none;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:active>[class$=-baseButton__content] {
+                                background: transparent;
+                                box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:hover>[class$=-baseButton__content] {
+                                background: rgba(45, 59, 69, 0.1);
+                            }
+                        </style><button dir="ltr" cursor="pointer" type="button" tabindex="0"
+                            class="css-9l0qlx-view--inlineBlock-baseButton">
+                            <style data-emotion="css qtnyvy-baseButton__content">
+                                .css-qtnyvy-baseButton__content {
+                                    box-sizing: border-box;
+                                    width: 100%;
+                                    display: block;
+                                    direction: inherit;
+                                    -webkit-user-select: none;
+                                    -moz-user-select: none;
+                                    -ms-user-select: none;
+                                    user-select: none;
+                                    -webkit-transition: background 0.2s, -webkit-transform 0.2s;
+                                    transition: background 0.2s, transform 0.2s;
+                                    -webkit-transform: none;
+                                    -moz-transform: none;
+                                    -ms-transform: none;
+                                    transform: none;
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    font-weight: 400;
+                                    text-transform: none;
+                                    letter-spacing: normal;
+                                    border-style: none;
+                                    border-width: 0.0625rem;
+                                    border-radius: 0.25rem;
+                                    line-height: 1.125;
+                                    text-align: start;
+                                    font-size: 1rem;
+                                    padding-left: 0.75rem;
+                                    padding-right: 0.75rem;
+                                    color: #2D3B45;
+                                    border-color: #2D3B45;
+                                    background: transparent;
+                                }
+
+                                .css-qtnyvy-baseButton__content:hover {
+                                    -webkit-transform: none;
+                                    -moz-transform: none;
+                                    -ms-transform: none;
+                                    transform: none;
+                                }
+                            </style><span class="css-qtnyvy-baseButton__content">
+                                <style data-emotion="css 1672js-baseButton__childrenLayout">
+                                    .css-1672js-baseButton__childrenLayout {
+                                        display: -webkit-box;
+                                        display: -webkit-flex;
+                                        display: -ms-flexbox;
+                                        display: flex;
+                                        height: 100%;
+                                        width: 100%;
+                                        -webkit-box-pack: start;
+                                        -ms-flex-pack: start;
+                                        -webkit-justify-content: flex-start;
+                                        justify-content: flex-start;
+                                        box-sizing: border-box;
+                                        -webkit-align-items: center;
+                                        -webkit-box-align: center;
+                                        -ms-flex-align: center;
+                                        align-items: center;
+                                        -webkit-flex-direction: row;
+                                        -ms-flex-direction: row;
+                                        flex-direction: row;
+                                        max-width: 100%;
+                                        overflow-x: visible;
+                                        overflow-y: visible;
+                                        unicode-bidi: isolate;
+                                    }
+                                </style><span class="css-1672js-baseButton__childrenLayout">
+                                    <style data-emotion="css 5udsuu-baseButton__iconOnly">
+                                        .css-5udsuu-baseButton__iconOnly {
+                                            box-sizing: border-box;
+                                            min-width: 0.0625rem;
+                                            -webkit-flex-shrink: 0;
+                                            -ms-flex-negative: 0;
+                                            flex-shrink: 0;
+                                            max-width: 100%;
+                                            overflow-x: visible;
+                                            overflow-y: visible;
+                                            unicode-bidi: isolate;
+                                        }
+                                    </style><span class="css-5udsuu-baseButton__iconOnly">
+                                        <style data-emotion="css quqv7u-baseButton__iconSVG">
+                                            .css-quqv7u-baseButton__iconSVG {
+                                                display: -webkit-box;
+                                                display: -webkit-flex;
+                                                display: -ms-flexbox;
+                                                display: flex;
+                                                -webkit-align-items: center;
+                                                -webkit-box-align: center;
+                                                -ms-flex-align: center;
+                                                align-items: center;
+                                                font-size: 1.25rem;
+                                            }
+                                        </style><span class="css-quqv7u-baseButton__iconSVG">
+                                            <style data-emotion="css w4mzia-svgIcon">
+                                                .css-w4mzia-svgIcon {
+                                                    vertical-align: middle;
+                                                    line-height: 1;
+                                                    width: 1em;
+                                                    height: 1em;
+                                                }
+
+                                                [dir="rtl"] .css-w4mzia-svgIcon {
+                                                    -webkit-transform: scale3d(-1, 1, 1);
+                                                    -moz-transform: scale3d(-1, 1, 1);
+                                                    -ms-transform: scale3d(-1, 1, 1);
+                                                    transform: scale3d(-1, 1, 1);
+                                                }
+                                            </style>
+                                            <style data-emotion="css lqsttu-inlineSVG-svgIcon">
+                                                .css-lqsttu-inlineSVG-svgIcon {
+                                                    fill: currentColor;
+                                                    display: inline-block;
+                                                    overflow: visible;
+                                                    color: #2D3B45;
+                                                    vertical-align: middle;
+                                                    line-height: 1;
+                                                    width: 1em;
+                                                    height: 1em;
+                                                }
+
+                                                [dir="rtl"] .css-lqsttu-inlineSVG-svgIcon {
+                                                    -webkit-transform: scale3d(-1, 1, 1);
+                                                    -moz-transform: scale3d(-1, 1, 1);
+                                                    -ms-transform: scale3d(-1, 1, 1);
+                                                    transform: scale3d(-1, 1, 1);
+                                                }
+                                            </style><svg name="IconArrowOpenStart" viewBox="0 0 1920 1920" rotate="0"
+                                                style="width:1em;height:1em" width="1em" height="1em" aria-hidden="true"
+                                                role="presentation" focusable="false"
+                                                class="css-lqsttu-inlineSVG-svgIcon">
+                                                <g role="presentation">
+                                                    <path
+                                                        d="m1352.005.012 176.13 176.13-783.864 783.989 783.864 783.74L1352.005 1920 391.887 960.13z"
+                                                        fill-rule="evenodd"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <style data-emotion="css 1sr5vj2-screenReaderContent">
+                                            .css-1sr5vj2-screenReaderContent {
+                                                width: 0.0625rem;
+                                                height: 0.0625rem;
+                                                margin: -0.0625rem;
+                                                padding: 0;
+                                                position: absolute;
+                                                top: 0;
+                                                inset-inline-start: 0;
+                                                overflow: hidden;
+                                                clip: rect(0 0 0 0);
+                                                border: 0;
+                                            }
+                                        </style><span class="css-1sr5vj2-screenReaderContent">Previous month</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </button>
+                        <style data-emotion="css 196cp5f-dateInput">
+                            .css-196cp5f-dateInput {
+                                display: inline-block;
+                            }
+                        </style><span class="css-196cp5f-dateInput">
+                            <style data-emotion="css 10inoki-formFieldLayout">
+                                .css-10inoki-formFieldLayout {
+                                    all: initial;
+                                    border: 0;
+                                    padding: 0;
+                                    margin: 0;
+                                    min-width: 0;
+                                    direction: inherit;
+                                    text-align: start;
+                                    opacity: inherit;
+                                    display: inline-block;
+                                    width: auto;
+                                    vertical-align: middle;
+                                }
+                            </style><label for="Selectable_0" style="width:10rem" class="css-10inoki-formFieldLayout">
+                                <style data-emotion="css d89gko-grid">
+                                    .css-d89gko-grid {
+                                        display: block;
+                                    }
+                                </style><span class="css-d89gko-grid">
+                                    <style data-emotion="css 1r50q5-gridRow">
+                                        .css-1r50q5-gridRow {
+                                            display: block;
+                                            box-sizing: border-box;
+                                        }
+                                    </style><span class="css-1r50q5-gridRow">
+                                        <style data-emotion="css 1sbhkbz-gridCol">
+                                            .css-1sbhkbz-gridCol {
+                                                display: block;
+                                                box-sizing: border-box;
+                                                text-align: inherit;
+                                                min-width: 0.0625rem;
+                                                margin-bottom: 0;
+                                            }
+                                        </style><span class="css-1sbhkbz-gridCol">
+                                            <style data-emotion="css 7naoe-textInput__facade">
+                                                .css-7naoe-textInput__facade {
+                                                    position: relative;
+                                                    display: block;
+                                                    box-sizing: border-box;
+                                                    border: 0.0625rem solid #C7CDD1;
+                                                    border-radius: 0.25rem;
+                                                    background: #FFFFFF;
+                                                    color: #2D3B45;
+                                                }
+
+                                                .css-7naoe-textInput__facade::before {
+                                                    content: "";
+                                                    pointer-events: none;
+                                                    position: absolute;
+                                                    display: block;
+                                                    box-sizing: border-box;
+                                                    top: -0.25rem;
+                                                    bottom: -0.25rem;
+                                                    left: -0.25rem;
+                                                    right: -0.25rem;
+                                                    border: 0.125rem solid #0374B5;
+                                                    border-radius: calc(0.25rem * 1.5);
+                                                    -webkit-transition: all 0.2s;
+                                                    transition: all 0.2s;
+                                                    opacity: 0;
+                                                    -webkit-transform: scale(0.95);
+                                                    -moz-transform: scale(0.95);
+                                                    -ms-transform: scale(0.95);
+                                                    transform: scale(0.95);
+                                                }
+                                            </style><span class="css-7naoe-textInput__facade">
+                                                <div>
+                                                    <style data-emotion="css 1rgo9ya-textInput__layout">
+                                                        .css-1rgo9ya-textInput__layout {
+                                                            box-sizing: border-box;
+                                                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                            max-width: 100%;
+                                                            overflow: visible;
+                                                            unicode-bidi: isolate;
+                                                            display: -webkit-box;
+                                                            display: -webkit-flex;
+                                                            display: -ms-flexbox;
+                                                            display: flex;
+                                                            -webkit-align-items: center;
+                                                            -webkit-box-align: center;
+                                                            -ms-flex-align: center;
+                                                            align-items: center;
+                                                            -webkit-box-pack: start;
+                                                            -ms-flex-pack: start;
+                                                            -webkit-justify-content: flex-start;
+                                                            justify-content: flex-start;
+                                                            -webkit-flex-direction: row;
+                                                            -ms-flex-direction: row;
+                                                            flex-direction: row;
+                                                            -webkit-box-flex-wrap: wrap;
+                                                            -webkit-flex-wrap: wrap;
+                                                            -ms-flex-wrap: wrap;
+                                                            flex-wrap: wrap;
+                                                        }
+                                                    </style><span class="css-1rgo9ya-textInput__layout">
+                                                        <style data-emotion="css 1dq8buo-textInput__innerWrapper">
+                                                            .css-1dq8buo-textInput__innerWrapper {
+                                                                box-sizing: border-box;
+                                                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                max-width: 100%;
+                                                                overflow: visible;
+                                                                unicode-bidi: isolate;
+                                                                -webkit-flex-shrink: 1;
+                                                                -ms-flex-negative: 1;
+                                                                flex-shrink: 1;
+                                                                min-width: 0.0625rem;
+                                                                -webkit-box-flex: 1;
+                                                                -webkit-flex-grow: 1;
+                                                                -ms-flex-positive: 1;
+                                                                flex-grow: 1;
+                                                            }
+                                                        </style><span class="css-1dq8buo-textInput__innerWrapper">
+                                                            <style data-emotion="css 1mc61uf-textInput__inputLayout">
+                                                                .css-1mc61uf-textInput__inputLayout {
+                                                                    box-sizing: border-box;
+                                                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                    max-width: 100%;
+                                                                    overflow: visible;
+                                                                    unicode-bidi: isolate;
+                                                                    display: -webkit-box;
+                                                                    display: -webkit-flex;
+                                                                    display: -ms-flexbox;
+                                                                    display: flex;
+                                                                    -webkit-align-items: center;
+                                                                    -webkit-box-align: center;
+                                                                    -ms-flex-align: center;
+                                                                    align-items: center;
+                                                                    -webkit-box-pack: start;
+                                                                    -ms-flex-pack: start;
+                                                                    -webkit-justify-content: flex-start;
+                                                                    justify-content: flex-start;
+                                                                    -webkit-flex-direction: row;
+                                                                    -ms-flex-direction: row;
+                                                                    flex-direction: row;
+                                                                }
+                                                            </style><span
+                                                                class="css-1mc61uf-textInput__inputLayout"><span
+                                                                    class="css-1dq8buo-textInput__innerWrapper">
+                                                                    <style data-emotion="css wlkv2r-textInput">
+                                                                        .css-wlkv2r-textInput {
+                                                                            all: initial;
+                                                                            -webkit-font-smoothing: antialiased;
+                                                                            -moz-osx-font-smoothing: grayscale;
+                                                                            -webkit-appearance: none;
+                                                                            -moz-appearance: none;
+                                                                            -ms-appearance: none;
+                                                                            appearance: none;
+                                                                            margin: 0;
+                                                                            width: 100%;
+                                                                            display: block;
+                                                                            box-sizing: border-box;
+                                                                            outline: none;
+                                                                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                            font-weight: 400;
+                                                                            color: #2D3B45;
+                                                                            padding: 0 0.75rem;
+                                                                            background: transparent;
+                                                                            border: none;
+                                                                            vertical-align: baseline;
+                                                                            font-size: 1rem;
+                                                                            height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            line-height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            text-align: start;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput::-ms-clear {
+                                                                            display: none;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput[autocomplete="off"]::-webkit-contacts-auto-fill-button {
+                                                                            display: none !important;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:focus {
+                                                                            box-shadow: initial;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput::-webkit-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput::-moz-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-ms-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput::placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type] {
+                                                                            all: initial;
+                                                                            -webkit-font-smoothing: antialiased;
+                                                                            -moz-osx-font-smoothing: grayscale;
+                                                                            -webkit-appearance: none;
+                                                                            -moz-appearance: none;
+                                                                            -ms-appearance: none;
+                                                                            appearance: none;
+                                                                            margin: 0;
+                                                                            width: 100%;
+                                                                            display: block;
+                                                                            box-sizing: border-box;
+                                                                            outline: none;
+                                                                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                            font-weight: 400;
+                                                                            color: #2D3B45;
+                                                                            padding: 0 0.75rem;
+                                                                            background: transparent;
+                                                                            border: none;
+                                                                            vertical-align: baseline;
+                                                                            font-size: 1rem;
+                                                                            height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            line-height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            text-align: start;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]::-ms-clear {
+                                                                            display: none;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type][autocomplete="off"]::-webkit-contacts-auto-fill-button {
+                                                                            display: none !important;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]:focus {
+                                                                            box-shadow: initial;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]::-webkit-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]::-moz-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]:-ms-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:is(input)[type]::placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type] {
+                                                                            all: initial;
+                                                                            -webkit-font-smoothing: antialiased;
+                                                                            -moz-osx-font-smoothing: grayscale;
+                                                                            -webkit-appearance: none;
+                                                                            -moz-appearance: none;
+                                                                            -ms-appearance: none;
+                                                                            appearance: none;
+                                                                            margin: 0;
+                                                                            width: 100%;
+                                                                            display: block;
+                                                                            box-sizing: border-box;
+                                                                            outline: none;
+                                                                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                            font-weight: 400;
+                                                                            color: #2D3B45;
+                                                                            padding: 0 0.75rem;
+                                                                            background: transparent;
+                                                                            border: none;
+                                                                            vertical-align: baseline;
+                                                                            font-size: 1rem;
+                                                                            height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            line-height: calc(2.375rem - (2 * 0.0625rem));
+                                                                            text-align: start;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]::-ms-clear {
+                                                                            display: none;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type][autocomplete="off"]::-webkit-contacts-auto-fill-button {
+                                                                            display: none !important;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]:focus {
+                                                                            box-shadow: initial;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]::-webkit-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]::-moz-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]:-ms-input-placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+
+                                                                        .css-wlkv2r-textInput:-webkit-any(input)[type]::placeholder {
+                                                                            color: #6B7780;
+                                                                        }
+                                                                    </style><input id="Selectable_0"
+                                                                        aria-haspopup="listbox" aria-expanded="false"
+                                                                        aria-describedby="Selectable_0-description"
+                                                                        role="combobox" aria-autocomplete="both"
+                                                                        autoComplete="off" width="10rem" type="text"
+                                                                        class="css-wlkv2r-textInput"
+                                                                        value="12/13/2023" />
+                                                                </span>
+                                                                <style
+                                                                    data-emotion="css vfc6xl-textInput__afterElement">
+                                                                    .css-vfc6xl-textInput__afterElement {
+                                                                        box-sizing: border-box;
+                                                                        font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                                        max-width: 100%;
+                                                                        overflow: visible;
+                                                                        unicode-bidi: isolate;
+                                                                        -webkit-flex-shrink: 0;
+                                                                        -ms-flex-negative: 0;
+                                                                        flex-shrink: 0;
+                                                                        -webkit-padding-end: 0.75rem;
+                                                                        padding-inline-end: 0.75rem;
+                                                                    }
+                                                                </style><span
+                                                                    class="css-vfc6xl-textInput__afterElement">
+                                                                    <style data-emotion="css 13232f8-svgIcon">
+                                                                        .css-13232f8-svgIcon {
+                                                                            vertical-align: middle;
+                                                                            line-height: 1;
+                                                                            width: 1em;
+                                                                            height: 1em;
+                                                                        }
+                                                                    </style>
+                                                                    <style data-emotion="css 8x7cbx-inlineSVG-svgIcon">
+                                                                        .css-8x7cbx-inlineSVG-svgIcon {
+                                                                            fill: currentColor;
+                                                                            display: block;
+                                                                            overflow: visible;
+                                                                            color: inherit;
+                                                                            vertical-align: middle;
+                                                                            line-height: 1;
+                                                                            width: 1em;
+                                                                            height: 1em;
+                                                                        }
+                                                                    </style><svg name="IconCalendarMonth"
+                                                                        viewBox="0 0 1920 1920" rotate="0"
+                                                                        style="width:1em;height:1em" width="1em"
+                                                                        height="1em" aria-hidden="true"
+                                                                        role="presentation" focusable="false"
+                                                                        class="css-8x7cbx-inlineSVG-svgIcon">
+                                                                        <g role="presentation">
+                                                                            <path
+                                                                                d="M1411.824 0c31.17 0 56.47 25.3 56.47 56.471v56.47h169.412c93.403 0 169.412 76.01 169.412 169.412V1920H113V282.353c0-93.402 76.009-169.412 169.412-169.412h169.41v-56.47c0-31.172 25.3-56.47 56.472-56.47s56.47 25.298 56.47 56.47v56.47h790.589v-56.47c0-31.172 25.299-56.47 56.47-56.47Zm282.352 564.705H225.942v1242.353h1468.234V564.705Zm-1016.47 677.648v338.824H338.882v-338.824h338.824Zm451.765 0v338.824H790.647v-338.824h338.824Zm451.764 0v338.824h-338.823v-338.824h338.823Zm-1016.47 112.941H451.824v112.941h112.941v-112.941Zm451.764 0H903.588v112.941h112.941v-112.941Zm451.765 0h-112.941v112.941h112.941v-112.941ZM677.706 790.588v338.824H338.882V790.588h338.824Zm451.765 0v338.824H790.647V790.588h338.824Zm451.764 0v338.824h-338.823V790.588h338.823ZM564.765 903.53H451.824v112.941h112.941V903.53Zm451.764 0H903.588v112.941h112.941V903.53Zm451.765 0h-112.941v112.941h112.941V903.53ZM451.823 225.882H282.412c-31.06 0-56.47 25.3-56.47 56.471v169.412h1468.234V282.353c0-31.172-25.411-56.47-56.47-56.47h-169.412v56.47c0 31.172-25.3 56.471-56.47 56.471-31.172 0-56.471-25.299-56.471-56.47v-56.472H564.765v56.471c0 31.172-25.3 56.471-56.471 56.471-31.171 0-56.471-25.299-56.471-56.47v-56.472Z"
+                                                                                fill-rule="evenodd"></path>
+                                                                        </g>
+                                                                    </svg>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </label>
+                            <style data-emotion="css lwc9dg-dateInput__assistiveText">
+                                .css-lwc9dg-dateInput__assistiveText {
+                                    display: none;
+                                }
+                            </style><span id="Selectable_0-description" class="css-lwc9dg-dateInput__assistiveText">Type
+                                a date or use arrow keys to navigate date picker.</span><span data-position="Popover_0"
+                                class="css-1ihz85b-position"></span>
+                        </span>
+                        <style data-emotion="css 1bwrh9w-baseButton">
+                            .css-1bwrh9w-baseButton {
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                                -ms-appearance: none;
+                                appearance: none;
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                                touch-action: manipulation;
+                            }
+
+                            .css-1bwrh9w-baseButton::-moz-focus-inner {
+                                border: 0;
+                            }
+
+                            .css-1bwrh9w-baseButton * {
+                                pointer-events: none;
+                            }
+
+                            .css-1bwrh9w-baseButton:active>[class$=-baseButton__content] {
+                                background: transparent;
+                                box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                            }
+
+                            .css-1bwrh9w-baseButton:hover>[class$=-baseButton__content] {
+                                background: rgba(45, 59, 69, 0.1);
+                            }
+                        </style>
+                        <style data-emotion="css 9l0qlx-view--inlineBlock-baseButton">
+                            .css-9l0qlx-view--inlineBlock-baseButton {
+                                box-sizing: border-box;
+                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                max-width: 100%;
+                                overflow: visible;
+                                display: inline-block;
+                                vertical-align: middle;
+                                color: #2D3B45;
+                                background: none;
+                                position: relative;
+                                -webkit-appearance: none;
+                                -moz-appearance: none;
+                                -ms-appearance: none;
+                                appearance: none;
+                                -webkit-text-decoration: none;
+                                text-decoration: none;
+                                touch-action: manipulation;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton::before {
+                                pointer-events: none;
+                                content: "";
+                                position: absolute;
+                                border-style: solid;
+                                border-width: 0.125rem;
+                                border-color: #0374B5;
+                                opacity: 0;
+                                border-radius: calc(0.25rem + (0.3125rem - 0.125rem));
+                                top: calc(0.3125rem * -1);
+                                left: calc(0.3125rem * -1);
+                                right: calc(0.3125rem * -1);
+                                bottom: calc(0.3125rem* -1);
+                                -webkit-transition: all 0.2s;
+                                transition: all 0.2s;
+                                -webkit-transform: scale(0.95);
+                                -moz-transform: scale(0.95);
+                                -ms-transform: scale(0.95);
+                                transform: scale(0.95);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:focus {
+                                outline: none;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:focus::before {
+                                opacity: 1;
+                                -webkit-transform: scale(1);
+                                -moz-transform: scale(1);
+                                -ms-transform: scale(1);
+                                transform: scale(1);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton {
+                                margin: 0;
+                                padding: 0;
+                                border-radius: 0.25rem;
+                                border-width: 0;
+                                width: auto;
+                                cursor: pointer;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton::-moz-focus-inner {
+                                border: 0;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton * {
+                                pointer-events: none;
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:active>[class$=-baseButton__content] {
+                                background: transparent;
+                                box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                            }
+
+                            .css-9l0qlx-view--inlineBlock-baseButton:hover>[class$=-baseButton__content] {
+                                background: rgba(45, 59, 69, 0.1);
+                            }
+                        </style><button dir="ltr" cursor="pointer" type="button" tabindex="0"
+                            class="css-9l0qlx-view--inlineBlock-baseButton">
+                            <style data-emotion="css qtnyvy-baseButton__content">
+                                .css-qtnyvy-baseButton__content {
+                                    box-sizing: border-box;
+                                    width: 100%;
+                                    display: block;
+                                    direction: inherit;
+                                    -webkit-user-select: none;
+                                    -moz-user-select: none;
+                                    -ms-user-select: none;
+                                    user-select: none;
+                                    -webkit-transition: background 0.2s, -webkit-transform 0.2s;
+                                    transition: background 0.2s, transform 0.2s;
+                                    -webkit-transform: none;
+                                    -moz-transform: none;
+                                    -ms-transform: none;
+                                    transform: none;
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    font-weight: 400;
+                                    text-transform: none;
+                                    letter-spacing: normal;
+                                    border-style: none;
+                                    border-width: 0.0625rem;
+                                    border-radius: 0.25rem;
+                                    line-height: 1.125;
+                                    text-align: start;
+                                    font-size: 1rem;
+                                    padding-left: 0.75rem;
+                                    padding-right: 0.75rem;
+                                    color: #2D3B45;
+                                    border-color: #2D3B45;
+                                    background: transparent;
+                                }
+
+                                .css-qtnyvy-baseButton__content:hover {
+                                    -webkit-transform: none;
+                                    -moz-transform: none;
+                                    -ms-transform: none;
+                                    transform: none;
+                                }
+                            </style><span class="css-qtnyvy-baseButton__content">
+                                <style data-emotion="css 1672js-baseButton__childrenLayout">
+                                    .css-1672js-baseButton__childrenLayout {
+                                        display: -webkit-box;
+                                        display: -webkit-flex;
+                                        display: -ms-flexbox;
+                                        display: flex;
+                                        height: 100%;
+                                        width: 100%;
+                                        -webkit-box-pack: start;
+                                        -ms-flex-pack: start;
+                                        -webkit-justify-content: flex-start;
+                                        justify-content: flex-start;
+                                        box-sizing: border-box;
+                                        -webkit-align-items: center;
+                                        -webkit-box-align: center;
+                                        -ms-flex-align: center;
+                                        align-items: center;
+                                        -webkit-flex-direction: row;
+                                        -ms-flex-direction: row;
+                                        flex-direction: row;
+                                        max-width: 100%;
+                                        overflow-x: visible;
+                                        overflow-y: visible;
+                                        unicode-bidi: isolate;
+                                    }
+                                </style><span class="css-1672js-baseButton__childrenLayout">
+                                    <style data-emotion="css 5udsuu-baseButton__iconOnly">
+                                        .css-5udsuu-baseButton__iconOnly {
+                                            box-sizing: border-box;
+                                            min-width: 0.0625rem;
+                                            -webkit-flex-shrink: 0;
+                                            -ms-flex-negative: 0;
+                                            flex-shrink: 0;
+                                            max-width: 100%;
+                                            overflow-x: visible;
+                                            overflow-y: visible;
+                                            unicode-bidi: isolate;
+                                        }
+                                    </style><span class="css-5udsuu-baseButton__iconOnly">
+                                        <style data-emotion="css quqv7u-baseButton__iconSVG">
+                                            .css-quqv7u-baseButton__iconSVG {
+                                                display: -webkit-box;
+                                                display: -webkit-flex;
+                                                display: -ms-flexbox;
+                                                display: flex;
+                                                -webkit-align-items: center;
+                                                -webkit-box-align: center;
+                                                -ms-flex-align: center;
+                                                align-items: center;
+                                                font-size: 1.25rem;
+                                            }
+                                        </style><span class="css-quqv7u-baseButton__iconSVG">
+                                            <style data-emotion="css w4mzia-svgIcon">
+                                                .css-w4mzia-svgIcon {
+                                                    vertical-align: middle;
+                                                    line-height: 1;
+                                                    width: 1em;
+                                                    height: 1em;
+                                                }
+
+                                                [dir="rtl"] .css-w4mzia-svgIcon {
+                                                    -webkit-transform: scale3d(-1, 1, 1);
+                                                    -moz-transform: scale3d(-1, 1, 1);
+                                                    -ms-transform: scale3d(-1, 1, 1);
+                                                    transform: scale3d(-1, 1, 1);
+                                                }
+                                            </style>
+                                            <style data-emotion="css lqsttu-inlineSVG-svgIcon">
+                                                .css-lqsttu-inlineSVG-svgIcon {
+                                                    fill: currentColor;
+                                                    display: inline-block;
+                                                    overflow: visible;
+                                                    color: #2D3B45;
+                                                    vertical-align: middle;
+                                                    line-height: 1;
+                                                    width: 1em;
+                                                    height: 1em;
+                                                }
+
+                                                [dir="rtl"] .css-lqsttu-inlineSVG-svgIcon {
+                                                    -webkit-transform: scale3d(-1, 1, 1);
+                                                    -moz-transform: scale3d(-1, 1, 1);
+                                                    -ms-transform: scale3d(-1, 1, 1);
+                                                    transform: scale3d(-1, 1, 1);
+                                                }
+                                            </style><svg name="IconArrowOpenEnd" viewBox="0 0 1920 1920" rotate="0"
+                                                style="width:1em;height:1em" width="1em" height="1em" aria-hidden="true"
+                                                role="presentation" focusable="false"
+                                                class="css-lqsttu-inlineSVG-svgIcon">
+                                                <g role="presentation">
+                                                    <path
+                                                        d="M568.13.012 392 176.142l783.864 783.989L392 1743.87 568.13 1920l960.118-959.87z"
+                                                        fill-rule="evenodd"></path>
+                                                </g>
+                                            </svg>
+                                        </span>
+                                        <style data-emotion="css 1sr5vj2-screenReaderContent">
+                                            .css-1sr5vj2-screenReaderContent {
+                                                width: 0.0625rem;
+                                                height: 0.0625rem;
+                                                margin: -0.0625rem;
+                                                padding: 0;
+                                                position: absolute;
+                                                top: 0;
+                                                inset-inline-start: 0;
+                                                overflow: hidden;
+                                                clip: rect(0 0 0 0);
+                                                border: 0;
+                                            }
+                                        </style><span class="css-1sr5vj2-screenReaderContent">Next month</span>
+                                    </span>
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                    <div>
+                        <h1 class="text-center font-medium text-3xl">Attendance Table View</h1><br />
+                        <style data-emotion="css ebo3o1-view--block">
+                            .css-ebo3o1-view--block {
+                                box-sizing: border-box;
+                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                max-width: 100%;
+                                overflow: visible;
+                                display: block;
+                                color: #2D3B45;
+                                background: #FFFFFF;
+                                border-style: solid;
+                                border-color: #C7CDD1;
+                            }
+
+                            .css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block.css-ebo3o1-view--block {
+                                border-radius: 0.25rem;
+                                border-width: 0.0625rem;
+                            }
+                        </style><span dir="ltr" class="css-ebo3o1-view--block">
+                            <style data-emotion="css ts6qc3-flex">
+                                .css-ts6qc3-flex {
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    box-sizing: border-box;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                    -webkit-box-pack: start;
+                                    -ms-flex-pack: start;
+                                    -webkit-justify-content: flex-start;
+                                    justify-content: flex-start;
+                                    -webkit-flex-direction: row;
+                                    -ms-flex-direction: row;
+                                    flex-direction: row;
+                                    gap: 0;
+                                }
+                            </style>
+                            <style data-emotion="css hq586d-view--flex-flex">
+                                .css-hq586d-view--flex-flex {
+                                    box-sizing: border-box;
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    max-width: 100%;
+                                    overflow: visible;
+                                    display: -webkit-box;
+                                    display: -webkit-flex;
+                                    display: -ms-flexbox;
+                                    display: flex;
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    box-sizing: border-box;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                    -webkit-box-pack: start;
+                                    -ms-flex-pack: start;
+                                    -webkit-justify-content: flex-start;
+                                    justify-content: flex-start;
+                                    -webkit-flex-direction: row;
+                                    -ms-flex-direction: row;
+                                    flex-direction: row;
+                                    gap: 0;
+                                }
+
+                                .css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex.css-hq586d-view--flex-flex {
+                                    padding: 0.5rem;
+                                }
+                            </style><span dir="ltr" direction="row" wrap="no-wrap" class="css-hq586d-view--flex-flex">
+                                <style data-emotion="css 8ezfhu-flexItem">
+                                    .css-8ezfhu-flexItem {
+                                        box-sizing: border-box;
+                                        min-width: 0.0625rem;
+                                        -webkit-flex-shrink: 0;
+                                        -ms-flex-negative: 0;
+                                        flex-shrink: 0;
+                                    }
+                                </style>
+                                <style data-emotion="css 1is7rlf-view-flexItem">
+                                    .css-1is7rlf-view-flexItem {
+                                        box-sizing: border-box;
+                                        font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                        max-width: 100%;
+                                        overflow: visible;
+                                        box-sizing: border-box;
+                                        min-width: 0.0625rem;
+                                        -webkit-flex-shrink: 0;
+                                        -ms-flex-negative: 0;
+                                        flex-shrink: 0;
+                                    }
+                                </style><span dir="ltr" class="css-1is7rlf-view-flexItem">
+                                    <style data-emotion="css 1bwrh9w-baseButton">
+                                        .css-1bwrh9w-baseButton {
+                                            -webkit-appearance: none;
+                                            -moz-appearance: none;
+                                            -ms-appearance: none;
+                                            appearance: none;
+                                            -webkit-text-decoration: none;
+                                            text-decoration: none;
+                                            touch-action: manipulation;
+                                        }
+
+                                        .css-1bwrh9w-baseButton::-moz-focus-inner {
+                                            border: 0;
+                                        }
+
+                                        .css-1bwrh9w-baseButton * {
+                                            pointer-events: none;
+                                        }
+
+                                        .css-1bwrh9w-baseButton:active>[class$=-baseButton__content] {
+                                            background: transparent;
+                                            box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                                        }
+
+                                        .css-1bwrh9w-baseButton:hover>[class$=-baseButton__content] {
+                                            background: rgba(45, 59, 69, 0.1);
+                                        }
+                                    </style>
+                                    <style data-emotion="css 9l0qlx-view--inlineBlock-baseButton">
+                                        .css-9l0qlx-view--inlineBlock-baseButton {
+                                            box-sizing: border-box;
+                                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                            max-width: 100%;
+                                            overflow: visible;
+                                            display: inline-block;
+                                            vertical-align: middle;
+                                            color: #2D3B45;
+                                            background: none;
+                                            position: relative;
+                                            -webkit-appearance: none;
+                                            -moz-appearance: none;
+                                            -ms-appearance: none;
+                                            appearance: none;
+                                            -webkit-text-decoration: none;
+                                            text-decoration: none;
+                                            touch-action: manipulation;
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton::before {
+                                            pointer-events: none;
+                                            content: "";
+                                            position: absolute;
+                                            border-style: solid;
+                                            border-width: 0.125rem;
+                                            border-color: #0374B5;
+                                            opacity: 0;
+                                            border-radius: calc(0.25rem + (0.3125rem - 0.125rem));
+                                            top: calc(0.3125rem * -1);
+                                            left: calc(0.3125rem * -1);
+                                            right: calc(0.3125rem * -1);
+                                            bottom: calc(0.3125rem* -1);
+                                            -webkit-transition: all 0.2s;
+                                            transition: all 0.2s;
+                                            -webkit-transform: scale(0.95);
+                                            -moz-transform: scale(0.95);
+                                            -ms-transform: scale(0.95);
+                                            transform: scale(0.95);
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton:focus {
+                                            outline: none;
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton:focus::before {
+                                            opacity: 1;
+                                            -webkit-transform: scale(1);
+                                            -moz-transform: scale(1);
+                                            -ms-transform: scale(1);
+                                            transform: scale(1);
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton.css-9l0qlx-view--inlineBlock-baseButton {
+                                            margin: 0;
+                                            padding: 0;
+                                            border-radius: 0.25rem;
+                                            border-width: 0;
+                                            width: auto;
+                                            cursor: pointer;
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton::-moz-focus-inner {
+                                            border: 0;
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton * {
+                                            pointer-events: none;
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton:active>[class$=-baseButton__content] {
+                                            background: transparent;
+                                            box-shadow: inset 0 0 0.1875rem 0.0625rem rgba(45, 59, 69, 0.28);
+                                        }
+
+                                        .css-9l0qlx-view--inlineBlock-baseButton:hover>[class$=-baseButton__content] {
+                                            background: rgba(45, 59, 69, 0.1);
+                                        }
+                                    </style><button dir="ltr" aria-controls="Expandable_0" aria-expanded="false"
+                                        cursor="pointer" type="button" tabindex="0"
+                                        class="css-9l0qlx-view--inlineBlock-baseButton">
+                                        <style data-emotion="css 1kqbwtt-baseButton__content">
+                                            .css-1kqbwtt-baseButton__content {
+                                                box-sizing: border-box;
+                                                width: 100%;
+                                                display: block;
+                                                direction: inherit;
+                                                -webkit-user-select: none;
+                                                -moz-user-select: none;
+                                                -ms-user-select: none;
+                                                user-select: none;
+                                                -webkit-transition: background 0.2s, -webkit-transform 0.2s;
+                                                transition: background 0.2s, transform 0.2s;
+                                                -webkit-transform: none;
+                                                -moz-transform: none;
+                                                -ms-transform: none;
+                                                transform: none;
+                                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                                font-weight: 400;
+                                                text-transform: none;
+                                                letter-spacing: normal;
+                                                border-style: none;
+                                                border-width: 0.0625rem;
+                                                border-radius: 0.25rem;
+                                                line-height: 1.125;
+                                                text-align: start;
+                                                font-size: 0.875rem;
+                                                padding-left: 0.5rem;
+                                                padding-right: 0.5rem;
+                                                color: #2D3B45;
+                                                border-color: #2D3B45;
+                                                background: transparent;
+                                            }
+
+                                            .css-1kqbwtt-baseButton__content:hover {
+                                                -webkit-transform: none;
+                                                -moz-transform: none;
+                                                -ms-transform: none;
+                                                transform: none;
+                                            }
+                                        </style><span class="css-1kqbwtt-baseButton__content">
+                                            <style data-emotion="css 1672js-baseButton__childrenLayout">
+                                                .css-1672js-baseButton__childrenLayout {
+                                                    display: -webkit-box;
+                                                    display: -webkit-flex;
+                                                    display: -ms-flexbox;
+                                                    display: flex;
+                                                    height: 100%;
+                                                    width: 100%;
+                                                    -webkit-box-pack: start;
+                                                    -ms-flex-pack: start;
+                                                    -webkit-justify-content: flex-start;
+                                                    justify-content: flex-start;
+                                                    box-sizing: border-box;
+                                                    -webkit-align-items: center;
+                                                    -webkit-box-align: center;
+                                                    -ms-flex-align: center;
+                                                    align-items: center;
+                                                    -webkit-flex-direction: row;
+                                                    -ms-flex-direction: row;
+                                                    flex-direction: row;
+                                                    max-width: 100%;
+                                                    overflow-x: visible;
+                                                    overflow-y: visible;
+                                                    unicode-bidi: isolate;
+                                                }
+                                            </style><span class="css-1672js-baseButton__childrenLayout">
+                                                <style data-emotion="css 5udsuu-baseButton__iconOnly">
+                                                    .css-5udsuu-baseButton__iconOnly {
+                                                        box-sizing: border-box;
+                                                        min-width: 0.0625rem;
+                                                        -webkit-flex-shrink: 0;
+                                                        -ms-flex-negative: 0;
+                                                        flex-shrink: 0;
+                                                        max-width: 100%;
+                                                        overflow-x: visible;
+                                                        overflow-y: visible;
+                                                        unicode-bidi: isolate;
+                                                    }
+                                                </style><span class="css-5udsuu-baseButton__iconOnly">
+                                                    <style data-emotion="css 31gkb3-baseButton__iconSVG">
+                                                        .css-31gkb3-baseButton__iconSVG {
+                                                            display: -webkit-box;
+                                                            display: -webkit-flex;
+                                                            display: -ms-flexbox;
+                                                            display: flex;
+                                                            -webkit-align-items: center;
+                                                            -webkit-box-align: center;
+                                                            -ms-flex-align: center;
+                                                            align-items: center;
+                                                            font-size: 1rem;
+                                                        }
+                                                    </style><span class="css-31gkb3-baseButton__iconSVG">
+                                                        <style data-emotion="css w4mzia-svgIcon">
+                                                            .css-w4mzia-svgIcon {
+                                                                vertical-align: middle;
+                                                                line-height: 1;
+                                                                width: 1em;
+                                                                height: 1em;
+                                                            }
+
+                                                            [dir="rtl"] .css-w4mzia-svgIcon {
+                                                                -webkit-transform: scale3d(-1, 1, 1);
+                                                                -moz-transform: scale3d(-1, 1, 1);
+                                                                -ms-transform: scale3d(-1, 1, 1);
+                                                                transform: scale3d(-1, 1, 1);
+                                                            }
+                                                        </style>
+                                                        <style data-emotion="css 1xnn9jb-inlineSVG-svgIcon">
+                                                            .css-1xnn9jb-inlineSVG-svgIcon {
+                                                                fill: currentColor;
+                                                                display: inline-block;
+                                                                overflow: visible;
+                                                                color: inherit;
+                                                                vertical-align: middle;
+                                                                line-height: 1;
+                                                                width: 1em;
+                                                                height: 1em;
+                                                            }
+
+                                                            [dir="rtl"] .css-1xnn9jb-inlineSVG-svgIcon {
+                                                                -webkit-transform: scale3d(-1, 1, 1);
+                                                                -moz-transform: scale3d(-1, 1, 1);
+                                                                -ms-transform: scale3d(-1, 1, 1);
+                                                                transform: scale3d(-1, 1, 1);
+                                                            }
+                                                        </style><svg name="IconArrowOpenEnd" viewBox="0 0 1920 1920"
+                                                            rotate="0" style="width:1em;height:1em" width="1em"
+                                                            height="1em" aria-hidden="true" role="presentation"
+                                                            focusable="false" class="css-1xnn9jb-inlineSVG-svgIcon">
+                                                            <g role="presentation">
+                                                                <path
+                                                                    d="M568.13.012 392 176.142l783.864 783.989L392 1743.87 568.13 1920l960.118-959.87z"
+                                                                    fill-rule="evenodd"></path>
+                                                            </g>
+                                                        </svg>
+                                                    </span>
+                                                    <style data-emotion="css 1sr5vj2-screenReaderContent">
+                                                        .css-1sr5vj2-screenReaderContent {
+                                                            width: 0.0625rem;
+                                                            height: 0.0625rem;
+                                                            margin: -0.0625rem;
+                                                            padding: 0;
+                                                            position: absolute;
+                                                            top: 0;
+                                                            inset-inline-start: 0;
+                                                            overflow: hidden;
+                                                            clip: rect(0 0 0 0);
+                                                            border: 0;
+                                                        }
+                                                    </style><span
+                                                        class="css-1sr5vj2-screenReaderContent">Column-specific
+                                                        filtering options</span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </button>
+                                </span>
+                                <style data-emotion="css 1om0ud7-flexItem">
+                                    .css-1om0ud7-flexItem {
+                                        box-sizing: border-box;
+                                        min-width: 0.0625rem;
+                                        -webkit-flex-shrink: 1;
+                                        -ms-flex-negative: 1;
+                                        flex-shrink: 1;
+                                        -webkit-box-flex: 1;
+                                        -webkit-flex-grow: 1;
+                                        -ms-flex-positive: 1;
+                                        flex-grow: 1;
+                                    }
+                                </style>
+                                <style data-emotion="css 1pmkgi9-view-flexItem">
+                                    .css-1pmkgi9-view-flexItem {
+                                        box-sizing: border-box;
+                                        font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                        max-width: 100%;
+                                        overflow: visible;
+                                        box-sizing: border-box;
+                                        min-width: 0.0625rem;
+                                        -webkit-flex-shrink: 1;
+                                        -ms-flex-negative: 1;
+                                        flex-shrink: 1;
+                                        -webkit-box-flex: 1;
+                                        -webkit-flex-grow: 1;
+                                        -ms-flex-positive: 1;
+                                        flex-grow: 1;
+                                    }
+
+                                    .css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem.css-1pmkgi9-view-flexItem {
+                                        padding: 0 0 0 0.5rem;
+                                    }
+                                </style><span dir="ltr" class="css-1pmkgi9-view-flexItem">Filtering</span>
+                            </span><span id="Expandable_0"></span>
+                        </span><br />
+                        <p>No attendance records found.</p>
+                    </div>
+                    <div class="page-size-box"><label>Page Size:</label><select name="tourneyStyle">
+                            <option value="5"> <!-- -->5<!-- --> </option>
+                            <option value="10" selected=""> <!-- -->10<!-- --> </option>
+                            <option value="25"> <!-- -->25<!-- --> </option>
+                            <option value="50"> <!-- -->50<!-- --> </option>
+                            <option value="100"> <!-- -->100<!-- --> </option>
+                        </select></div>
+                    <div>
+                        <style data-emotion="css 1urq056-pagination">
+                            .css-1urq056-pagination {
+                                text-align: center;
+                            }
+                        </style>
+                        <style data-emotion="css ym92tg-view-pagination">
+                            .css-ym92tg-view-pagination {
+                                box-sizing: border-box;
+                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                max-width: 100%;
+                                overflow: visible;
+                                text-align: center;
+                            }
+
+                            .css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination.css-ym92tg-view-pagination {
+                                margin: 2.25rem 0.75rem 0.75rem;
+                            }
+                        </style>
+                        <nav dir="ltr" role="navigation" class="css-ym92tg-view-pagination">
+                            <style data-emotion="css 1gcax6y-pagination__pages">
+                                .css-1gcax6y-pagination__pages {
+                                    display: -webkit-inline-box;
+                                    display: -webkit-inline-flex;
+                                    display: -ms-inline-flexbox;
+                                    display: inline-flex;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                }
+                            </style>
+                            <style data-emotion="css ighgvd-view--inlineBlock-pagination__pages">
+                                .css-ighgvd-view--inlineBlock-pagination__pages {
+                                    box-sizing: border-box;
+                                    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                    max-width: 100%;
+                                    overflow: visible;
+                                    display: inline-block;
+                                    vertical-align: middle;
+                                    display: -webkit-inline-box;
+                                    display: -webkit-inline-flex;
+                                    display: -ms-inline-flexbox;
+                                    display: inline-flex;
+                                    -webkit-align-items: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    align-items: center;
+                                }
+                            </style><span dir="ltr" class="css-ighgvd-view--inlineBlock-pagination__pages">
+                                <style data-emotion="css 10c74cc-view--inlineBlock">
+                                    .css-10c74cc-view--inlineBlock {
+                                        box-sizing: border-box;
+                                        font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                        max-width: 100%;
+                                        overflow: visible;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                    }
+                                </style><span dir="ltr" class="css-10c74cc-view--inlineBlock"></span>
+                            </span>
+                        </nav>
+                    </div>
+                </div>
+                <div class="time-config-btn">
+                    <style data-emotion="css leb2mf-baseButton">
+                        .css-leb2mf-baseButton {
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            -ms-appearance: none;
+                            appearance: none;
+                            -webkit-text-decoration: none;
+                            text-decoration: none;
+                            touch-action: manipulation;
                         }
-                    )
-                }
-            )
-        })()
-    </script>
+
+                        .css-leb2mf-baseButton::-moz-focus-inner {
+                            border: 0;
+                        }
+
+                        .css-leb2mf-baseButton * {
+                            pointer-events: none;
+                        }
+
+                        .css-leb2mf-baseButton:active>[class$=-baseButton__content] {
+                            background: rgb(219, 219, 219);
+                            box-shadow: inset 0 0 0.1875rem 0.0625rem rgb(194, 194, 194);
+                        }
+
+                        .css-leb2mf-baseButton:hover>[class$=-baseButton__content] {
+                            background: rgb(219, 219, 219);
+                        }
+                    </style>
+                    <style data-emotion="css he6826-view--inlineBlock-baseButton">
+                        .css-he6826-view--inlineBlock-baseButton {
+                            box-sizing: border-box;
+                            font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                            max-width: 100%;
+                            overflow: visible;
+                            display: inline-block;
+                            vertical-align: middle;
+                            color: #2D3B45;
+                            background: none;
+                            position: relative;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            -ms-appearance: none;
+                            appearance: none;
+                            -webkit-text-decoration: none;
+                            text-decoration: none;
+                            touch-action: manipulation;
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton::before {
+                            pointer-events: none;
+                            content: "";
+                            position: absolute;
+                            border-style: solid;
+                            border-width: 0.125rem;
+                            border-color: #0374B5;
+                            opacity: 0;
+                            border-radius: calc(0.25rem + (0.3125rem - 0.125rem));
+                            top: calc(0.3125rem * -1);
+                            left: calc(0.3125rem * -1);
+                            right: calc(0.3125rem * -1);
+                            bottom: calc(0.3125rem* -1);
+                            -webkit-transition: all 0.2s;
+                            transition: all 0.2s;
+                            -webkit-transform: scale(0.95);
+                            -moz-transform: scale(0.95);
+                            -ms-transform: scale(0.95);
+                            transform: scale(0.95);
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton:focus {
+                            outline: none;
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton:focus::before {
+                            opacity: 1;
+                            -webkit-transform: scale(1);
+                            -moz-transform: scale(1);
+                            -ms-transform: scale(1);
+                            transform: scale(1);
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton.css-he6826-view--inlineBlock-baseButton {
+                            margin: 0;
+                            padding: 0;
+                            border-radius: 0.25rem;
+                            border-width: 0;
+                            width: auto;
+                            cursor: pointer;
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton::-moz-focus-inner {
+                            border: 0;
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton * {
+                            pointer-events: none;
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton:active>[class$=-baseButton__content] {
+                            background: rgb(219, 219, 219);
+                            box-shadow: inset 0 0 0.1875rem 0.0625rem rgb(194, 194, 194);
+                        }
+
+                        .css-he6826-view--inlineBlock-baseButton:hover>[class$=-baseButton__content] {
+                            background: rgb(219, 219, 219);
+                        }
+                    </style><button dir="ltr" cursor="pointer" type="button" tabindex="0"
+                        class="css-he6826-view--inlineBlock-baseButton">
+                        <style data-emotion="css z2mgls-baseButton__content">
+                            .css-z2mgls-baseButton__content {
+                                box-sizing: border-box;
+                                width: 100%;
+                                display: block;
+                                direction: inherit;
+                                -webkit-user-select: none;
+                                -moz-user-select: none;
+                                -ms-user-select: none;
+                                user-select: none;
+                                -webkit-transition: background 0.2s, -webkit-transform 0.2s;
+                                transition: background 0.2s, transform 0.2s;
+                                -webkit-transform: none;
+                                -moz-transform: none;
+                                -ms-transform: none;
+                                transform: none;
+                                font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                                font-weight: 400;
+                                text-transform: none;
+                                letter-spacing: normal;
+                                border-style: solid;
+                                border-width: 0.0625rem;
+                                border-radius: 0.25rem;
+                                line-height: 1.125;
+                                text-align: center;
+                                font-size: 1rem;
+                                padding-left: 0.75rem;
+                                padding-right: 0.75rem;
+                                color: #2D3B45;
+                                background: #F5F5F5;
+                                border-color: rgb(219, 219, 219);
+                            }
+
+                            .css-z2mgls-baseButton__content:hover {
+                                -webkit-transform: none;
+                                -moz-transform: none;
+                                -ms-transform: none;
+                                transform: none;
+                            }
+                        </style><span class="css-z2mgls-baseButton__content">
+                            <style data-emotion="css 11xkk0o-baseButton__children">
+                                .css-11xkk0o-baseButton__children {
+                                    display: block;
+                                    padding-top: 0.5625rem;
+                                    padding-bottom: 0.5625rem;
+                                }
+                            </style><span class="css-11xkk0o-baseButton__children">Show Time Config</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script id="__NEXT_DATA__" type="application/json"
+        crossorigin="">{"props":{"pageProps":{}},"page":"/","query":{},"buildId":"khYMxzl2ukQ8W54ay3ofj","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script>
 </body>
 
 </html>

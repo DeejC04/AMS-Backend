@@ -40,18 +40,18 @@ public class AutograderTests {
         reader.close();
 
         courseInfo.save(
-            new CourseInfo(
-                1234L, "CSE205", "COOR170",
-                List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
-                LocalTime.of(9, 30), LocalTime.of(10,  30))
-        );
+                    new CourseInfo(
+                        85L, 77L, "CSE110", "COOR170",
+                        List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY),
+                        LocalTime.of(12, 15), LocalTime.of(13,  5))
+                );
     }
 
     // @Test
-	void TestAssignmentGrader() throws IOException {        
-        for (AttendanceRecord log : attendanceRepo.findAll()) {
-            System.out.println(log);
-        }
-        autograder.gradeAssignments();
-	}
+	// void TestAssignmentGrader() throws IOException {        
+    //     for (AttendanceRecord log : attendanceRepo.findAll()) {
+    //         System.out.println(log);
+    //     }
+    //     autograder.gradeAssignments();
+	// }
 }
