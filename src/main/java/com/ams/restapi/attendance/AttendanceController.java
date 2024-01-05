@@ -36,14 +36,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.restapi.attendance.AttendanceRecord.AttendanceType;
 import com.ams.restapi.courseInfo.CourseInfoRepository;
-import com.ams.restapi.lti.LTILaunchController;
 import com.ams.restapi.timeConfig.DateSpecificTimeConfig;
 import com.ams.restapi.timeConfig.DateSpecificTimeRepository;
 import com.ams.restapi.timeConfig.TimeConfig;
 
-import edu.ksu.lti.launch.exception.NoLtiSessionException;
-import edu.ksu.lti.launch.model.LtiSession;
-import edu.ksu.lti.launch.service.LtiSessionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -75,9 +71,6 @@ class AttendanceController {
 
     private static final Logger LOG = LogManager.getLogger(AttendanceController.class);
 
-    @Autowired
-    public LtiSessionService ltiSessionService;
-    
     // Multi-item
 
     @GetMapping("/attendance")
@@ -91,16 +84,14 @@ class AttendanceController {
         @RequestParam("page") int page,
         @RequestParam("size") int size,
         @RequestParam("sortBy") Optional<String> sortBy,
-        @RequestParam("sortType") Optional<String> sortType) throws NoLtiSessionException {
+        @RequestParam("sortType") Optional<String> sortType) {
 
             boolean anonymous = true;
             try {
-                LtiSession ltiSession = ltiSessionService.getLtiSession();
             // if (ltiSession.getEid() == null || ltiSession.getEid().isEmpty()) {
             //     throw new AccessDeniedException("You cannot access this content without a valid session");
             // }
 
-                LOG.info("Attendance Records Accessed By: " + ltiSession.getEid());
             } catch(Exception e) {
                 anonymous = false;
             }
