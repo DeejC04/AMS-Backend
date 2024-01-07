@@ -36,7 +36,7 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.POST, "/attendance").permitAll();
                 auth.anyRequest().authenticated();
             })
-            .csrf(csrf -> csrf.requireCsrfProtectionMatcher(new CsrfPostRequestMatcher()))
+            .csrf().disable()
             .oauth2Login(oauth2 -> oauth2
                 .userInfoEndpoint(userInfo -> userInfo
                     .oidcUserService(customOidcUserService)
