@@ -42,3 +42,6 @@ src/main/resources/application.properties
 
 .env
 .DS_Store
+admin_emails.csv
+sections.csv
+valid-esptokens.csv
