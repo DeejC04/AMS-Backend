@@ -8,17 +8,13 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
-
 @Service
 public class AdminEmailService {
-    private static final String ADMIN_EMAILS_FILE = "admin_emails.csv";
     private Set<String> adminEmails = new HashSet<>();
 
-    @PostConstruct
-    public void init() {
-        try (BufferedReader br = new BufferedReader(new FileReader(ADMIN_EMAILS_FILE))) {
-            String line;
+    public AdminEmailService() {
+        String line;
+        try (BufferedReader br = new BufferedReader(new FileReader("admin_emails.csv"))) {
             while ((line = br.readLine()) != null) {
                 adminEmails.add(line.trim());
             }

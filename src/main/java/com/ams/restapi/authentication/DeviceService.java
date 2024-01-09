@@ -14,10 +14,6 @@ public class DeviceService {
     private Set<String> validTokens = new HashSet<>();
 
     public DeviceService() {
-        loadValidTokensFromFile();
-    }
-
-    private void loadValidTokensFromFile() {
         String line;
         try (BufferedReader br = new BufferedReader(new FileReader("valid-esptokens.csv"))) {
             while ((line = br.readLine()) != null) {

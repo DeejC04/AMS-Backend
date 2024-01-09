@@ -1,6 +1,5 @@
 package com.ams.restapi.authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,8 +11,12 @@ import java.util.Set;
 
 public class CustomJwtGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
-    @Autowired
-    private AdminEmailService adminEmailService;
+    
+    private final AdminEmailService adminEmailService;
+
+    public CustomJwtGrantedAuthoritiesConverter(AdminEmailService adminEmailService) {
+        this.adminEmailService = adminEmailService;
+    }
 
     @Override
     public Collection<GrantedAuthority> convert(Jwt jwt) {

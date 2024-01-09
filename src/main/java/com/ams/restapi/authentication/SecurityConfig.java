@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -23,6 +22,9 @@ public class SecurityConfig {
 
     @Autowired
     private DeviceService deviceService;
+
+    @Autowired
+    private AdminEmailService adminEmailService;
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,6 +36,9 @@ public class SecurityConfig {
                 auth.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
                 auth.requestMatchers("/sections").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                 auth.requestMatchers(HttpMethod.POST, "/attendance").permitAll();
+                auth.requestMatchers(HttpMethod.POST, "/readers").permitAll();
+                auth.requestMatchers(HttpMethod.GET, "/readers").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
+                auth.requestMatchers(HttpMethod.PUT, "/readers").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                 auth.anyRequest().authenticated();
             })
             .csrf().disable()
@@ -50,7 +55,7 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
-        jwtConverter.setJwtGrantedAuthoritiesConverter(new CustomJwtGrantedAuthoritiesConverter());
+        jwtConverter.setJwtGrantedAuthoritiesConverter(new CustomJwtGrantedAuthoritiesConverter(adminEmailService));
         return jwtConverter;
     }
 }

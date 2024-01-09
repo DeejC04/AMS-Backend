@@ -23,7 +23,8 @@ public class CustomDeviceAuthenticationFilter extends OncePerRequestFilter {
 
         String token = request.getHeader("X-Custom-Token");
 
-        if ("/attendance".equals(request.getRequestURI()) && "POST".equalsIgnoreCase(request.getMethod())) {
+        if (("/attendance".equals(request.getRequestURI()) && "POST".equalsIgnoreCase(request.getMethod())) 
+        || ("/readers".equals(request.getRequestURI()) && "POST".equalsIgnoreCase(request.getMethod()))) {
             if (!deviceService.validateDevice(token)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Invalid token");
