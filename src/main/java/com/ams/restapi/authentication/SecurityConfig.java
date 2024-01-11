@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     @Autowired
     private AdminEmailService adminEmailService;
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -39,9 +39,12 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.POST, "/readers").permitAll();
                 auth.requestMatchers(HttpMethod.GET, "/readers").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                 auth.requestMatchers(HttpMethod.PUT, "/readers").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
+                auth.requestMatchers("/esp/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                 auth.anyRequest().authenticated();
             })
-            .csrf().disable()
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/readers/**")
+            )
             .oauth2Login(oauth2 -> oauth2
                 .userInfoEndpoint(userInfo -> userInfo
                     .oidcUserService(customOidcUserService)
