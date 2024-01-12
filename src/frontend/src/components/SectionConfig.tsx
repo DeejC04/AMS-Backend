@@ -31,7 +31,7 @@ const SectionConfig = () => {
         .get("https://api.ams-lti.com/courseInfo/" + courseID)
         .then((res) => {
           const fetchedCourse = res.data as CourseInfo;
-
+          console.log(fetchedCourse)
           setCurrCourse(fetchedCourse);
           setInputCourse(fetchedCourse);
         })
@@ -169,17 +169,18 @@ const SectionConfig = () => {
       </div>
       <div className="specific-config-box">
         <div className="wrapper">
-          <label>Section Name: </label>
+          <label htmlFor="sectionName">Section Name: </label>
           &nbsp;&nbsp;
-          <select>
+          <select id="sectionName">
             <option value="sectionA">Section A</option>
             <option value="sectionB">Section B</option>
           </select>
         </div>
         <div className="wrapper">
-          <label>Location: </label>
+          <label htmlFor="location">Location: </label>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <TextInput
+            id="location"
             className="wrapper-text"
             onChange={(event, value) => {
               setInputCourse((prevData: CourseInfo | undefined) => {
@@ -193,9 +194,9 @@ const SectionConfig = () => {
           />
         </div>
         <div className="wrapper">
-          <label>Weekdays: </label>
+          <label htmlFor="weekdays">Weekdays: </label>
           &nbsp;&nbsp;&nbsp;
-          <div className="week-days-container">
+          <div id="weekdays" className="week-days-container">
             {days.map((day, index) => (
               <button
                 key={day}
@@ -210,7 +211,7 @@ const SectionConfig = () => {
           </div>
         </div>
         <div className="wrapper">
-          <label>Start Time: </label>
+          <label htmlFor="startTime">Start Time: </label>
           &nbsp;&nbsp;
           <TimeSelect
             renderLabel=""
@@ -231,7 +232,7 @@ const SectionConfig = () => {
           />
         </div>
         <div className="wrapper">
-          <label>End Time: </label>
+          <label htmlFor="endTime">End Time: </label>
           &nbsp;&nbsp;&nbsp;
           <TimeSelect
             renderLabel=""
