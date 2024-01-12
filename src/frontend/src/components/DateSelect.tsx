@@ -232,6 +232,7 @@ export class DateSelect extends React.Component<DateSelectProps, DateSelectState
       />
         <DateInput
           renderLabel=""
+          aria-label="section date selector"
           assistiveText="Type a date or use arrow keys to navigate date picker."
           value={value}
           onChange={this.handleChange}

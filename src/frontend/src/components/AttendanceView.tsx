@@ -126,7 +126,7 @@ const AttendanceView = () => {
                     setPages(p);
                 })
                 .catch((err) => {
-                    console.error("Error fetching attendance:", err);
+                    // Not considered an error since it's marked as "No attendance records found" state
                     setAttendanceData([]);
                 });
         };
@@ -370,6 +370,7 @@ const AttendanceView = () => {
                 <br/>
                 {attendanceData.length > 0 ? (
                     <SortableTable
+                        aria-label="attendance view table records"
                         layout="auto"
                         caption="Sortable table with attendance records"
                         headers={[
