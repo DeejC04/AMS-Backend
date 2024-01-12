@@ -38,8 +38,6 @@ out/
 .vscode/
 
 ### Preserve H2 Database ###
-src/main/resources/application.properties
-
 .env
 .DS_Store
 
@@ -76,3 +74,5 @@ src/frontend/.vercel
 # typescript
 src/frontend/*.tsbuildinfo
 src/frontend/next-env.d.ts
+*.csv
+*.p12

@@ -79,7 +79,7 @@ class AttendanceController {
         @RequestParam("size") int size,
         @RequestParam("sortBy") Optional<String> sortBy,
         @RequestParam("sortType") Optional<String> sortType) {
-
+            
             if (room == null || room.isEmpty() || date == null || date.isEmpty())
                 throw new AttendanceRecordPostInvalidException("Missing some/all required fields");
             Pageable pageable = PageRequest.of(page, size);

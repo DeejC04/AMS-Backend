@@ -13,8 +13,13 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.1.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.security:spring-security-oauth2-client'
+	implementation 'org.springframework.security:spring-security-oauth2-jose'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.postgresql:postgresql:42.6.0'
 	implementation 'edu.ksu.canvas:canvas-api:2.0.0'
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
