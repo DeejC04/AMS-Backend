@@ -1,24 +1,17 @@
 package com.ams.restapi.authentication;
 
-import java.util.List;
-import java.util.Set;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class GoogleOAuthController {
@@ -32,25 +25,15 @@ public class GoogleOAuthController {
     @Autowired
     private SectionRepository sectionRepository;
 
-    @GetMapping("/")
-    public String home() {
-        return "Hello World";
-    }
-
     @GetMapping("/csrf")
     public @ResponseBody String getCsrfToken(HttpServletRequest request) {
         CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         return csrf.getToken();
     }
 
-    @GetMapping("/secure")
-    public String secured(){
-        return "index";
-    }
-
     @GetMapping("/websocket")
     public String webSocket(){
-        return "webSocket";
+        return "webSocket.html";
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

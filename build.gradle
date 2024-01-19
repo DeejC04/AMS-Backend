@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.1.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -28,6 +27,38 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+task cleanStatic(type: Delete) {
+	delete 'src/main/resources/static'
+}
+
+task buildFrontend(type: Exec) {
+	workingDir 'src/frontend'
+	commandLine 'npm', 'run', 'build'
+}
+
+task setupFrontend(type: Exec){
+	workingDir 'src/frontend'
+	commandLine 'npm', 'install'
+}
+
+task copyFrontendBuildToResources(type: Copy) {
+	dependsOn cleanStatic
+	from 'src/frontend/out'
+	into 'src/main/resources/static'
+}
+
+processResources {
+	dependsOn copyFrontendBuildToResources
+}
+
+// Configure bootRun to depend on frontend tasks
+bootRun {
+	dependsOn buildFrontend
+	dependsOn copyFrontendBuildToResources
+}
+
+build.dependsOn buildFrontend, copyFrontendBuildToResources
 
 tasks.named('test') {
 	useJUnitPlatform()

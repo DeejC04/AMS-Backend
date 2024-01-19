@@ -31,8 +31,6 @@ public class SecurityConfig {
         http
             .addFilterBefore(new CustomDeviceAuthenticationFilter(deviceService), UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("/").permitAll();
-                auth.requestMatchers("/favicon.ico").permitAll();
                 auth.requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
                 auth.requestMatchers("/sections").hasAnyAuthority("ROLE_ADMIN", "ROLE_INSTRUCTOR");
                 auth.requestMatchers(HttpMethod.POST, "/attendance").permitAll();
