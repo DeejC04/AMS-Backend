@@ -1,0 +1,615 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    background-color: rgb(205, 31, 31);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.filter-btn {
+    background: rgb(0, 143, 5);
+    margin: 1rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    color: rgb(252, 248, 248);
+}
+
+.filter-clr {
+    margin-left: 0.2rem;
+    background: rgb(42, 111, 249);
+}
+
+
+.tableRowAnimation {
+    animation: tableRowAnimation 1s;
+    animation-fill-mode: both;
+}
+
+.error-msg {
+    position: absolute;
+    top: 14.5rem;
+    font-size: 0.6rem;
+    color: red;
+}
+
+.date-input-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: black;
+    margin: 5px 10px 0;
+}
+
+.date-input-box > .triangle-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    font-size: 1.8rem;
+}
+
+.date-input-box > .triangle-button > :hover {
+    cursor: pointer;
+}
+
+.page-size-box {
+    margin-top: 15px;
+    margin-left: 15px;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 4px;
+    width: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.page-size-box label {
+    margin: 3px;
+    font-size: 1rem;
+    color: black;
+}
+
+.page-size-box select {
+    width: 3.5rem;
+    font-size: 1rem;
+    border: solid 1px lightgray;
+    border-radius: 4px;
+    text-align: center;
+    margin: 2px;
+    padding: 1px;
+    color: black;
+}
+
+.time-config-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    /* background-color: rgb(205, 31, 31); */
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.Pair-config-btn{
+    position: absolute;
+    top: 1rem;
+    right: 12rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    /* background-color: rgb(205, 31, 31); */
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.pair-list-items {
+    color: rgb(54, 60, 129);
+    background-color: rgb(230, 243, 255);
+    border: 1px solid rgb(230, 243, 255);
+    border-radius: 5px;
+    padding: 0.5rem 1.5rem;
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Optional: align items vertically */
+}
+.pair-list-items button:not([disabled]) {
+    background-color: transparent;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: cornflowerblue;
+    font-size: 12px;
+}
+.pair-list-items button{
+    background-color: transparent;
+    border: 1px solid rgb(148, 148, 150);
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: rgb(148, 148, 150);
+    font-size: 12px;
+    width: 5rem;
+}
+.pair-list-items button:hover:not([disabled]) {
+    background-color: cornflowerblue;
+    color: whitesmoke;
+}
+.status-paired {
+    font-size: 11px;
+    color: rgb(13, 176, 13);
+}
+  
+.status-unpaired {
+    font-size: 11px;
+    color: red;
+}
+  
+.status-maintenance {
+    font-size: 11px;
+    color: rgb(246, 208, 58);
+}
+
+.custom-section-select{
+    position: absolute;
+    top: -3.25rem;
+    left: 1rem;
+    width: 11rem;
+}
+
+.btn-box {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    width: 165px;
+    margin-left: auto;
+    /*background-color: red;*/
+}
+
+.btn-box button span {
+    transition: all 0.1s ease 0s;
+    opacity: 1 !important;
+}
+
+.btn-box button:disabled span {
+    opacity: .75 !important;
+}
+
+.time-select {
+    background-color: rgb(210, 208, 208);
+}
+
+/*DateSlider styles*/
+
+.slider-container {
+    padding: 0 50px;
+    position: relative;
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.1s ease 0s;
+}
+
+.slider-container.disabled {
+    opacity: .4;
+    pointer-events: none;
+}
+
+.horizontal-slider {
+    width: 100%;
+    max-width: 500px;
+    height: 70px;
+}
+
+.horizontal-slider::before {
+    content: "";
+    background-color: #05bb05;
+    position: absolute;
+    left: -50px;
+    top: 55px;
+    width: calc(100% + 100px);
+    height: 4px;
+    cursor: pointer;
+}
+
+.thumb {
+    width: 17px;
+    height: 17px;
+    top: 48px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border: 1px solid #bdbdbd !important;
+    border-radius: .25rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.thumb::after {
+    content: "";
+    position: absolute;
+    inset: -0.3rem;
+    box-sizing: border-box;
+    border-radius: calc(.5rem);
+    border: 0.125rem solid rgb(3, 116, 181);
+    transition: all 0.2s ease 0s;
+    transform: scale(.75);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.active.thumb::after {
+    content: "";
+    position: absolute;
+    inset: -0.3rem;
+    box-sizing: border-box;
+    border-radius: calc(.5rem);
+    border: 0.125rem solid rgb(3, 116, 181);
+    transition: all 0.2s ease 0s;
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.thumb-hover-area {
+    position: absolute;
+    z-index: 4;
+    left: -3px;
+    top: -45px;
+    width: 20px;
+    height: 70px;
+}
+
+.thumb-hover-area:active, .horizontal-slider:active .thumb-hover-area:hover {
+    left: -420px;
+    top: -45px;
+    width: 1000px;
+    height: 70px;
+}
+
+.time-tooltip {
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    top: -40px;
+    left: -33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    font-size: 15px;
+    color: #2D3B45;
+    border: 1px solid #C7CDD1;
+    border-radius: 5px;
+}
+
+.time-tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 27px; /* At the bottom of the tooltip */
+    left: 41px;
+    margin-left: -8px;
+    border-width: 7px;
+    border-top-width: 9px;
+    border-style: solid;
+    border-color: whitesmoke transparent transparent transparent;
+}
+
+.time-tooltip::before {
+    content: " ";
+    position: absolute;
+    top: 27px; /* At the bottom of the tooltip */
+    left: 41px;
+    margin-left: -9px;
+    border-width: 8px;
+    border-top-width: 10px;
+    border-style: solid;
+    border-color: #C7CDD1 transparent transparent transparent;
+    z-index: -1;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 55px;
+    height: 4px;
+}
+
+.track::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 150%;
+}
+
+.track.track-0 {
+    background: #05bb05;
+}
+
+.track.track-1 {
+    background: #e5e500;
+}
+
+.track.track-2 {
+    background: #da0000;
+}
+
+.track.track-3 {
+    background: #05bb05;
+}
+
+.track-hover-area {
+    justify-content: center;
+    position: absolute;
+    z-index: 1 !important;
+    width: 100%;
+    height: 70px;
+    top: -50px;
+    right: 0;
+}
+
+.track-hover-area.track-hover-area-0 {
+    width: calc(100% + 50px);
+    left: -50px;
+}
+
+.track-hover-area.track-hover-area-3 {
+    width: calc(100% + 50px);
+    right: -50px;
+}
+
+.track-tooltip-container {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    justify-content: center;
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 30px;
+    right: 0;
+    top: 15px;
+    transition: visibility 0.1s ease, opacity 0.1s ease;
+    pointer-events: none;
+}
+
+.track-tooltip-container.hovered {
+    visibility: visible;
+    opacity: 1;
+}
+
+.track-tooltip-container.track-tooltip-container-0 {
+    width: calc(100% + 50px);
+    left: -50px;
+}
+
+.track-tooltip-container.track-tooltip-container-3 {
+    width: calc(100% + 50px);
+    right: -50px;
+}
+
+.track-tooltip {
+    width: 100px;
+    min-width: 100px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    font-size: 13px;
+    color: #2D3B45;
+    cursor: pointer;
+    border: 1px solid #C7CDD1;
+    border-radius: 5px;
+}
+
+.track-tooltip.track-tooltip-0 {
+    background-color: #ecf8ec;
+}
+
+.track-tooltip.track-tooltip-1 {
+    background-color: #f6f6ed;
+}
+
+.track-tooltip.track-tooltip-2 {
+    background-color: #f8f2f2;
+}
+
+.track-tooltip.track-tooltip-3 {
+    background-color: #ecf8ec;
+}
+
+.track-tooltip::after {
+    content: " ";
+    position: absolute;
+    top: -15px;
+    border-width: 7px;
+    border-bottom-width: 9px;
+    border-style: solid;
+    border-color: transparent transparent whitesmoke transparent;
+    z-index: 1;
+}
+
+.track-tooltip.track-tooltip-0::after {
+    border-color: transparent transparent #ecf8ec transparent;
+}
+
+.track-tooltip.track-tooltip-1::after {
+    border-color: transparent transparent #f6f6ed transparent;
+}
+
+.track-tooltip.track-tooltip-2::after {
+    border-color: transparent transparent #f8f2f2 transparent;
+}
+
+.track-tooltip.track-tooltip-3::after {
+    border-color: transparent transparent #ecf8ec transparent;
+}
+
+.track-tooltip::before {
+    content: " ";
+    position: absolute;
+    top: -17px;
+    border-width: 8px;
+    border-bottom-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #C7CDD1 transparent;
+}
+
+/* SpecConfigBox styles */
+.expand-label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    /* background-color: red; */
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 10px;
+    color: #2D3B45;
+}
+
+.expand-label > span {
+    font-size: 2rem;
+    margin: auto;
+}
+
+.specific-config-box {
+    border: solid 1px #C7CDD1;
+    border-radius: 5px;
+}
+
+.spec-btn-sect {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+
+.use-default-checkbox {
+    display: flex;
+    align-items: center;
+    margin-left: 13px;
+}
+
+.use-default-checkbox input {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.use-default-checkbox label {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+}
+
+.use-default-checkbox input:checked + label {
+    color: #007bff;
+}
+
+/* Section Config */
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: red; */
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.wrapper > select {
+    width: 25rem;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 4px;
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    font-size: 1rem;
+    border: solid 1px lightgray;
+}
+
+.wrapper > label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: auto;
+}
+
+.wrapper-text {
+    width: 1rem;
+}
+
+.week-days-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* height: 100px; */
+    /* background-color: red; */
+    width: 19rem;
+}
+
+.day-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.day-circle:hover {
+    background-color: rgb(94, 163, 210);
+    border: solid 1px black;
+}
+
+.highlight {
+    background-color: rgb(94, 163, 210); /* Use any color of your choice for highlighting */
+}
+
+@keyframes tableRowAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

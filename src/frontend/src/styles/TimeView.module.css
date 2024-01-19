@@ -1,0 +1,32 @@
+.table {
+  margin: 1rem;
+}
+
+.grid {
+  color: black;
+  background-color: whitesmoke;
+}
+.grid tr > th {
+  padding: 0.5rem;
+  text-align: center;
+}
+.grid tr > td {
+  padding: 0.35rem;
+  height: 4.5rem;
+}
+.grid tr > td select {
+  align-self: center;
+  width: 100%;
+  height: 2rem;
+  padding: 0.25rem;
+}
+.grid tr > td > p {
+  padding: 0.5rem;
+}
+
+.date-input-box {
+  display: flex;
+  flex-direction: row;
+  background-color: blueviolet;
+  color: black;
+}/*# sourceMappingURL=TimeView.module.css.map */

@@ -1,0 +1,36 @@
+.table {
+  margin: 1rem;
+}
+
+.grid {
+  tr {
+    > th {
+      padding: 0.5rem;
+      text-align: center;
+      // color: red;
+    }
+    > td {
+      padding: 0.35rem;
+      height: 4.5rem;
+      select {
+        align-self: center;
+        width: 100%;
+        height: 2rem;
+        padding: 0.25rem;
+      }
+      > p {
+        padding: 0.5rem;
+      }
+    }
+  }
+  color: black;
+  background-color: whitesmoke;
+}
+
+.date-input-box{
+  display: flex;
+  flex-direction: row;
+  background-color: blueviolet;
+  color: black;
+  color: #42404e;
+}
