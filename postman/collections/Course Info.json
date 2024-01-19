@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "d33b0900-8c2f-4cf9-9b5d-1d3a612e65d4",
+		"name": "Course Info",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "28784661-d33b0900-8c2f-4cf9-9b5d-1d3a612e65d4"
+	},
+	"item": [
+		{
+			"name": "Get Course Info By ID",
+			"id": "0df9f6cd-10eb-4b42-bbae-9728d2063d91",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/courseInfo/:courseID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courseInfo",
+						":courseID"
+					],
+					"variable": [
+						{
+							"id": "d8f42c8f-a79b-43c8-b811-0d5b7a889240",
+							"key": "courseID",
+							"value": "",
+							"description": "Course ID e.g. 1234"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "73db637f-abbc-4ffc-9649-5a0d60eec37b",
+					"name": "Get Course Info By ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/courseInfo/:courseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"courseInfo",
+								":courseID"
+							],
+							"variable": [
+								{
+									"id": "d8f42c8f-a79b-43c8-b811-0d5b7a889240",
+									"key": "courseID",
+									"value": "",
+									"description": "Course ID e.g. 1234"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2024 17:49:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"CSE205\",\n    \"room\": \"COOR170\",\n    \"daysOfWeek\": [\n        \"MONDAY\",\n        \"WEDNESDAY\",\n        \"FRIDAY\"\n    ],\n    \"startTime\": \"12:15:00\",\n    \"endTime\": \"13:05:00\",\n    \"defaultTimeConfig\": {\n        \"id\": null,\n        \"beginIn\": \"12:10:00\",\n        \"endIn\": \"12:20:00\",\n        \"endLate\": \"12:30:00\",\n        \"beginOut\": \"13:00:00\",\n        \"endOut\": \"13:10:00\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Put Course Info By ID",
+			"id": "83b31048-d782-4186-bacb-e60eb6311de5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/courseInfo/:courseID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courseInfo",
+						":courseID"
+					],
+					"variable": [
+						{
+							"id": "4d545138-df86-41bb-8b88-0dd7688aa1d8",
+							"key": "courseID",
+							"value": "",
+							"description": "Course ID e.g. 1234"
+						}
+					]
+				},
+				"description": "**Request Body**\n\nA JSON object with the properties to update the record with:\n\n| Property | Description |\n| --- | --- |\n| courseId: int | LMS Course ID |\n| courseName: str (unused) | Long name of the course |\n| room: str | Physical location of the course |\n| daysOfWeek: arr | list of enum \\[”MONDAY”, “TUESDAY”, “WEDNESDAY”, “THURSDAY’, “FRIDAY”\\] |\n| startTime | HH:MM:SS (seconds can be omitted) |\n| endTime | HH:MM:SS (seconds can be omitted) |"
+			},
+			"response": [
+				{
+					"id": "51e4373d-6f79-455b-a6cc-ce565a3a894d",
+					"name": "Put Course Info By ID",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/courseInfo/:courseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"courseInfo",
+								":courseID"
+							],
+							"variable": [
+								{
+									"id": "4d545138-df86-41bb-8b88-0dd7688aa1d8",
+									"key": "courseID",
+									"value": "",
+									"description": "Course ID e.g. 1234"
+								}
+							]
+						},
+						"description": "**Request Body**\n\nA JSON object with the properties to update the record with:\n\n| Property | Description |\n| --- | --- |\n| courseId: int | LMS Course ID |\n| courseName: str (unused) | Long name of the course |\n| room: str | Physical location of the course |\n| daysOfWeek: arr | list of enum \\[”MONDAY”, “TUESDAY”, “WEDNESDAY”, “THURSDAY’, “FRIDAY”\\] |\n| startTime | HH:MM:SS (seconds can be omitted) |\n| endTime | HH:MM:SS (seconds can be omitted) |"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2024 17:52:04 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": null,\n    \"room\": \"COOR170\",\n    \"daysOfWeek\": [\n        \"MONDAY\",\n        \"WEDNESDAY\",\n        \"FRIDAY\"\n    ],\n    \"startTime\": \"09:30:00\",\n    \"endTime\": \"10:30:00\",\n    \"defaultTimeConfig\": {\n        \"id\": null,\n        \"beginIn\": \"09:25:00\",\n        \"endIn\": \"09:35:00\",\n        \"endLate\": \"09:45:00\",\n        \"beginOut\": \"10:25:00\",\n        \"endOut\": \"10:35:00\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Course Info By ID",
+			"id": "0bc2ff66-7655-4ee9-a125-28676c2f4b70",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/courseInfo/:courseID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"courseInfo",
+						":courseID"
+					],
+					"variable": [
+						{
+							"id": "859ab333-5352-4a5f-8d62-31a1980554e7",
+							"key": "courseID",
+							"value": "",
+							"description": "Course ID e.g. 1234"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "572c4ffd-4a11-46da-9818-4bec918df6f6",
+					"name": "New Request",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/courseInfo/:courseID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"courseInfo",
+								":courseID"
+							],
+							"variable": [
+								{
+									"id": "859ab333-5352-4a5f-8d62-31a1980554e7",
+									"key": "courseID",
+									"value": "",
+									"description": "Course ID e.g. 1234"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "28"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 19 Jan 2024 17:56:38 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Deleted course info log 1234"
+				}
+			]
+		}
+	]
+}

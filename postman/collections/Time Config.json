@@ -1,0 +1,460 @@
+{
+	"info": {
+		"_postman_id": "6e6f1607-5cbe-4e79-806c-e28f31ffc3aa",
+		"name": "Time Config",
+		"description": "Various operations for retrieving and manipulating time configs and their information",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "28784661-6e6f1607-5cbe-4e79-806c-e28f31ffc3aa"
+	},
+	"item": [
+		{
+			"name": "Time Config By Section ID",
+			"item": [
+				{
+					"name": "Get Time Config By Section ID",
+					"id": "bbd9ead1-8152-4c17-bb78-d96ecb9ee7c0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/attendance/:sectionID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance",
+								":sectionID"
+							],
+							"variable": [
+								{
+									"id": "84db1bc2-d868-43d3-b0b8-f448264779df",
+									"key": "sectionID",
+									"value": "",
+									"description": "(Required) Section ID e.g. 1234"
+								}
+							]
+						},
+						"description": "Retrieves time configuration for a specific course"
+					},
+					"response": [
+						{
+							"id": "87d6411e-4086-4a73-aa91-02d39b6f43bb",
+							"name": "Get Time Config By Section ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/attendance/:sectionID",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"attendance",
+										":sectionID"
+									],
+									"variable": [
+										{
+											"id": "84db1bc2-d868-43d3-b0b8-f448264779df",
+											"key": "sectionID",
+											"value": "",
+											"description": "(Required) Section ID e.g. 1234"
+										}
+									]
+								},
+								"description": "Retrieves time configuration for a specific course"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 17:03:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": null,\n    \"beginIn\": \"12:10:00\",\n    \"endIn\": \"12:20:00\",\n    \"endLate\": \"12:30:00\",\n    \"beginOut\": \"13:00:00\",\n    \"endOut\": \"13:10:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Put Time Config By Section ID",
+					"id": "faa721e4-3cfe-4f07-b2a9-f3cdf834d1dc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"beginIn\": \"10:55\",\n\t\"endIn\": \"11:05\",\n\t\"endLate\": \"11:15\",\n\t\"beginOut\": \"11:55\",\n\t\"endOut\": \"12:15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/timeConfig/:sectionID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timeConfig",
+								":sectionID"
+							],
+							"variable": [
+								{
+									"id": "3abf258d-3940-45d6-9b00-f5ea6838192d",
+									"key": "sectionID",
+									"value": "",
+									"description": "(Required) Course ID e.g. 1234"
+								}
+							]
+						},
+						"description": "Updates time config of course based on ID.\n\n**Request Body**\n\nAn **array** of **objects** with the properties:\n\n| **Property** | **Value** |\n| --- | --- |\n| beginIn | HH:MM:SS time of day that check-ins begin being considered valid |\n| endIn | HH:MM:SS time of day that check-ins stop being considered valid |\n| endLate | HH:MM:SS time of day that check-ins stop being considered late |\n| beginOut | HH:MM:SS time of day that check-outs start being considered valid |\n| endOut | HH:MM:SS time of day that check-outs stop being considered valid |"
+					},
+					"response": [
+						{
+							"id": "a72e3bd2-e42e-4b56-98fb-650967e7a49a",
+							"name": "Put Time Config By Section ID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"beginIn\": \"10:55\",\n\t\"endIn\": \"11:05\",\n\t\"endLate\": \"11:15\",\n\t\"beginOut\": \"11:55\",\n\t\"endOut\": \"12:15\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/timeConfig/:sectionID",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"timeConfig",
+										":sectionID"
+									],
+									"variable": [
+										{
+											"id": "3abf258d-3940-45d6-9b00-f5ea6838192d",
+											"key": "sectionID",
+											"value": "",
+											"description": "(Required) Course ID e.g. 1234"
+										}
+									]
+								},
+								"description": "Updates time config of course based on ID.\n\n**Request Body**\n\nAn **array** of **objects** with the properties:\n\n| **Property** | **Value** |\n| --- | --- |\n| beginIn | HH:MM:SS time of day that check-ins begin being considered valid |\n| endIn | HH:MM:SS time of day that check-ins stop being considered valid |\n| endLate | HH:MM:SS time of day that check-ins stop being considered late |\n| beginOut | HH:MM:SS time of day that check-outs start being considered valid |\n| endOut | HH:MM:SS time of day that check-outs stop being considered valid |"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 17:05:42 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": null,\n    \"beginIn\": \"10:55:00\",\n    \"endIn\": \"11:05:00\",\n    \"endLate\": \"11:15:00\",\n    \"beginOut\": \"11:55:00\",\n    \"endOut\": \"12:15:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Time Config By Section ID",
+					"id": "c7bfc3af-c8a5-4577-94c2-0a894655fa71",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/timeConfig/:sectionID",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timeConfig",
+								":sectionID"
+							],
+							"variable": [
+								{
+									"id": "add6b471-092d-41fc-a46f-16501f21bba5",
+									"key": "sectionID",
+									"value": "",
+									"description": "Section ID e.g. 1234"
+								}
+							]
+						},
+						"description": "Resets the time configuration for a specific course"
+					},
+					"response": [
+						{
+							"id": "b20796c7-e3f4-4f8d-9054-db57432c77a8",
+							"name": "Delete Time Config By Section ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/timeConfig/:sectionID",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"timeConfig",
+										":sectionID"
+									],
+									"variable": [
+										{
+											"id": "add6b471-092d-41fc-a46f-16501f21bba5",
+											"key": "sectionID",
+											"value": "",
+											"description": "Section ID e.g. 1234"
+										}
+									]
+								},
+								"description": "Resets the time configuration for a specific course"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 17:14:49 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": null,\n    \"beginIn\": \"12:10:00\",\n    \"endIn\": \"12:20:00\",\n    \"endLate\": \"12:30:00\",\n    \"beginOut\": \"13:00:00\",\n    \"endOut\": \"13:10:00\"\n}"
+						}
+					]
+				}
+			],
+			"id": "8a212ce2-cf48-4eef-9bef-5885440263dd",
+			"description": "Using section ID to retrieve/manipulate time configs"
+		},
+		{
+			"name": "Time Config By Date",
+			"item": [
+				{
+					"name": "Get Time Config By Date",
+					"id": "93f31c6d-5663-4987-9384-3c1ab66c29d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/timeConfig/:sectionID/:date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timeConfig",
+								":sectionID",
+								":date"
+							],
+							"variable": [
+								{
+									"id": "18a110ff-b012-4f63-b296-a386848f0c86",
+									"key": "sectionID",
+									"value": ""
+								},
+								{
+									"id": "2975d0b2-0af9-40c2-a48a-d851ab31220e",
+									"key": "date",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Time Config By Date",
+					"id": "0ad40109-7766-48bb-9a77-b9e6861513ef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/timeConfig/:sectionID/:date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timeConfig",
+								":sectionID",
+								":date"
+							],
+							"variable": [
+								{
+									"id": "c73ad472-f406-43b3-8fef-827cff1f538b",
+									"key": "sectionID",
+									"value": ""
+								},
+								{
+									"id": "a8140a69-c582-4cb7-9bae-1e8ccbebaebb",
+									"key": "date",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Time Config By Date",
+					"id": "0fe3c3b9-979d-4c28-9d2d-62fc24998bd0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/timeConfig/:sectionID/:date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"timeConfig",
+								":sectionID",
+								":date"
+							],
+							"variable": [
+								{
+									"id": "c73ad472-f406-43b3-8fef-827cff1f538b",
+									"key": "sectionID",
+									"value": ""
+								},
+								{
+									"id": "a8140a69-c582-4cb7-9bae-1e8ccbebaebb",
+									"key": "date",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "33db1fe8-4c63-4544-87af-30259a49822a",
+			"description": "N/A for these requests"
+		}
+	]
+}

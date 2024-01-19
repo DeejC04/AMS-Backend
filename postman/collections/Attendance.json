@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "249db4a3-0aea-41cc-b1aa-9021d70a0062",
+		"name": "Attendance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "28784661-249db4a3-0aea-41cc-b1aa-9021d70a0062"
+	},
+	"item": [
+		{
+			"name": "Attendance",
+			"item": [
+				{
+					"name": "Get Attendance Records",
+					"id": "538b65be-5576-49ae-ac43-132248e5104e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/attendance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance"
+							],
+							"query": [
+								{
+									"key": "room",
+									"value": "",
+									"description": "(REQUIRED) Room name (e.g. COOR170)",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "",
+									"description": "(REQUIRED) YYYY-MM-DD",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "",
+									"description": "(REQUIRED) 0-indexed",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "(REQUIRED) number of attendance records",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "",
+									"description": "Data property name (e.g. time, type, sid)",
+									"disabled": true
+								},
+								{
+									"key": "sortType",
+									"value": "",
+									"description": "asc or desc (asc by default)",
+									"disabled": true
+								},
+								{
+									"key": "types",
+									"value": "",
+									"description": "list of enum [ARRIVED, ARRIVED_LATE, ARRIVED_INVALID, LEFT, LEFT_INVALID, INVALID]\ncomma separated, e.g. ARRIVED,ARRIVED_LATE,ARRIVED_INVALID",
+									"disabled": true
+								}
+							]
+						},
+						"description": "\nThis endpoint retrieves attendance records based on the specified room, date, pagination parameters, and types of attendance. The request should be made using an HTTP GET method to the specified URL. The query parameters include the room, date, page number, page size, sorting criteria, and types of attendance. The response will include an array of objects, each representing an attendance record with attributes such as id, room, date, time, sid, and type.\n\n"
+					},
+					"response": [
+						{
+							"id": "087ee9ac-a9e1-4ba7-b5ad-6cf448446eb3",
+							"name": "Get Attendance Records",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/attendance",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"attendance"
+									],
+									"query": [
+										{
+											"key": "room",
+											"value": "",
+											"description": "(REQUIRED) Room name (e.g. COOR170)",
+											"disabled": true
+										},
+										{
+											"key": "date",
+											"value": "",
+											"description": "(REQUIRED) YYYY-MM-DD",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "",
+											"description": "(REQUIRED) 0-indexed",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "",
+											"description": "(REQUIRED) number of attendance records",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "",
+											"description": "Data property name (e.g. time, type, sid)",
+											"disabled": true
+										},
+										{
+											"key": "sortType",
+											"value": "",
+											"description": "asc or desc (asc by default)",
+											"disabled": true
+										},
+										{
+											"key": "types",
+											"value": "",
+											"description": "list of enum [ARRIVED, ARRIVED_LATE, ARRIVED_INVALID, LEFT, LEFT_INVALID, INVALID]\ncomma separated, e.g. ARRIVED,ARRIVED_LATE,ARRIVED_INVALID",
+											"disabled": true
+										}
+									]
+								},
+								"description": "\nThis endpoint retrieves attendance records based on the specified room, date, pagination parameters, and types of attendance. The request should be made using an HTTP GET method to the specified URL. The query parameters include the room, date, page number, page size, sorting criteria, and types of attendance. The response will include an array of objects, each representing an attendance record with attributes such as id, room, date, time, sid, and type.\n\n"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Total-Pages",
+									"value": "7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 01:18:36 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 257,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:10\",\n        \"sid\": \"1221000005\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 258,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:10\",\n        \"sid\": \"1221000024\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 259,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:10\",\n        \"sid\": \"1221000031\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 260,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:11\",\n        \"sid\": \"1221000000\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 261,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:11\",\n        \"sid\": \"1221000008\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 262,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:12\",\n        \"sid\": \"1221000014\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 263,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:13\",\n        \"sid\": \"1221000012\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 264,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:13\",\n        \"sid\": \"1221000018\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 265,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:14\",\n        \"sid\": \"1221000001\",\n        \"type\": \"ARRIVED\"\n    },\n    {\n        \"id\": 266,\n        \"room\": \"COOR170\",\n        \"date\": \"2023-07-16\",\n        \"time\": \"12:14\",\n        \"sid\": \"1221000021\",\n        \"type\": \"ARRIVED\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Post Attendance Records",
+					"id": "a9df14a3-f1bc-4022-8c30-4963110afea1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/attendance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance"
+							],
+							"query": [
+								{
+									"key": "room",
+									"value": null,
+									"description": "(Required) Room name (e.g. COOR170)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "timestamp",
+									"value": null,
+									"description": "10-digit UNIX timestamp (mutually exclusive with date & time)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": null,
+									"description": "YYYY-MM-DD (mutually exclusive with timestamp) (Required if using time)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "time",
+									"value": null,
+									"description": "HH:MM:SS (seconds can be omitted) (mutually exclusive with timestamp) (Required if using date)",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sid",
+									"value": null,
+									"description": "(Required) 10-digit Student ID",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "e3ca8faa-7840-4222-9bc6-0b6403a557c3"
+		},
+		{
+			"name": "Attendance By ID",
+			"item": [
+				{
+					"name": "Get Attendance Record By ID",
+					"id": "fded922b-440e-4e25-9f90-6d6b9aa132d1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/attendance/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance",
+								":id"
+							],
+							"variable": [
+								{
+									"id": "760f40ac-1956-4037-bb09-53a2b25f60eb",
+									"key": "id",
+									"value": "",
+									"description": "(Required) Attendance record ID e.g. 1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Attendance Record By ID",
+					"id": "b2b37a57-3cab-4588-8499-924c8db4f36f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/attendance/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance",
+								":id"
+							],
+							"variable": [
+								{
+									"id": "8bd0ac16-b2c6-4bf8-80bd-46ff16b2ddd2",
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "**Request Body**\n\nA JSON object with the properties to update the record with:\n\n| Property | Description |\n| --- | --- |\n| room: str | Room name (e.g. COOR170) |\n| date: str | YYYY-MM-DD |\n| time: str | HH:MM:SS (seconds can be omitted) |\n| sid: str | 10-digit Student ID |\n| type: str | enum \\[ARRIVED, ARRIVED_LATE, ARRIVED_INVALID, LEFT, LEFT_INVALID, INVALID\\] |"
+					},
+					"response": [
+						{
+							"id": "d43a98f0-b2c3-4843-9072-6875a73109a7",
+							"name": "Put Attendance Record By ID",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/attendance/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"attendance",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "8bd0ac16-b2c6-4bf8-80bd-46ff16b2ddd2",
+											"key": "id",
+											"value": ""
+										}
+									]
+								},
+								"description": "**Request Body**\n\nA JSON object with the properties to update the record with:\n\n| Property | Description |\n| --- | --- |\n| room: str | Room name (e.g. COOR170) |\n| date: str | YYYY-MM-DD |\n| time: str | HH:MM:SS (seconds can be omitted) |\n| sid: str | 10-digit Student ID |\n| type: str | enum \\[ARRIVED, ARRIVED_LATE, ARRIVED_INVALID, LEFT, LEFT_INVALID, INVALID\\] |"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 16:39:03 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"room\": \"COOR170\",\n    \"date\": \"2023-07-10\",\n    \"time\": \"12:19\",\n    \"sid\": \"1221000031\",\n    \"type\": \"ARRIVED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Attendance Record By ID",
+					"id": "aa350f54-ed72-4caf-a864-647739214d6c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/attendance/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"attendance",
+								":id"
+							],
+							"variable": [
+								{
+									"id": "9e7d93ab-9145-4275-b968-a25c26420047",
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "f7d21870-0110-4f53-bcd4-9f86b59abc6b",
+							"name": "Delete Attendance Record By ID",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/attendance/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"attendance",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "9e7d93ab-9145-4275-b968-a25c26420047",
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Jan 2024 17:57:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Deleted attendance log 1"
+						}
+					]
+				}
+			],
+			"id": "5a08e732-1cdb-4062-91c4-794b4fd632ef"
+		}
+	]
+}
