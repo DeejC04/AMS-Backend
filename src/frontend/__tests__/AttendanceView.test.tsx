@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import AttendanceView from '@/components/AttendanceView';
+import userEvent, { InputScheme } from '@testing-library/user-event';
 
 // Explanation of test suite errors:
 // There are two primary errors when the test runs which seem
@@ -22,14 +23,19 @@ const fireDateChangeEvent = (dateValue: string) => {
   );
 };
 
-test('should render attendance data records', () => {
-  render(<AttendanceView />);
-  fireDateChangeEvent('07/17/2023');
+test('should render attendance data records', async () => {
+  const user = userEvent.setup();
+  const result = render(<AttendanceView />);
+  
+  const dateInput = screen.getByRole('combobox', {name: 'section date selector'})
 
-  screen.debug()
-  let attendance_table = screen.getByLabelText('attendance view table records');
+  await userEvent.clear(dateInput);
+  await user.click(dateInput);
+  await user.keyboard('07/17/2023');
 
-  expect(attendance_table).toBeInTheDocument();
+  let attendance_table = screen.getAllByRole('row')
+
+  expect(attendance_table).toBeInTheDocument;
 })
 
 test('should set 17th july 2023 as date', () => {
